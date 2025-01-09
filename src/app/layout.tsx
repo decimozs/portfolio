@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ReactLenis options={{ wheelMultiplier: 0.7 }} root>
+      <ReactLenis options={{ wheelMultiplier: 0.7, syncTouch: true }} root>
         <body className={`antialiased`}>
           <Header />
           {children}
