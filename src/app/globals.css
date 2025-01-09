@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("../../public/font/NeueHaasDisplayRoman.ttf");
+}
+
+body {
+  font-family: "Neue Haas";
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+* {
+  line-height: 1rem;
+}
+
+p {
+  line-height: normal;
+}
+
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+::selection {
+  background-color: #3a5aff;
+  color: white;
+}
