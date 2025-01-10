@@ -75,7 +75,7 @@ Interactive Community Waste Management System with IoT offers a scalable, forwar
       "WebSocket",
     ],
     banner: "IOT",
-    source: "https://github.com/decimozs/binspire",
+    source: "",
     createdAt: "DEC 2025",
   },
   {
