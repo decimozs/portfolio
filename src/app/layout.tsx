@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "lenis/dist/lenis.css";
 import "./globals.css";
-import Header from "./_components/header";
 import Cursor from "@/components/ui/cursor";
 import { ReactLenis } from "@/lib/lenis";
+import Header from "@/components/dynamic/header";
 
 export const metadata: Metadata = {
   title: "Marlon Martin — Software Developer",

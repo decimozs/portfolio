@@ -1,10 +1,5 @@
-import { Suspense } from "react";
-import Home from "./_components/home";
+import Home from "@/components/core/home";
 
 export default function App() {
-  return (
-    <Suspense>
-      <Home />
-    </Suspense>
-  );
+  return <Home />;
 }
