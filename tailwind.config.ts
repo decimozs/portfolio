@@ -14,6 +14,9 @@ export default {
         accent: "#a5a5a5",
         support: "#3a5aff",
       },
+      animation: {
+        hover: "hover:text-secondary transition duration-300 ease-in-out",
+      },
     },
   },
   plugins: [],
