@@ -1,5 +1,5 @@
 export const seo = {
-  metadataBase: new URL("https://marlonmartin.com"),
+  metadataBase: new URL("https://decimomartin.vercel.app"),
   title: {
     default: "Marlon Martin — Software Developer",
     template: "Marlon Martin — Software Developer",
@@ -8,7 +8,7 @@ export const seo = {
   openGraph: {
     title: "Marlon Martin",
     description: "Software Developer based in the Philippines.",
-    url: "https://marlonmartin.com",
+    url: "https://decimomartin.vercel.app",
     siteName: "Marlon Martin",
     locale: "en_US",
     type: "website",
