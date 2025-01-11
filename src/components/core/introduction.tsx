@@ -28,7 +28,7 @@ export default function Introduction() {
         as an esports varsity player and bringing home gold and bronze medals,
         or running through Manila&apos;s vibrant streets every morning or
         evening. I&apos;m always open to engaging in meaningful discussions
-        about technology, culture, or a great cup of coffee!
+        about technology, culture, or even having a great run!
       </p>
     </>
   );
