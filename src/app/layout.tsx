@@ -5,6 +5,7 @@ import Cursor from "@/components/ui/cursor";
 import { ReactLenis } from "@/lib/lenis";
 import Header from "@/components/dynamic/header";
 import { seo } from "@/lib/seo";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   ...seo,
@@ -21,6 +22,7 @@ export default function RootLayout({
         <body className={`antialiased`}>
           <Header />
           {children}
+          <Analytics />
           <Cursor />
         </body>
       </ReactLenis>
