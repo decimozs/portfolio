@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Introduction() {
   return (
     <>
@@ -29,6 +31,14 @@ export default function Introduction() {
         Manila&apos;s vibrant streets every morning or evening. I&apos;m always
         open to engaging in meaningful discussions about technology, culture, or
         even having a great run with me!
+      </p>
+      <p>
+        I'm currently open to side projects. Feel free to{" "}
+        <span className="relative">
+          <span className="w-full h-[2px] bg-black absolute bottom-0"></span>
+          <Link href="mailto:marlonadiguemartin548@gmail.com">email</Link>
+        </span>{" "}
+        me if you'd like to start a project together.
       </p>
     </>
   );
