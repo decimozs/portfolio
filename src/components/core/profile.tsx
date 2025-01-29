@@ -7,6 +7,7 @@ import Workflow from "./workflow";
 import Status from "./status";
 import Socials from "./socials";
 import Credits from "./credits";
+import Version from "./version";
 
 export default function Profile() {
   return (
@@ -25,9 +26,10 @@ export default function Profile() {
           <Status />
         </div>
       </div>
-      <div className="mt-6 bg-accent px-4 py-8 text-white text-[0.75rem] grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mt-6 bg-accent px-4 py-8 text-white text-[0.75rem] grid grid-cols-2 gap-4 md:grid-cols-3">
         <Socials />
         <Credits />
+        <Version />
       </div>
     </>
   );

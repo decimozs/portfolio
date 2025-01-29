@@ -25,10 +25,10 @@ export default function Introduction() {
       <p>
         Beyond the keyboard, I&apos;m an avid explorer of ideas and culture. You
         might find me diving into emerging technologies, representing my school
-        as an esports varsity player and bringing home gold and bronze medals,
-        or running through Manila&apos;s vibrant streets every morning or
-        evening. I&apos;m always open to engaging in meaningful discussions
-        about technology, culture, or even having a great run!
+        as an esports varsity player and bringing medals, or running through
+        Manila&apos;s vibrant streets every morning or evening. I&apos;m always
+        open to engaging in meaningful discussions about technology, culture, or
+        even having a great run with me!
       </p>
     </>
   );
