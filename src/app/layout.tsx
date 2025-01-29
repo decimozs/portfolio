@@ -22,7 +22,7 @@ export default function RootLayout({
         options={{
           wheelMultiplier: 0.7,
           syncTouch: true,
-          touchInertiaMultiplier: 0.7,
+          touchInertiaMultiplier: 0.9,
         }}
         root
       >
