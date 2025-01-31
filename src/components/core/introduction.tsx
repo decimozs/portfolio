@@ -20,20 +20,20 @@ export default function Introduction() {
       <p>
         I&apos;m also pursuing a Bachelor of Science in Information Technology
         at the Pamantasan ng Lungsod ng Pasig, with a focus on software
-        engineering and systems design. My mission is to combine technical
-        expertise and creativity to develop tools that empower individuals and
-        drive business success.
+        engineering and system design. My goal is to blend technical expertise
+        with creativity to tools that empower indviduals and drive business
+        sucess.
       </p>
       <p>
         Beyond the keyboard, I&apos;m an avid explorer of ideas and culture. You
         might find me diving into emerging technologies, representing my school
         as an esports varsity player and bringing medals, or running through
         Manila&apos;s vibrant streets every morning or evening. I&apos;m always
-        open to engaging in meaningful discussions about technology, culture, or
-        even having a great run with me!
+        seeking new challenges. I&apos;m open to meaningful conversations-about
+        technology, culture, or even having a great run with me.
       </p>
       <p>
-        I&apos;m currently open to side projects. Feel free to{" "}
+        I&apos;m open to side projects. Feel free to{" "}
         <span className="relative">
           <span className="w-full h-[2px] bg-black absolute bottom-0"></span>
           <Link href="mailto:marlonadiguemartin548@gmail.com">email</Link>
