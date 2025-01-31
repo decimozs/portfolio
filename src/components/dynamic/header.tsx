@@ -25,7 +25,7 @@ const DynamicHeader = () => {
 
   if (pathname === "/info") {
     return (
-      <div className="p-4 fixed top-0 left-0 flex flex-row justify-between bg-primary w-full z-50">
+      <div className="p-4 fixed top-0 left-0 flex flex-row justify-between glass w-full z-50">
         <div>
           <Link href="/">
             <p>Marlon Martin</p>
@@ -45,7 +45,7 @@ const DynamicHeader = () => {
 
   if (pathname === "/works") {
     return (
-      <div className="p-4 fixed top-0 left-0 flex flex-row justify-between bg-primary w-full z-50">
+      <div className="p-4 fixed top-0 left-0 flex flex-row justify-between glass w-full z-50">
         <div>
           <Link href="/">
             <p>Marlon Martin</p>
