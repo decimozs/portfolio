@@ -13,6 +13,7 @@ export default function Socials() {
               href={item.href}
               key={index + 1}
               target={item.label === "Email" ? "_self" : "_blank"}
+              rel="noreferrer"
             >
               {item.label}
             </Link>

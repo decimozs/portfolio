@@ -10,6 +10,7 @@ export default function Contacts() {
           href={item.href}
           key={index + 1}
           target={item.label === "Email" ? "_self" : "_blank"}
+          rel="noreferrer"
           className="text-accent hover:text-secondary transition duration-300 ease-in-out flex flex-row items-center gap-1"
         >
           {item.label}

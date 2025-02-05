@@ -64,7 +64,7 @@ export default function WorkView({ work }: { work: ProjectType }) {
             </div>
           </div>
           <div className="fixed bottom-0 left-0 p-4 bg-primary w-full text-black flex flex-row-reverse justify-between lg:static lg:p-0 lg:mt-40">
-            <Link href={work.source} target="_blank">
+            <Link href={work.source} target="_blank" rel="noreferrer">
               Open Source
             </Link>
             <button
