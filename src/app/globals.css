@@ -5,6 +5,7 @@
 @font-face {
   font-family: "Neue Haas";
   src: url("../../public/font/NeueHaasDisplayRoman.ttf");
+  font-display: swap;
 }
 
 body {
