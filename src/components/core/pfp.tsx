@@ -9,6 +9,7 @@ export default function PFP() {
         width={500}
         height={500}
         alt="Pogi"
+        priority={true}
         className="grayscale hover:grayscale-0 transition duration-300 object-center md:object-contain lg:ml-auto"
       />
       <div className="flex flex-col gap-1 mr-auto lg:mr-0 lg:ml-auto lg:mt-2 lg:gap-2">
