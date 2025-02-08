@@ -1,4 +1,41 @@
-import { NavigationType, ProjectType } from "./types";
+import { NavigationType, ProjectType, WorkflowType } from "./types";
+
+export const workflowItems: Array<WorkflowType> = [
+  {
+    tool: "Linux",
+    name: "WSL Ubuntu",
+  },
+  {
+    tool: "Terminal",
+    name: "Powershell 7",
+  },
+  {
+    tool: "Shell",
+    name: "Zsh",
+  },
+  {
+    tool: "Text Editor & Code Editor",
+    name: "Neovim",
+  },
+  {
+    tool: "Note Taking",
+    name: "Obsidian",
+  },
+  {
+    tool: "Containerization",
+    name: "Docker",
+  },
+  {
+    tool: "UI/UX",
+    name: "Figma",
+  },
+];
+
+export const statusItems: Array<String> = [
+  "Training for an upcoming marathon, pushing my limits every day.",
+  "Deepening my understanding of compilers and their inner workings.",
+  "Contributing to open-source projects to expand my skills and give back to the community.",
+];
 
 export const contactItems: Array<NavigationType> = [
   {

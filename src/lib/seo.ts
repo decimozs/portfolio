@@ -1,15 +1,20 @@
+const url = "https://decimomartin.vercel.app";
+const description = "Software Developer based in the Philippines.";
+const title = "Marlon Martin — Software Developer";
+const name = "Marlon Martin";
+
 export const seo = {
-  metadataBase: new URL("https://decimomartin.vercel.app"),
+  metadataBase: new URL(url),
   title: {
-    default: "Marlon Martin — Software Developer",
-    template: "Marlon Martin — Software Developer",
+    default: title,
+    template: title,
   },
-  description: "Software Developer based in the Philippines.",
+  description: description,
   openGraph: {
-    title: "Marlon Martin",
-    description: "Software Developer based in the Philippines.",
-    url: "https://decimomartin.vercel.app",
-    siteName: "Marlon Martin",
+    title: title,
+    description: description,
+    url: url,
+    siteName: name,
     locale: "en_US",
     type: "website",
   },
@@ -25,8 +30,8 @@ export const seo = {
     } as const,
   },
   twitter: {
-    title: "Marlon Martin",
+    title: name,
     card: "summary_large_image",
-    description: "Software Developer based in the Philippines",
+    description: description,
   },
 };

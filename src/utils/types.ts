@@ -28,3 +28,13 @@ export type ProjectType = {
   source: string;
   createdAt?: string;
 };
+
+export type LinkType = {
+  href: string;
+  label: string;
+};
+
+export type WorkflowType = {
+  tool: string;
+  name: string;
+};
