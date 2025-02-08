@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useMediaQuery(query: string): Boolean {
+export function useMediaQuery(query: string): boolean {
   const [value, setValue] = useState<boolean>(false);
 
   useEffect(() => {

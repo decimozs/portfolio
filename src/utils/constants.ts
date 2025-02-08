@@ -31,7 +31,7 @@ export const workflowItems: Array<WorkflowType> = [
   },
 ];
 
-export const statusItems: Array<String> = [
+export const statusItems: Array<string> = [
   "Training for an upcoming marathon, pushing my limits every day.",
   "Deepening my understanding of compilers and their inner workings.",
   "Contributing to open-source projects to expand my skills and give back to the community.",
