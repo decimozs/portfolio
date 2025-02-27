@@ -3,11 +3,11 @@ import { NavigationType, ProjectType, WorkflowType } from "./types";
 export const workflowItems: Array<WorkflowType> = [
   {
     tool: "Linux",
-    name: "WSL Ubuntu",
+    name: "Kubuntu",
   },
   {
     tool: "Terminal",
-    name: "Powershell 7",
+    name: "Alacritty",
   },
   {
     tool: "Shell",

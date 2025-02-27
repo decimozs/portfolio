@@ -20,7 +20,6 @@ export default function Workflow() {
   return (
     <>
       <p>Workflow</p>
-
       <div className="text-accent">
         {workflowItems.map((item, index) => (
           <WorkflowItem tool={item.tool} name={item.name} key={index + 1} />
