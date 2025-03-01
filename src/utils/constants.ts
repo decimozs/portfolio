@@ -7,7 +7,7 @@ export const workflowItems: Array<WorkflowType> = [
   },
   {
     tool: "Terminal",
-    name: "Alacritty",
+    name: "TMUX & Kitty",
   },
   {
     tool: "Shell",
