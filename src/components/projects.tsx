@@ -15,11 +15,11 @@ export default function Projects() {
           See more
         </Link>
       </div>
-      <div className=" flex flex-col gap-4">
+      <div className=" flex flex-col gap-4 z-0">
         {projectItems.map((item, index) => (
           <div
             key={index + 1}
-            className="border border-zinc-900 p-4 rounded-md bg-black flex flex-col gap-4"
+            className="border border-zinc-900 p-4 rounded-md flex flex-col gap-4"
           >
             <div className="flex flex-row items-center justify-between">
               <h1>{item.title}</h1>
