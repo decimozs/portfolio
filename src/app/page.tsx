@@ -8,16 +8,17 @@ export default function App() {
       <div className="w-full flex flex-col gap-8 max-w-screen-sm md:pt-[5rem]">
         <div className="flex flex-col gap-4">
           <div className="flex flex-row items-center justify-between">
-            <h1 className="font-semibold">Marlon Martin</h1>
+            <h1 className="font-semibold lg:text-xl">Marlon Martin</h1>
             <SquareText className="bg-indigo-400/20 text-indigo-500">
               v4
             </SquareText>
           </div>
           <p>
-            Hello, I&apos;m Marlon Martin. I&apos;m a Manila-based Software
-            Developer passionate about building innovative, scalable, and
-            resilient software solutions that make a real-world impact
-            specializing in backend development.
+            Hey, I’m Marlon Martin a Software Developer based in Manila. I love
+            building things that actually make a difference from scalable
+            backend systems to creative side projects. I’m also an open-source
+            contributor who enjoys sharing what I learn and collaborating with
+            the dev community.
           </p>
           <Navlinks />
         </div>
