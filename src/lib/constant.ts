@@ -33,6 +33,7 @@ interface ProjectItem {
   title: string;
   description: string;
   githubLink: string;
+  liveSite?: string;
 }
 
 export const projectItems: ProjectItem[] = [
@@ -41,6 +42,7 @@ export const projectItems: ProjectItem[] = [
     description:
       "A smart waste management system using Raspberry Pi for real-time waste level detection, optimized collection routes, and a collaborative admin dashboard.",
     githubLink: "https://github.com/decimozs/binspire",
+    liveSite: "https://www.binspire.space/",
   },
   {
     title: "Hiraya",

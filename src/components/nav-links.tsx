@@ -28,10 +28,10 @@ export default function Navlinks() {
               fontWeight="none"
               fontSize="none"
               textAnchor="none"
-              style={{ mixBlendMode: "normal" }} // Corrected for inline style object
+              style={{ mixBlendMode: "normal" }}
             >
               <g transform="scale(5.12,5.12)">
-                <path d={item.svgPath}></path> {/* Dynamic SVG path */}
+                <path d={item.svgPath}></path>
               </g>
             </g>
           </svg>
