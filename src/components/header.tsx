@@ -12,7 +12,7 @@ export default function Header() {
       {pathname === "/" && (
         <div>
           <Image
-            src="/pfp1.jpg"
+            src="/me.jpg"
             alt="Marlon Martin"
             width={150}
             height={150}
