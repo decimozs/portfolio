@@ -8,7 +8,7 @@ export default function Works() {
           href="https://github.com/decimozs/haribon"
           target="_blank"
           referrerPolicy="no-referrer"
-          className="w-fit underline"
+          className="w-fit hover:underline"
         >
           Haribon
         </Link>
@@ -16,7 +16,7 @@ export default function Works() {
           An autonomous{" "}
           <Link
             href="https://bettergov.ph/"
-            className="italic text-muted-foreground"
+            className="italic text-muted-foreground hover:text-black hover:underline"
           >
             BetterGov.ph
           </Link>{" "}
@@ -39,7 +39,7 @@ export default function Works() {
           href="https://www.binspire.space/"
           target="_blank"
           referrerPolicy="no-referrer"
-          className="w-fit underline"
+          className="w-fit hover:underline"
         >
           Binspire
         </Link>
@@ -47,7 +47,7 @@ export default function Works() {
           A Smart Waste Management System (SWMS) designed for{" "}
           <Link
             href="https://arcoviacity.com.ph/"
-            className="text-muted-foreground italic"
+            className="italic text-muted-foreground hover:text-black hover:underline"
           >
             Arcovia City
           </Link>
@@ -70,7 +70,7 @@ export default function Works() {
           href="https://github.com/decimozs/hiraya"
           target="_blank"
           referrerPolicy="no-referrer"
-          className="w-fit underline"
+          className="w-fit hover:underline"
         >
           Hiraya
         </Link>
@@ -118,7 +118,7 @@ export default function Works() {
           href="https://github.com/decimozs/art-cli"
           target="_blank"
           referrerPolicy="no-referrer"
-          className="w-fit underline"
+          className="w-fit hover:underline"
         >
           ART
         </Link>
@@ -141,7 +141,7 @@ export default function Works() {
           href="https://github.com/decimozs?tab=repositories"
           target="_blank"
           referrerPolicy="no-referrer"
-          className="underline w-fit"
+          className="w-fit hover:underline"
         >
           View More on GitHub
         </Link>
