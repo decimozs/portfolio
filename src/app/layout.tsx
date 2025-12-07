@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
 import "./globals.css";
-import { Spotlight } from "@/components/ui/spotlight-new";
+import Header from "@/components/header";
 import { seo } from "@/lib/seo";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   ...seo,
@@ -20,9 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${geistSans.variable} antialiased bg-black text-white`}>
-        <Spotlight />
-        {children}
+      <body className={`antialiased bg-white text-black`}>
+        <main className="p-6 text-2xl flex flex-col justify-between lg:w-[700px] lg:mx-auto">
+          <Header />
+          {children}
+        </main>
       </body>
     </html>
   );

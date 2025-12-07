@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -41,10 +42,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
-
-body {
-  font-family: "Geist", sans-serif;
 }
 
 :root {
@@ -123,4 +120,8 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+* {
+  font-family: "Zalando Sans", sans-serif;
 }
