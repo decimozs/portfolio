@@ -1,6 +1,6 @@
-const url = "https://decimomartin.vercel.app";
-const description = "Software Developer based in the Philippines.";
-const title = "Marlon Martin —  Software Developer";
+const url = "https://marlonmartin.binspire.space";
+const description = "Developer based in the Philippines.";
+const title = "Marlon Martin —  Developer";
 const name = "Marlon Martin";
 
 export const seo = {
@@ -33,5 +33,8 @@ export const seo = {
     title: name,
     card: "summary_large_image",
     description: description,
+  },
+  verification: {
+    google: "9SYHKpPQfaT8zG_JIAPA90F2QukziaOog2Ni9q7UmDU",
   },
 };
