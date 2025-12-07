@@ -93,7 +93,7 @@ export default function Works() {
           href="https://github.com/decimozs/predicting-carbon-monoxide-levels"
           target="_blank"
           referrerPolicy="no-referrer"
-          className="w-fit underline"
+          className="w-fit hover:underline"
         >
           Predicting Carbon Monoxide Levels
         </Link>
