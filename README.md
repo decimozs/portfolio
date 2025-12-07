@@ -1,1 +1,1 @@
-<img width="1920" height="1080" alt="opengraph-image (6)" src="https://github.com/user-attachments/assets/ef498787-ce11-46ec-9e8f-fbde8145ae53" />
+<img width="1172" height="450" alt="SS" src="https://github.com/user-attachments/assets/6efdd36c-0256-4b95-aec1-4317028707dd" />
