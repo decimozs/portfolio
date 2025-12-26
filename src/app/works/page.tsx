@@ -1,150 +1,116 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { projectItems } from "@/lib/constant";
+
+export type Highlight = {
+  text: string;
+  href: string;
+};
+
+function ProjectDescription({
+  description,
+  highlight,
+}: {
+  description: string;
+  highlight: Highlight[];
+}) {
+  const texts = highlight.map((h) => h.text);
+
+  const parts = description.split(new RegExp(`(${texts.join("|")})`, "g"));
+
+  return (
+    <p>
+      {parts.map((part, index) => {
+        const match = highlight.find((h) => h.text === part);
+
+        return match ? (
+          <Link
+            key={index}
+            href={match.href}
+            target="_blank"
+            referrerPolicy="no-referrer"
+            className="italic text-muted-foreground hover:text-black hover:underline"
+          >
+            {part}
+          </Link>
+        ) : (
+          <span key={index}>{part}</span>
+        );
+      })}
+    </p>
+  );
+}
 
 export default function Works() {
+  const pathname = usePathname();
+
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-4">
-        <Link
-          href="https://github.com/decimozs/haribon"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="w-fit hover:underline"
-        >
-          Haribon
-        </Link>
-        <p>
-          An autonomous{" "}
+      {projectItems.map((item) => (
+        <div className="flex flex-col gap-4" key={item.title}>
           <Link
-            href="https://bettergov.ph/"
-            className="italic text-muted-foreground hover:text-black hover:underline"
+            href={item.link}
+            target="_blank"
+            referrerPolicy="no-referrer"
+            className="w-fit hover:underline"
           >
-            BetterGov.ph
-          </Link>{" "}
-          agent that automates data gathering and delivers essential civic
-          information for the citizen portal.
-        </p>
-        <div className="text-sm flex flex-row gap-2 flex-wrap">
-          <p className="px-4 py-2 border border-black">Agentic AI</p>
-          <p className="px-4 py-2 border border-black">Deep Agents</p>
-          <p className="px-4 py-2 border border-black">LangGraph</p>
-          <p className="px-4 py-2 border border-black">MCP</p>
-          <p className="px-4 py-2 border border-black">
-            Retrieval-Augmented Generation
-          </p>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <Link
-          href="https://www.binspire.space/"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="w-fit hover:underline"
-        >
-          Binspire
-        </Link>
-        <p>
-          A Smart Waste Management System (SWMS) designed for{" "}
-          <Link
-            href="https://arcoviacity.com.ph/"
-            className="italic text-muted-foreground hover:text-black hover:underline"
-          >
-            Arcovia City
+            {item.title}
           </Link>
-          , that focus on improving the efficiency and transparency of waste
-          collection.
-        </p>
-        <div className="text-sm flex flex-row gap-2 flex-wrap">
-          <p className="px-4 py-2 border border-black">IoT</p>
-          <p className="px-4 py-2 border border-black">HiveMQ</p>
-          <p className="px-4 py-2 border border-black">Nginx</p>
-          <p className="px-4 py-2 border border-black">Hono</p>
-          <p className="px-4 py-2 border border-black">AWS</p>
-          <p className="px-4 py-2 border border-black">MCP</p>
-          <p className="px-4 py-2 border border-black">Azure AI</p>
+          <ProjectDescription
+            description={item.description}
+            highlight={item.highlights || []}
+          />
+          <div className="text-sm flex flex-row gap-2 flex-wrap">
+            {item.category.map((cat) => (
+              <p key={cat} className="px-4 py-2 bg-accent">
+                {cat}
+              </p>
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div className="flex flex-col gap-4">
+      ))}
+      <div className="mt-4 -mb-6">
         <Link
-          href="https://github.com/decimozs/hiraya"
+          href="https://github.com/decimozs"
           target="_blank"
           referrerPolicy="no-referrer"
-          className="w-fit hover:underline"
         >
-          Hiraya
+          View more on{" "}
+          <span className="cursor-pointer text-muted-foreground hover:underline hover:text-black">
+            @github/decimozs
+          </span>{" "}
         </Link>
-        <p>
-          A Filipino-inspired programming language to explore language design,
-          syntax parsing, and compiler construction, demonstrating solid
-          expertise in compiler architecture, abstract machine design, and
-          programming language theory.
-        </p>
-        <div className="text-sm flex flex-row gap-2 flex-wrap">
-          <p className="px-4 py-2 border border-black">Lexical Analysis</p>
-          <p className="px-4 py-2 border border-black">Abstract Syntax Tree</p>
-          <p className="px-4 py-2 border border-black">Parsing</p>
-          <p className="px-4 py-2 border border-black">Compiler Design</p>
-        </div>
       </div>
-
-      <div className="flex flex-col gap-4">
-        <Link
-          href="https://github.com/decimozs/predicting-carbon-monoxide-levels"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="w-fit hover:underline"
-        >
-          Predicting Carbon Monoxide Levels
-        </Link>
-        <p>
-          A machine learning powered CO prediction system that analyzes
-          environmental sensor data to forecast carbon monoxide levels with high
-          accuracy, enabling improved real-time air quality monitoring and
-          supporting data-driven public
-        </p>
-        <div className="text-sm flex flex-row gap-2 flex-wrap">
-          <p className="px-4 py-2 border border-black">UCI</p>
-          <p className="px-4 py-2 border border-black">Pandas</p>
-          <p className="px-4 py-2 border border-black">NumPy</p>
-          <p className="px-4 py-2 border border-black">Matplotlib</p>
-          <p className="px-4 py-2 border border-black">Seaborn</p>
-          <p className="px-4 py-2 border border-black">Scikit-learn</p>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <Link
-          href="https://github.com/decimozs/art-cli"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="w-fit hover:underline"
-        >
-          ART
-        </Link>
-        <p>
-          A execution time measurement, profiling and efficiency analysis to
-          evaluate algorithmic complexity in practice.
-        </p>
-        <div className="text-sm flex flex-row gap-2 flex-wrap">
-          <p className="px-4 py-2 border border-black">
-            Data Structures & Algorithms
-          </p>
-          <p className="px-4 py-2 border border-black">Big O Notation</p>
-          <p className="px-4 py-2 border border-black">Benchmarking</p>
-          <p className="px-4 py-2 border border-black">CLI</p>
-        </div>
-      </div>
-
       <div>
-        <Link
-          href="https://github.com/decimozs?tab=repositories"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="w-fit hover:underline"
-        >
-          View More on GitHub
-        </Link>
+        <div className="flex flex-col gap-2 md:hidden">
+          {pathname !== "/" && (
+            <Link href="/" className="hover:underline w-fit">
+              Index
+            </Link>
+          )}
+          <Link
+            href="/works"
+            className={`hover:underline w-fit ${pathname === "/works" && "underline"}`}
+          >
+            Works
+          </Link>
+          <Link
+            href="/links"
+            className={`hover:underline w-fit ${pathname === "/links" && "underline"}`}
+          >
+            Links
+          </Link>
+          <Link
+            href="/resume.pdf"
+            target="_blank"
+            referrerPolicy="no-referrer"
+            className="hover:underline w-fit"
+          >
+            Resume
+          </Link>
+        </div>
       </div>
     </div>
   );

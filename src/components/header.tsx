@@ -8,21 +8,19 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <div className={`mb-4 ${pathname === "/" && "lg:mt-[5vh]"}`}>
-      {pathname === "/" && (
-        <div>
-          <Image
-            src="/me.jpg"
-            alt="Marlon Martin"
-            width={150}
-            height={150}
-            preload
-            className="rounded-md mb-4"
-          />
-        </div>
-      )}
+    <div className={`mb-4 lg:mt-[5vh]`}>
+      <div className="select-none">
+        <Image
+          src="/me.jpg"
+          alt="Marlon Martin"
+          width={150}
+          height={150}
+          loading="eager"
+          className="rounded-md mb-4"
+        />
+      </div>
       <div className="flex flex-row items-center gap-2">
-        <Link href="/">Marlon Martin</Link>
+        <p>Marlon Martin</p>
         <svg
           viewBox="0 0 22 22"
           xmlns="http://www.w3.org/2000/svg"
@@ -35,8 +33,8 @@ export default function Header() {
           ></path>
         </svg>
       </div>
-      <div className="lg:flex lg:items-center lg:justify-between">
-        {pathname === "/" ? (
+      <div className="md:flex md:items-center md:justify-between">
+        {pathname === "/" && (
           <p className="text-lg">
             engineering{" "}
             <Link
@@ -48,43 +46,41 @@ export default function Header() {
               @binspire
             </Link>{" "}
           </p>
-        ) : (
+        )}
+        {pathname === "/works" && (
           <p className="text-lg">{`Projects I’ve worked on`}</p>
         )}
-        {pathname === "/" && (
-          <div className="hidden text-lg lg:flex lg:flex-row lg:gap-2">
-            <Link href="/works" className="hover:underline w-fit">
-              Works
-            </Link>
-            <p>/</p>
-            <Link
-              href="/resume.pdf"
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className="hover:underline w-fit"
-            >
-              Resume
-            </Link>
-            <p>/</p>
-            <Link
-              href="https://www.linkedin.com/in/decimomartin/"
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className="hover:underline w-fit"
-            >
-              LinkedIn
-            </Link>
-            <p>/</p>
-            <Link
-              href="https://github.com/decimozs"
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className="hover:underline w-fit"
-            >
-              GitHub
-            </Link>
-          </div>
+        {pathname === "/links" && (
+          <p className="text-lg">Current active socials</p>
         )}
+
+        <div className="hidden text-lg md:flex md:flex-row md:gap-4">
+          {pathname !== "/" && (
+            <Link href="/" className="hover:underline w-fit">
+              Index
+            </Link>
+          )}
+          <Link
+            href="/works"
+            className={`hover:underline w-fit ${pathname === "/works" && "underline"}`}
+          >
+            Works
+          </Link>
+          <Link
+            href="/links"
+            className={`hover:underline w-fit ${pathname === "/links" && "underline"}`}
+          >
+            Links
+          </Link>
+          <Link
+            href="/resume.pdf"
+            target="_blank"
+            referrerPolicy="no-referrer"
+            className="hover:underline w-fit"
+          >
+            Resume
+          </Link>
+        </div>
       </div>
     </div>
   );

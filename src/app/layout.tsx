@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/header";
+import MainWrapper from "@/components/main-wrapper";
 import { seo } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -15,10 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`antialiased bg-white text-black`}>
-        <main className="p-6 text-2xl flex flex-col justify-between lg:w-[700px] lg:mx-auto">
-          <Header />
-          {children}
-        </main>
+        <MainWrapper>{children}</MainWrapper>
       </body>
     </html>
   );

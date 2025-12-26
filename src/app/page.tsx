@@ -25,9 +25,12 @@ export default function App() {
       <p>
         {`Right now, I’m really into building backend pipelines with agentic AI and MCP servers. It’s exciting seeing traditional backend engineering evolve into something more intelligent and dynamic.`}
       </p>
-      <div className="flex flex-col gap-2 mt-4 lg:hidden">
+      <div className="flex flex-col gap-4 mt-4 md:hidden">
         <Link href="/works" className="underline w-fit">
           Works
+        </Link>
+        <Link href="/links" className="underline w-fit">
+          Links
         </Link>
         <Link
           href="/resume.pdf"
@@ -36,22 +39,6 @@ export default function App() {
           className="underline w-fit"
         >
           Resume
-        </Link>
-        <Link
-          href="https://www.linkedin.com/in/decimomartin/"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="underline w-fit"
-        >
-          LinkedIn
-        </Link>
-        <Link
-          href="https://github.com/decimozs"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="underline w-fit"
-        >
-          GitHub
         </Link>
       </div>
     </>
