@@ -52,11 +52,10 @@ export default function Header() {
           <p className="text-lg">{`Projects I’ve worked on`}</p>
         )}
         {pathname === "/" && (
-          <div className="hidden text-lg lg:flex lg:flex-row lg:gap-2">
+          <div className="hidden text-lg lg:flex lg:flex-row lg:gap-4">
             <Link href="/works" className="hover:underline w-fit">
               Works
             </Link>
-            <p>/</p>
             <Link
               href="/resume.pdf"
               target="_blank"
@@ -65,7 +64,6 @@ export default function Header() {
             >
               Resume
             </Link>
-            <p>/</p>
             <Link
               href="https://www.linkedin.com/in/decimomartin/"
               target="_blank"
@@ -74,7 +72,6 @@ export default function Header() {
             >
               LinkedIn
             </Link>
-            <p>/</p>
             <Link
               href="https://github.com/decimozs"
               target="_blank"

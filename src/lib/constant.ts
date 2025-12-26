@@ -1,3 +1,8 @@
+export interface Highlight {
+  text: string;
+  href: string;
+}
+
 interface NavItem {
   id: string;
   linkText: string;
@@ -32,35 +37,114 @@ export const navItems: NavItem[] = [
 interface ProjectItem {
   title: string;
   description: string;
-  githubLink: string;
-  liveSite?: string;
+  link: string;
+  category: string[];
+  highlights?: Highlight[];
 }
 
 export const projectItems: ProjectItem[] = [
   {
+    title: "Haribon",
+    description:
+      "An autonomous BetterGov.ph agent that automates data gathering and delivers essential civic information for the citizen portal.",
+    link: "https://github.com/decimozs/haribon",
+    category: [
+      "Agentic AI",
+      "Deep Agents",
+      "LangGraph",
+      "MCP",
+      "Retrieval-Augmented Generation",
+    ],
+    highlights: [
+      {
+        text: "BetterGov.ph",
+        href: "https://bettergov.ph/",
+      },
+    ],
+  },
+  {
     title: "Binspire",
     description:
-      "A smart waste management system using Raspberry Pi for real-time waste level detection, optimized collection routes, and a collaborative admin dashboard.",
-    githubLink: "https://github.com/decimozs/binspire",
-    liveSite: "https://www.binspire.space/",
+      "A Smart Waste Management System (SWMS) powered by real-time agents to make waste collection more efficient, sustainable, and transparent.",
+    link: "https://www.binspire.space/",
+    category: [
+      "IoT",
+      "HiveMQ",
+      "Nginx",
+      "Hono",
+      "AWS",
+      "MCP",
+      "Azure AI",
+      "LangGraph",
+    ],
   },
   {
     title: "Hiraya",
     description:
-      "A Filipino-inspired programming language developed as part of a study project focused on understanding the fundamentals of programming language design and compiler construction.",
-    githubLink: "https://github.com/decimozs/hiraya",
+      "A Filipino-inspired programming language to explore language design, syntax parsing, and compiler construction, demonstrating solid expertise in compiler architecture, abstract machine design, and programming language theory.",
+    link: "https://github.com/decimozs/hiraya",
+    category: [
+      "Lexical Analysis",
+      "Parsing",
+      "Abstract Syntax Tree",
+      "Code Generation",
+      "Compiler Design",
+    ],
   },
 
   {
     title: "Predicting Carbon Monoxide Levels",
     description:
-      "A machine learning project predicting carbon monoxide levels using UCI air quality data, built with Python and libraries like Pandas, NumPy, Matplotlib, Seaborn, and Scikit-learn.",
-    githubLink: "https://github.com/decimozs/predicting-carbon-monoxide-levels",
+      "A machine learning powered CO prediction system that analyzes environmental sensor data to forecast carbon monoxide levels with high accuracy, enabling improved real-time air quality monitoring and supporting data-driven public.",
+    link: "https://github.com/decimozs/predicting-carbon-monoxide-levels",
+    category: [
+      "UCI",
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn",
+      "Scikit-learn",
+    ],
   },
   {
-    title: "Decimo AI",
+    title: "ART",
     description:
-      "Interactive chatbot web app powered by the OpenAI API wrapper for dynamic conversations.",
-    githubLink: "https://github.com/decimozs/decimo-ai",
+      "A execution time measurement, profiling and efficiency analysis to evaluate algorithmic complexity in practice.",
+    link: "https://github.com/decimozs/art-cli",
+    category: [
+      "Data Structures & Algorithms",
+      "Big O Notation",
+      "Benchmarking",
+      "CLI",
+    ],
+  },
+];
+
+interface SocialItem {
+  social: string;
+  label: string;
+  link: string;
+}
+
+export const socialItems: SocialItem[] = [
+  {
+    social: "Github",
+    label: "@github/decimozs",
+    link: "https://github.com/decimozs",
+  },
+  {
+    social: "LinkedIn",
+    label: "@in/decimomartin",
+    link: "https://www.linkedin.com/in/decimomartin/",
+  },
+  {
+    social: "CodeWars",
+    label: "@codewars/decimozs",
+    link: "https://www.codewars.com/users/Decimoz",
+  },
+  {
+    social: "LeetCode",
+    label: "@leetcode/decimozs",
+    link: "https://leetcode.com/u/dezwrld/",
   },
 ];
