@@ -8,7 +8,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <div className={`mb-4 ${pathname === "/" && "lg:mt-[5vh]"}`}>
+    <div className={`select-none mb-4 ${pathname === "/" && "lg:mt-[5vh]"}`}>
       {pathname === "/" && (
         <div>
           <Image
@@ -17,7 +17,7 @@ export default function Header() {
             width={150}
             height={150}
             preload
-            className="rounded-md mb-4"
+            className="rounded-md mb-4 select-none"
           />
         </div>
       )}

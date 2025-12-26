@@ -141,3 +141,13 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+::selection {
+  background-color: oklch(0.967 0.001 286.375);
+  color: black;
+}
+
+::-moz-selection {
+  background-color: oklch(0.967 0.001 286.375);
+  color: black;
+}
