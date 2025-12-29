@@ -8,7 +8,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <div className={`select-none mb-4 ${pathname === "/" && "lg:mt-[2.5vh]"}`}>
+    <div className={`select-none mb-4`}>
       {pathname === "/" && (
         <div>
           <Image

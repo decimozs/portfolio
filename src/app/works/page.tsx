@@ -66,7 +66,7 @@ export default function Works() {
           </div>
         </div>
       ))}
-      <div className="mt-4 -mb-6">
+      <div className="mt-4">
         <Link
           href="https://github.com/decimozs"
           target="_blank"
@@ -79,7 +79,7 @@ export default function Works() {
         </Link>
       </div>
       <div>
-        <div className="flex flex-col gap-2 md:hidden">
+        <div className="flex flex-col gap-2 lg:fixed lg:bottom-6 lg:right-6 ">
           {pathname !== "/" && (
             <Link href="/" className="hover:underline w-fit">
               Index
@@ -90,12 +90,6 @@ export default function Works() {
             className={`hover:underline w-fit ${pathname === "/works" && "underline"}`}
           >
             Works
-          </Link>
-          <Link
-            href="/links"
-            className={`hover:underline w-fit ${pathname === "/links" && "underline"}`}
-          >
-            Links
           </Link>
           <Link
             href="/resume.pdf"

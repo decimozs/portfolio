@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/header";
 import { seo } from "@/lib/seo";
+import MainLayout from "@/components/main-layout";
 
 export const metadata: Metadata = {
   ...seo,
@@ -15,10 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`antialiased bg-white text-black`}>
-        <main className="p-6 text-2xl flex flex-col justify-between lg:w-[760px] lg:mx-auto">
-          <Header />
+        <MainLayout>
+          <div className="flex items-start justify-start w-full">
+            <Header />
+          </div>
           {children}
-        </main>
+        </MainLayout>
       </body>
     </html>
   );
