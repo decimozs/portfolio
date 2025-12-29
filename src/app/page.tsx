@@ -25,35 +25,55 @@ export default function App() {
       <p>
         {`Right now, I’m really into building backend pipelines with agentic AI and MCP servers. It’s exciting seeing traditional backend engineering evolve into something more intelligent and dynamic.`}
       </p>
-      <div className="flex flex-col gap-2 mt-4 lg:hidden">
-        <Link href="/works" className="underline w-fit">
-          Works
-        </Link>
-        <Link
-          href="/resume.pdf"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="underline w-fit"
-        >
-          Resume
-        </Link>
-        <Link
-          href="https://www.linkedin.com/in/decimomartin/"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="underline w-fit"
-        >
-          LinkedIn
-        </Link>
-        <Link
-          href="https://github.com/decimozs"
-          target="_blank"
-          referrerPolicy="no-referrer"
-          className="underline w-fit"
-        >
-          GitHub
-        </Link>
-      </div>
+      <p className="my-4">
+        To learn more about my background and professional experience, you can
+        view my{" "}
+        <span>
+          <Link
+            href="/resume.pdf"
+            className="italic text-muted-foreground hover:text-black hover:underline"
+            target="_blank"
+            referrerPolicy="no-referrer"
+          >
+            resume
+          </Link>
+        </span>
+        . Additionally, to see my work in action, feel free to browse my{" "}
+        <span>
+          {" "}
+          <Link
+            href="/works"
+            className="italic text-muted-foreground hover:text-black hover:underline"
+          >
+            works
+          </Link>
+        </span>
+        , explore my contributions on{" "}
+        <span>
+          {" "}
+          <Link
+            href="https://github.com/decimozs"
+            className="italic text-muted-foreground hover:text-black hover:underline"
+            target="_blank"
+            referrerPolicy="no-referrer"
+          >
+            @github.com/decimozs
+          </Link>
+        </span>
+        , or connect with me on
+        <span>
+          {" "}
+          <Link
+            href="https://www.linkedin.com/in/decimomartin/"
+            className="italic text-muted-foreground hover:text-black hover:underline"
+            target="_blank"
+            referrerPolicy="no-referrer"
+          >
+            @in/decimomartin
+          </Link>
+        </span>
+        .
+      </p>
     </>
   );
 }
