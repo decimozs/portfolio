@@ -8,7 +8,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <div className={`select-none mb-4 ${pathname === "/" && "lg:mt-[5vh]"}`}>
+    <div className={`select-none mb-4 ${pathname === "/" && "lg:mt-[2.5vh]"}`}>
       {pathname === "/" && (
         <div>
           <Image
@@ -50,37 +50,6 @@ export default function Header() {
           </p>
         ) : (
           <p className="text-lg">{`Projects I’ve worked on`}</p>
-        )}
-        {pathname === "/" && (
-          <div className="hidden text-lg lg:flex lg:flex-row lg:gap-4">
-            <Link href="/works" className="hover:underline w-fit">
-              Works
-            </Link>
-            <Link
-              href="/resume.pdf"
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className="hover:underline w-fit"
-            >
-              Resume
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/decimomartin/"
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className="hover:underline w-fit"
-            >
-              LinkedIn
-            </Link>
-            <Link
-              href="https://github.com/decimozs"
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className="hover:underline w-fit"
-            >
-              GitHub
-            </Link>
-          </div>
         )}
       </div>
     </div>

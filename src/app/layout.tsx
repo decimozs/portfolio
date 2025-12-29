@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`antialiased bg-white text-black`}>
-        <main className="p-6 text-2xl flex flex-col justify-between lg:w-[700px] lg:mx-auto">
+        <main className="p-6 text-2xl flex flex-col justify-between lg:w-[760px] lg:mx-auto">
           <Header />
           {children}
         </main>
