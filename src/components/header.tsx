@@ -22,7 +22,9 @@ export default function Header() {
         </div>
       )}
       <div className="flex flex-row items-center gap-2">
-        <Link href="/">Marlon Martin</Link>
+        <Link href="/" className={pathname === "/" ? "cursor-default" : ""}>
+          Marlon Martin
+        </Link>
         <svg
           viewBox="0 0 22 22"
           xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +40,7 @@ export default function Header() {
       <div className="lg:flex lg:items-center lg:justify-between">
         {pathname === "/" ? (
           <p className="text-lg">
-            engineering{" "}
+            Engineering{" "}
             <Link
               href="https://www.binspire.space/"
               target="_blank"
