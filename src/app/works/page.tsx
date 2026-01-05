@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { Highlight } from "@/lib/constant";
 import { projectItems } from "@/lib/constant";
-import { type Highlight } from "@/lib/constant";
 
 function ProjectDescription({
   description,
@@ -17,12 +17,11 @@ function ProjectDescription({
 
   return (
     <p>
-      {parts.map((part, index) => {
+      {parts.map((part) => {
         const match = highlight.find((h) => h.text === part);
-
         return match ? (
           <Link
-            key={index}
+            key={part[0]}
             href={match.href}
             target="_blank"
             referrerPolicy="no-referrer"
@@ -31,7 +30,7 @@ function ProjectDescription({
             {part}
           </Link>
         ) : (
-          <span key={index}>{part}</span>
+          <span key={part[0]}>{part}</span>
         );
       })}
     </p>
