@@ -44,6 +44,26 @@ interface ProjectItem {
 
 export const projectItems: ProjectItem[] = [
   {
+    title: "Base",
+    description:
+      "An opinionated, Full-Stack Monorepo @create-base-stack designed for high-performance applications. It leverages a strictly type-safe architecture to streamline development workflows and ensure end-to-end type integrity across the entire stack.",
+    link: "https://github.com/decimozs/base",
+    category: [
+      "Framework",
+      "Boilerplate",
+      "Starter",
+      "Monorepo",
+      "Bun",
+      "TypeScript",
+    ],
+    highlights: [
+      {
+        text: "@create-base-stack",
+        href: "https://www.npmjs.com/package/create-base-stack",
+      },
+    ],
+  },
+  {
     title: "Haribon",
     description:
       "An autonomous BetterGov.ph agent that automates data gathering and delivers essential civic information for the citizen portal.",
