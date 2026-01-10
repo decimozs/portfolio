@@ -23,7 +23,7 @@ export default function App() {
         building systems that solve real problems.
       </p>
       <p>
-        {`Right now, I’m really into building backend pipelines with agentic AI and MCP servers. It’s exciting seeing traditional backend engineering evolve into something more intelligent and dynamic.`}
+        {`Right now, I’m really into building backend pipelines with agentic AI, MCP servers, exploring the latest LLM architectures and working as an backend engineer remotely. Outside of my workflow i enjoy running and currently preparing for my upcoming marathon.`}
       </p>
       <p className="my-4">
         To learn more about my background and professional experience, you can
