@@ -1,15 +1,26 @@
-const url = "https://marlonmartin.binspire.space";
-const description = "Developer based in the Philippines.";
-const title = "Marlon Martin - Backend Engineer";
-const name = "Marlon Martin";
+import { Metadata } from "next";
 
-export const seo = {
+const url = "https://marlonmartin.binspire.space";
+const name = "Marlon Martin";
+const title = "Marlon Martin - Backend Engineer";
+const description =
+  "Based in Manila. I love building things that actually make a difference from scalable backend systems to creative side projects.";
+
+export const seo: Metadata = {
   metadataBase: new URL(url),
   title: {
     default: title,
-    template: title,
+    template: `${name} - %s`,
   },
   description: description,
+  keywords: [
+    "Backend Engineer",
+    "Philippines",
+    "Systems Architect",
+    "Software Engineer Portfolio",
+  ],
+  authors: [{ name: "Marlon Martin", url: url }],
+  creator: "Marlon Martin",
   openGraph: {
     title: title,
     description: description,
@@ -17,6 +28,21 @@ export const seo = {
     siteName: name,
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: title,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: title,
+    description: description,
+    creator: "@decimomartin",
+    images: ["/twitter-image.png"],
   },
   robots: {
     index: true,
@@ -27,12 +53,7 @@ export const seo = {
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
-    } as const,
-  },
-  twitter: {
-    title: name,
-    card: "summary_large_image",
-    description: description,
+    },
   },
   verification: {
     google: "9SYHKpPQfaT8zG_JIAPA90F2QukziaOog2Ni9q7UmDU",

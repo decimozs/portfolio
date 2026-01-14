@@ -8,6 +8,7 @@ import { seo } from "@/lib/seo";
 const overusedGrotesk = localFont({
   src: "../../public/font/OverusedGrotesk-Book.woff2",
   variable: "--font-overused-grotesk",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
