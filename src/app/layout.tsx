@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import Header from "@/components/header";
+import LenisProvider from "@/components/lenis-provider";
 import MainLayout from "@/components/main-layout";
 import { seo } from "@/lib/seo";
-import LenisProvider from "@/components/lenis-provider";
 
 const overusedGrotesk = localFont({
   src: "../../public/font/OverusedGrotesk-Book.woff2",
