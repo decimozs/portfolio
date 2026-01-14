@@ -1,11 +1,8 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import type { Highlight } from "@/lib/constant";
 import { projectItems } from "@/lib/constant";
 
-function ProjectDescription({
+export function ProjectDescription({
   description,
   highlight,
 }: {
@@ -17,11 +14,11 @@ function ProjectDescription({
 
   return (
     <p>
-      {parts.map((part) => {
+      {parts.map((part, idx) => {
         const match = highlight.find((h) => h.text === part);
         return match ? (
           <Link
-            key={part[0]}
+            key={part + idx}
             href={match.href}
             target="_blank"
             referrerPolicy="no-referrer"
@@ -30,7 +27,7 @@ function ProjectDescription({
             {part}
           </Link>
         ) : (
-          <span key={part[0]}>{part}</span>
+          <span key={part + idx}>{part}</span>
         );
       })}
     </p>
@@ -38,8 +35,6 @@ function ProjectDescription({
 }
 
 export default function Works() {
-  const pathname = usePathname();
-
   return (
     <div className="flex flex-col gap-6">
       {projectItems.map((item) => (
@@ -65,40 +60,44 @@ export default function Works() {
           </div>
         </div>
       ))}
-      <div className="mt-4">
-        <Link
-          href="https://github.com/decimozs"
-          target="_blank"
-          referrerPolicy="no-referrer"
-        >
+      <div className="flex flex-col gap-4 mt-4 lg:mb-5">
+        <p>
           View more on{" "}
-          <span className="cursor-pointer text-muted-foreground hover:underline hover:text-black">
-            @github/decimozs
-          </span>{" "}
-        </Link>
-      </div>
-      <div>
-        <div className="flex flex-col gap-2 lg:fixed lg:bottom-6 lg:right-6 ">
-          {pathname !== "/" && (
-            <Link href="/" className="hover:underline w-fit">
-              Index
-            </Link>
-          )}
           <Link
-            href="/works"
-            className={`hover:underline w-fit ${pathname === "/works" && "underline"}`}
-          >
-            Works
-          </Link>
-          <Link
-            href="/resume.pdf"
+            href="https://github.com/decimozs"
             target="_blank"
             referrerPolicy="no-referrer"
-            className="hover:underline w-fit"
+            className="inline-block"
           >
-            Resume
+            <span className="cursor-pointer text-muted-foreground hover:underline hover:text-black transition-colors">
+              @github/decimozs
+            </span>
+          </Link>{" "}
+          to check what I'm building.
+        </p>
+
+        <p>
+          You can also deep dive into my{" "}
+          <Link href="/resume.pdf" target="_blank" className="inline-block">
+            <span className="cursor-pointer text-muted-foreground hover:underline hover:text-black transition-colors">
+              resume
+            </span>
+          </Link>{" "}
+          to learn more about me or connect with me on{" "}
+          <Link
+            href="https://linkedin.com/in/decimomartin"
+            target="_blank"
+            className="inline-block"
+          >
+            <span className="cursor-pointer text-muted-foreground hover:underline hover:text-black transition-colors">
+              @in/decimomartin
+            </span>
           </Link>
-        </div>
+          .
+        </p>
+        <p className="text-lg text-muted-foreground">
+          © 2026 Marlon Martin. All rights reserved.
+        </p>
       </div>
     </div>
   );
