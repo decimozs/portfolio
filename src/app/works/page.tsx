@@ -16,9 +16,10 @@ export function ProjectDescription({
     <p>
       {parts.map((part, idx) => {
         const match = highlight.find((h) => h.text === part);
+        const key = `${part}-${idx}`;
         return match ? (
           <Link
-            key={part + idx}
+            key={key}
             href={match.href}
             target="_blank"
             referrerPolicy="no-referrer"
@@ -27,7 +28,7 @@ export function ProjectDescription({
             {part}
           </Link>
         ) : (
-          <span key={part + idx}>{part}</span>
+          <span key={key}>{part}</span>
         );
       })}
     </p>
