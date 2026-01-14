@@ -9,18 +9,17 @@ export default function Header() {
 
   return (
     <div className={`select-none mb-4`}>
-      {pathname === "/" && (
-        <div>
-          <Image
-            src="/me.jpg"
-            alt="Marlon Martin"
-            width={150}
-            height={150}
-            preload
-            className="rounded-md mb-4 select-none"
-          />
-        </div>
-      )}
+      <div>
+        <Image
+          src="/me.jpg"
+          alt="Marlon Martin"
+          width={150}
+          height={150}
+          preload
+          className="rounded-md mb-4 select-none"
+        />
+      </div>
+
       <div className="flex flex-row items-center gap-2">
         <Link href="/" className={pathname === "/" ? "cursor-default" : ""}>
           Marlon Martin

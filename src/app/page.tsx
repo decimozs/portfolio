@@ -59,8 +59,8 @@ export default function App() {
           >
             @github.com/decimozs
           </Link>
-        </span>
-        , or connect with me on
+        </span>{" "}
+        or connect with me on
         <span>
           {" "}
           <Link

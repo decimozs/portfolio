@@ -1,6 +1,6 @@
 const url = "https://marlonmartin.binspire.space";
 const description = "Developer based in the Philippines.";
-const title = "Marlon Martin —  Developer";
+const title = "Marlon Martin - Backend Engineer";
 const name = "Marlon Martin";
 
 export const seo = {
