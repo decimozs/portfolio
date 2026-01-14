@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import Header from "@/components/header";
-import LenisProvider from "@/components/lenis-provider";
 import MainLayout from "@/components/main-layout";
 import { seo } from "@/lib/seo";
 
@@ -23,14 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`h-full ${overusedGrotesk.className}`}>
       <body className={`antialiased bg-white text-black`}>
-        <LenisProvider>
-          <MainLayout>
-            <div className="flex items-start justify-start w-full">
-              <Header />
-            </div>
-            {children}
-          </MainLayout>
-        </LenisProvider>
+        <MainLayout>
+          <div className="flex items-start justify-start w-full">
+            <Header />
+          </div>
+          {children}
+        </MainLayout>
       </body>
     </html>
   );
