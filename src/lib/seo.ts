@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 const url = "https://marlonmartin.binspire.space";
 const name = "Marlon Martin";

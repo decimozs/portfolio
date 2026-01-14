@@ -1,7 +1,7 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import type { Highlight } from "@/lib/constant";
 import { projectItems } from "@/lib/constant";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Works",
