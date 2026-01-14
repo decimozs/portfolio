@@ -1,1 +1,1 @@
-<img width="1172" height="450" alt="SS" src="https://github.com/user-attachments/assets/6efdd36c-0256-4b95-aec1-4317028707dd" />
+<img width="1290" height="510" alt="portfolio-banner" src="https://github.com/user-attachments/assets/da1d1982-eeed-4478-b64b-c090a1df676f" />
