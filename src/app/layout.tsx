@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import Header from "@/components/header";
 import MainLayout from "@/components/main-layout";
 import { seo } from "@/lib/seo";
+import LenisProvider from "@/components/lenis-provider";
 
 const overusedGrotesk = localFont({
   src: "../../public/font/OverusedGrotesk-Book.woff2",
@@ -22,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`h-full ${overusedGrotesk.className}`}>
       <body className={`antialiased bg-white text-black`}>
-        <MainLayout>
-          <div className="flex items-start justify-start w-full">
-            <Header />
-          </div>
-          {children}
-        </MainLayout>
+        <LenisProvider>
+          <MainLayout>
+            <div className="flex items-start justify-start w-full">
+              <Header />
+            </div>
+            {children}
+          </MainLayout>
+        </LenisProvider>
       </body>
     </html>
   );
