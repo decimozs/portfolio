@@ -6,6 +6,6 @@ export default function robots() {
         allow: "/",
       },
     ],
-    host: "https://decimomartin.vercel.app",
+    host: "https://marlonmartin.binspire.space",
   };
 }
