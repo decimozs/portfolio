@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import Header from "@/components/header";
 import MainLayout from "@/components/main-layout";
 import { seo } from "@/lib/seo";
+import Hamburger from "@/components/hamburger";
 
 const overusedGrotesk = localFont({
   src: "../../public/font/OverusedGrotesk-Book.woff2",
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`h-full ${overusedGrotesk.className}`}>
       <body className={`antialiased bg-white text-black`}>
+        <Hamburger />
         <MainLayout>
           <div className="flex items-start justify-start w-full">
             <Header />

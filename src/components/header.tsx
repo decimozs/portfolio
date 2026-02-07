@@ -9,21 +9,21 @@ export default function Header() {
 
   return (
     <div className={`select-none mb-4`}>
-      <div>
-        <Image
-          src="/me.jpg"
-          alt="Marlon Martin"
-          width={150}
-          height={150}
-          preload
-          className="rounded-md mb-4 select-none"
-        />
-      </div>
+      {pathname === "/" && (
+        <div>
+          <Image
+            src="/me.jpg"
+            alt="Marlon Martin"
+            width={150}
+            height={150}
+            preload
+            className="rounded-md mb-4 select-none"
+          />
+        </div>
+      )}
 
       <div className="flex flex-row items-center gap-2">
-        <Link href="/" className={pathname === "/" ? "cursor-default" : ""}>
-          Marlon Martin
-        </Link>
+        <p>Marlon Martin</p>
         <svg
           viewBox="0 0 22 22"
           xmlns="http://www.w3.org/2000/svg"
@@ -38,21 +38,24 @@ export default function Header() {
         </svg>
       </div>
       <div className="lg:flex lg:items-center lg:justify-between">
-        {pathname === "/" ? (
-          <p className="text-lg">
-            Engineering{" "}
-            <Link
-              href="https://www.binspire.space/"
-              target="_blank"
-              referrerPolicy="no-referrer"
-              className=" hover:underline"
-            >
-              @binspire
-            </Link>{" "}
-          </p>
-        ) : (
-          <p className="text-lg">{`Projects I’ve worked on`}</p>
-        )}
+        <p className="text-lg">
+          {pathname === "/" && (
+            <>
+              Engineering{" "}
+              <Link
+                href="https://www.binspire.space/"
+                target="_blank"
+                referrerPolicy="no-referrer"
+                className=" hover:underline"
+              >
+                @binspire
+              </Link>{" "}
+            </>
+          )}
+          {pathname === "/works" && `Projects I’ve worked on`}
+          {pathname === "/experience" && `Where I’ve worked and what I’ve done`}
+          {pathname === "/notebooks" && `My explorations and experiments`}
+        </p>
       </div>
     </div>
   );
