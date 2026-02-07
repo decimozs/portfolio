@@ -44,30 +44,52 @@ export function ProjectDescription({
 export default function Works() {
   return (
     <div className="flex flex-col gap-6">
-      {projectItems.map((item) => (
-        <div className="flex flex-col gap-4" key={item.title}>
-          <Link
-            href={item.link}
-            target="_blank"
-            referrerPolicy="no-referrer"
-            className="w-fit hover:underline"
-          >
-            {item.title}
-          </Link>
-          <ProjectDescription
-            description={item.description}
-            highlight={item.highlights || []}
-          />
-          <div className="text-sm flex flex-row gap-2 flex-wrap">
-            {item.category.map((cat) => (
-              <p key={cat} className="px-4 py-2 bg-accent">
-                {cat}
-              </p>
-            ))}
+      {projectItems
+        .sort((a, b) => {
+          if (a.title.toLowerCase() === "binspire") return -1;
+          if (b.title.toLowerCase() === "binspire") return 1;
+          return 0;
+        })
+        .map((item) => (
+          <div className="flex flex-col gap-4" key={item.title}>
+            <Link
+              href={item.link}
+              target="_blank"
+              referrerPolicy="no-referrer"
+              className="w-fit hover:underline"
+            >
+              {item.title}
+            </Link>
+            <ProjectDescription
+              description={item.description}
+              highlight={item.highlights || []}
+            />
+            <div className="text-sm flex flex-row gap-2 flex-wrap">
+              {item.category.map((cat) => (
+                <p key={cat} className="px-4 py-2 bg-accent">
+                  {cat}
+                </p>
+              ))}
+            </div>
+            {item.awards && item.awards.length > 0 && (
+              <div className="text-sm">
+                <div className="bg-yellow-200 px-4 py-2">
+                  {item.awards?.map((item) => (
+                    <div key={item.date}>
+                      <div className="flex flex-row justify-between mb-2">
+                        <p className="text-2xl">{item.place}</p>
+                        <p>{item.date}</p>
+                      </div>
+                      <p>{item.event}</p>
+                      <p>{item.role}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-      ))}
-      <div className="flex flex-col gap-4 mt-4 lg:mb-5">
+        ))}
+      <div className="flex flex-col gap-4 mt-4">
         <p>
           View more on{" "}
           <Link
