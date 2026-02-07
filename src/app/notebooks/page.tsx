@@ -1,6 +1,6 @@
-import { notebookItems } from "@/lib/constant";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { notebookItems } from "@/lib/constant";
 
 export const metadata: Metadata = {
   title: "Notebooks",
@@ -13,7 +13,15 @@ export default function Notebooks() {
     <div className="flex flex-col gap-6 w-full">
       <div className="grid grid-cols-1 gap-4">
         {notebookItems.map((item) => (
-          <div className="flex flex-col gap-4">
+          <div
+            className="flex flex-col gap-4"
+            key={item.title
+              .toLowerCase()
+              .trim()
+              .replace(/[^\w\s-]/g, "")
+              .replace(/[\s_-]+/g, "-")
+              .replace(/^-+|-+$/g, "")}
+          >
             <div className="flex flex-col gap-4">
               <div className="flex flex-row justify-between">
                 <p>{item.title}</p>
@@ -28,7 +36,7 @@ export default function Notebooks() {
             </div>
             <div className="text-sm">
               {item.link.map((source) => (
-                <div>
+                <div key={source.label}>
                   <Link
                     href={source.href}
                     className="text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black"
