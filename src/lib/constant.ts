@@ -44,6 +44,20 @@ interface ProjectItem {
 
 export const projectItems: ProjectItem[] = [
   {
+    title: "Vantage",
+    description:
+      'A local-first, high-precision resume intelligence engine engineered to uncover the "why" behind career performance, analyzes skill density and industry alignment providing data-driven insights without sensitive data ever leaving your local environment.',
+    link: "https://github.com/decimozs/vantage-cv",
+    category: [
+      "Automation",
+      "Agentic AI",
+      "Retrieval-Augmented Generation",
+      "N8N",
+      "Ollama",
+      "Gemini",
+    ],
+  },
+  {
     title: "Base",
     description:
       "An opinionated, Full-Stack Monorepo @create-base-stack designed for high-performance applications. It leverages a strictly type-safe architecture to streamline development workflows and ensure end-to-end type integrity across the entire stack.",
