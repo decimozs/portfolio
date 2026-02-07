@@ -1,5 +1,5 @@
+import type { Metadata } from "next";
 import { experienceItems } from "@/lib/constant";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -53,8 +53,8 @@ export default function Experience() {
             </div>
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            {item.description.map((desc, idx) => (
-              <p key={idx} className="px-4 py-2 bg-accent">
+            {item.description.map((desc) => (
+              <p key={desc} className="px-4 py-2 bg-accent">
                 {desc}
               </p>
             ))}

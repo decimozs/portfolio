@@ -1,9 +1,9 @@
 "use client";
 
-import { navItems, socialItems } from "@/lib/constant";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { navItems, socialItems } from "@/lib/constant";
 
 export default function Hamburger() {
   const [open, setOpen] = useState(false);
@@ -25,6 +25,7 @@ export default function Hamburger() {
     <>
       <div className="fixed top-6 right-6 z-50 xl:hidden">
         <button
+          type="button"
           className="flex flex-col gap-1 p-4 bg-accent"
           onClick={toggleMenu}
         >
@@ -90,6 +91,7 @@ export default function Hamburger() {
               {socialItems.map((item) => (
                 <Link
                   href={item.href}
+                  key={item.id}
                   className="text-muted-foreground w-fit"
                   target="_blank"
                   referrerPolicy="no-referrer"

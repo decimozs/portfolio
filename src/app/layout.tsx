@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import Hamburger from "@/components/hamburger";
 import Header from "@/components/header";
 import MainLayout from "@/components/main-layout";
 import { seo } from "@/lib/seo";
-import Hamburger from "@/components/hamburger";
 
 const overusedGrotesk = localFont({
   src: "../../public/font/OverusedGrotesk-Book.woff2",
