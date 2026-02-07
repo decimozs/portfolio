@@ -12,7 +12,7 @@ export const navItems: NavItem[] = [
   },
   {
     id: "works",
-    label: "Works",
+    label: "Work",
     href: "/works",
   },
   {
@@ -22,7 +22,7 @@ export const navItems: NavItem[] = [
   },
   {
     id: "notebooks",
-    label: "Notebooks",
+    label: "Notebook",
     href: "/notebooks",
   },
 
@@ -236,6 +236,12 @@ export const experienceItems: ExperienceItem[] = [
       "Diagnosed and resolved synchronization conflicts between third-party geospatial libraries and application state. Improved system stability by managing event propagation and removing redundant control logic.",
       "Authored and refined technical documentation for core AI orchestration frameworks, focusing on clarifying server-to-server communication headers and setup procedures for global developers.",
     ],
+  },
+  {
+    title: "Hello World!",
+    company: "Student",
+    startDate: new Date(2019, 11),
+    description: ["Wrote my first line of code."],
   },
 ];
 
