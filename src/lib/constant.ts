@@ -216,7 +216,15 @@ export const experienceItems: ExperienceItem[] = [
       "Built a disaster management system for a local Barangay, featuring centralized incident logging and optimized data workflows to ensure high availability and rapid information dispatch during disaster scenarios.",
     ],
   },
-
+  {
+    title: "14th IT Skills Olympics",
+    company: "Team Leader",
+    startDate: new Date(2025, 10),
+    endDate: new Date(2025, 10),
+    description: [
+      "Led my university team to secure 1st Runner-Up in the IoT Category at the 14th IT Skills Olympics, showcasing our innovative Smart Waste Management System that integrates real-time monitoring and efficient data handling to revolutionize waste collection processes.",
+    ],
+  },
   {
     title: "Binspire",
     company: "Founder & Lead Software Engineer",
@@ -228,6 +236,15 @@ export const experienceItems: ExperienceItem[] = [
       "Architected a custom MCP (Model Context Protocol) Server that exposes Binspire API data as executable tools for LLMs, enabling automated auditing, issue resolution, and historical tracking.",
       "Integrated Binspire AI Agent with multi-model orchestration capabilities, leveraging the MCP server to perform autonomous data analysis and data-driven decision-making for waste management logistics.",
       "Implemented QR-code verification for collection logs, ensuring 100% accountability in waste retrieval activities through a secure, sensor-driven validation pipeline.",
+    ],
+  },
+  {
+    title: "CCS Academic Competition",
+    company: "Participant",
+    startDate: new Date(2023, 1),
+    endDate: new Date(2023, 1),
+    description: [
+      "Solved 3 out of 4 problem sets in my university Java programming contest during the first year.",
     ],
   },
   {
