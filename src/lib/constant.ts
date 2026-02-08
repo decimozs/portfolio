@@ -37,6 +37,11 @@ interface SocialItem extends NavItem {}
 
 export const socialItems: SocialItem[] = [
   {
+    id: "email",
+    label: "@email/decimomartin",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=marlonadiguemartin548@gmail.com",
+  },
+  {
     id: "github",
     label: "@github/decimozs",
     href: "https://github.com/decimozs",
