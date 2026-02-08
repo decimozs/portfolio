@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 const url = "https://marlonmartin.binspire.space";
 const name = "Marlon Martin";
-const title = "Marlon Martin - Backend Engineer";
+const title = "Marlon Martin - Software Engineer";
 const description =
   "Based in Manila. I love building things that actually make a difference from scalable backend systems to creative side projects.";
 
