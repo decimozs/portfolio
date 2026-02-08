@@ -121,6 +121,17 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 0px;
 }
