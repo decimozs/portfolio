@@ -10,17 +10,29 @@ export const seo: Metadata = {
   metadataBase: new URL(url),
   title: {
     default: title,
-    template: `${name} - %s`,
+    template: `%s | ${name}`,
   },
   description: description,
   keywords: [
     "Backend Engineer",
+    "Software Engineer",
+    "Full Stack Developer",
     "Philippines",
+    "Manila",
     "Systems Architect",
-    "Software Engineer Portfolio",
+    "Portfolio",
+    "TypeScript",
+    "Node.js",
+    "AI Engineer",
   ],
   authors: [{ name: "Marlon Martin", url: url }],
   creator: "Marlon Martin",
+  publisher: "Marlon Martin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     title: title,
     description: description,
@@ -57,5 +69,28 @@ export const seo: Metadata = {
   },
   verification: {
     google: "9SYHKpPQfaT8zG_JIAPA90F2QukziaOog2Ni9q7UmDU",
+  },
+  alternates: {
+    canonical: url,
+    languages: {
+      en: url,
+    },
+  },
+  category: "technology",
+};
+
+export const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: name,
+  url: url,
+  jobTitle: "Software Engineer",
+  sameAs: [
+    "https://github.com/decimozs",
+    "https://www.linkedin.com/in/decimomartin/",
+  ],
+  worksFor: {
+    "@type": "Organization",
+    name: "Binspire",
   },
 };

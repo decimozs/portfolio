@@ -15,8 +15,12 @@ export function ProjectDescription({
   description: string;
   highlight: Highlight[];
 }) {
+  const escapeRegExp = (str: string) =>
+    str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const texts = highlight.map((h) => h.text);
-  const parts = description.split(new RegExp(`(${texts.join("|")})`, "g"));
+  const parts = description.split(
+    new RegExp(`(${texts.map(escapeRegExp).join("|")})`, "g"),
+  );
 
   return (
     <p>
@@ -107,7 +111,12 @@ export default function Works() {
 
         <p>
           You can also deep dive into my{" "}
-          <Link href="/resume.pdf" target="_blank" className="inline-block">
+          <Link
+            href="/resume.pdf"
+            target="_blank"
+            referrerPolicy="no-referrer"
+            className="inline-block"
+          >
             <span className="cursor-pointer text-muted-foreground hover:underline hover:text-black transition-colors">
               resume
             </span>

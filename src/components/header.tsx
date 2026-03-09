@@ -3,13 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export default function Header() {
   const pathname = usePathname();
+  const [imgError, setImgError] = useState(false);
 
   return (
     <div className={`select-none mb-4`}>
-      {pathname === "/" && (
+      {pathname === "/" && !imgError && (
         <div>
           <Image
             src="/me.jpg"
@@ -18,6 +20,7 @@ export default function Header() {
             height={150}
             preload
             className="rounded-md mb-4 select-none"
+            onError={() => setImgError(true)}
           />
         </div>
       )}
