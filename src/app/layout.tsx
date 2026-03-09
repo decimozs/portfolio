@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import localFont from "next/font/local";
 import Hamburger from "@/components/hamburger";
 import Header from "@/components/header";
 import MainLayout from "@/components/main-layout";
-import { seo } from "@/lib/seo";
+import { jsonLd, seo } from "@/lib/seo";
 
 const overusedGrotesk = localFont({
   src: "../../public/font/OverusedGrotesk-Book.woff2",
@@ -23,6 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`h-full ${overusedGrotesk.className}`}>
+      <head>
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`antialiased bg-white text-black`}>
         <Hamburger />
         <MainLayout>
