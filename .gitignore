@@ -13,6 +13,15 @@
 # testing
 /coverage
 
+# astro
+.astro/
+
+# wrangler
+.wrangler/
+
+# husky (git hooks)
+.husky/
+
 # next.js
 /.next/
 /out/
