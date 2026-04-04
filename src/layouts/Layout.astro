@@ -1,0 +1,60 @@
+---
+import Hamburger from "../components/hamburger";
+import Header from "../components/header";
+import MainLayout from "../components/main-layout";
+import Nav from "../components/nav";
+import SEO from "../components/SEO.astro";
+import SmoothScroll from "../components/smooth-scroll";
+import { jsonLd } from "../lib/seo";
+import "../styles/globals.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en" class="h-full">
+	<head>
+		<SEO title={title} />
+		<link
+			rel="preload"
+			href="/font/OverusedGrotesk-Book.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<style is:global>
+			@font-face {
+				font-family: 'OverusedGrotesk';
+				src: url('/font/OverusedGrotesk-Book.woff2') format('woff2');
+				font-weight: normal;
+				font-style: normal;
+				font-display: swap;
+			}
+			:root {
+				--font-overused-grotesk: 'OverusedGrotesk', sans-serif;
+			}
+			html {
+				font-family: var(--font-overused-grotesk);
+			}
+		</style>
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+	</head>
+	<body class="antialiased bg-white text-black">
+		<SmoothScroll client:load />
+		<Hamburger client:load pathname={pathname} />
+		<MainLayout client:load pathname={pathname}>
+			<div class="flex flex-col gap-8 xl:sticky xl:top-8 xl:self-start">
+				<Header client:load pathname={pathname} />
+				<Nav client:load pathname={pathname} />
+			</div>
+			<div class="w-full">
+				<slot />
+			</div>
+		</MainLayout>
+	</body>
+</html>

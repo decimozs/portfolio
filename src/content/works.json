@@ -1,0 +1,159 @@
+[
+  {
+    "id": "ollamaduct",
+    "title": "Ollamaduct",
+    "description": "Local-first AI gateway for Ollama - install via @ollamaduct/gateway - supporting both local and cloud-hybrid model orchestration; engineered multi-tenant workspaces, vector-based semantic caching (95% match rate) to reduce latency, and an automated Privacy Shield for redacting 25+ PII entity types via a high-performance Bun-powered CLI.",
+    "link": "https://github.com/decimozs/ollamaduct",
+    "category": [
+      "TypeScript",
+      "AI Gateway",
+      "CLI",
+      "Ollama",
+      "Vector DB",
+      "Privacy"
+    ],
+    "highlights": [
+      {
+        "text": "@ollamaduct/gateway",
+        "href": "https://www.npmjs.com/package/@ollamaduct/gateway"
+      }
+    ]
+  },
+  {
+    "id": "haribon",
+    "title": "Haribon",
+    "description": "Autonomous civic-tech agent for the BetterGov.ph platform; architected a Hybrid-RAG pipeline using LangGraph to automate data aggregation and content summarization, enabling high-fidelity retrieval of civic information and public records through an extensible agent harness.",
+    "link": "https://github.com/decimozs/haribon",
+    "category": [
+      "TypeScript",
+      "RAG",
+      "Agent Harness",
+      "Deep Agents",
+      "AI Agent",
+      "LangGraph"
+    ],
+    "highlights": [
+      {
+        "text": "BetterGov.ph",
+        "href": "https://bettergov.ph/"
+      }
+    ]
+  },
+  {
+    "id": "workflow",
+    "title": "Workflow",
+    "description": "Agentic Waste Engine using a Multi-Agent System (MAS) architecture to transform rigid collection schedules into a demand-responsive network; orchestrated autonomous workflows with LangGraph and developed a custom MCP server to bridge the Binspire API with LLMs, enabling self-correcting data retrieval and proactive operational tasking for urban disposal.",
+    "link": "https://github.com/decimozs/workflow",
+    "category": [
+      "TypeScript",
+      "AI Agent",
+      "LangGraph",
+      "MCP",
+      "Multi-Agent Systems"
+    ]
+  },
+  {
+    "id": "binspire",
+    "title": "Binspire",
+    "description": "A Smart Waste Management System (SWMS) powered by real-time agents to make waste collection more efficient, sustainable, and transparent.",
+    "link": "https://www.binspire.space/",
+    "category": [
+      "IoT",
+      "HiveMQ",
+      "Nginx",
+      "Hono",
+      "AWS",
+      "MCP",
+      "Azure AI",
+      "LangGraph"
+    ],
+    "awards": [
+      {
+        "event": "14th IT Skills Olympics - IoT Category",
+        "role": "Lead Software Engineer & Team Leader",
+        "place": "1st Runner-Up",
+        "date": "November 2025"
+      }
+    ]
+  },
+  {
+    "id": "blepp-reviewer",
+    "title": "BLEPP Reviewer",
+    "description": "An AI-powered exam preparation companion for Board Licensure Examination for Psychometricians (BLEPP); featuring an intelligent review agent that provides timed practice exams, tracks progress with analytics, and works offline through Progressive Web App (PWA) technology.",
+    "link": "https://github.com/decimozs/blepp-reviewer",
+    "category": ["TypeScript", "AI Agent", "PWA"]
+  },
+  {
+    "id": "vantage",
+    "title": "Vantage",
+    "description": "A local-first, high-precision resume intelligence engine engineered to uncover the \"why\" behind career performance, analyzes skill density and industry alignment providing data-driven insights without sensitive data ever leaving your local environment.",
+    "link": "https://github.com/decimozs/vantage-cv",
+    "category": [
+      "Automation",
+      "Agentic AI",
+      "Retrieval-Augmented Generation",
+      "N8N",
+      "Ollama",
+      "Gemini"
+    ]
+  },
+  {
+    "id": "base",
+    "title": "Base",
+    "description": "An opinionated, Full-Stack Monorepo - install via @create-base-stack - designed for high-performance applications. Averaging 400+ weekly downloads, it leverages a strictly type-safe architecture to streamline workflows and ensure end-to-end integrity across the stack.",
+    "link": "https://github.com/decimozs/base",
+    "category": [
+      "Framework",
+      "Boilerplate",
+      "Starter",
+      "Monorepo",
+      "Bun",
+      "TypeScript"
+    ],
+    "highlights": [
+      {
+        "text": "@create-base-stack",
+        "href": "https://www.npmjs.com/package/create-base-stack"
+      }
+    ]
+  },
+  {
+    "id": "hiraya",
+    "title": "Hiraya",
+    "description": "A Filipino-inspired programming language to explore language design, syntax parsing, and compiler construction, demonstrating solid expertise in compiler architecture, abstract machine design, and programming language theory.",
+    "link": "https://github.com/decimozs/hiraya",
+    "category": [
+      "Lexical Analysis",
+      "Parsing",
+      "Abstract Syntax Tree",
+      "Code Generation",
+      "Compiler Design"
+    ]
+  },
+  {
+    "id": "predicting-carbon-monoxide-levels",
+    "title": "Predicting Carbon Monoxide Levels",
+    "description": "A machine learning powered CO prediction system that analyzes environmental sensor data to forecast carbon monoxide levels with high accuracy, enabling improved real-time air quality monitoring and supporting data-driven public.",
+    "link": "https://github.com/decimozs/predicting-carbon-monoxide-levels",
+    "category": [
+      "UCI",
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn",
+      "Scikit-learn"
+    ]
+  },
+  {
+    "id": "art",
+    "title": "ART",
+    "description": "A execution time measurement, profiling and efficiency analysis to evaluate algorithmic complexity in practice.",
+    "link": "https://github.com/decimozs/art-cli",
+    "category": [
+      "Data Structures & Algorithms",
+      "Big O Notation",
+      "Benchmarking",
+      "CLI"
+    ]
+  }
+]

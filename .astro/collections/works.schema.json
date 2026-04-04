@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "link": {
+        "type": "string",
+        "format": "uri"
+      },
+      "category": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "highlights": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "href": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": ["text", "href"]
+        }
+      },
+      "awards": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "place": {
+              "type": "string"
+            },
+            "event": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            }
+          },
+          "required": ["place", "event", "date", "role"]
+        }
+      }
+    },
+    "required": ["id", "title", "description", "link", "category"]
+  }
+}
