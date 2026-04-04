@@ -1,26 +1,19 @@
 "use client";
 
-import { useState } from "react";
-
 export default function Header({ pathname }: { pathname: string }) {
-  const [imgError, setImgError] = useState(false);
-
   return (
     <div className={`select-none w-full`}>
-      {!imgError && (
-        <div>
-          <img
-            src="/me.jpg"
-            alt="Marlon Martin"
-            width={150}
-            height={150}
-            className="rounded-md mb-4 select-none"
-            loading="eager"
-            decoding="async"
-            onError={() => setImgError(true)}
-          />
-        </div>
-      )}
+      <div>
+        <img
+          src="/me.jpg"
+          alt="Marlon Martin"
+          width={150}
+          height={150}
+          className="rounded-md mb-4 select-none"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
 
       <div className="flex flex-row items-center gap-2">
         <p>Marlon Martin</p>
