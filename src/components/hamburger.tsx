@@ -107,7 +107,6 @@ export default function Hamburger({ pathname }: { pathname: string }) {
         <div className="fixed top-0 left-0 w-full h-screen z-40 bg-white p-6 text-2xl xl:hidden hamburger-menu">
           <div className="flex flex-col gap-6 mt-1">
             <div className="flex flex-col gap-1">
-              <p className="text-sm">Nav</p>
               {navItems.map((item) => (
                 <NavLink
                   key={item.id}
@@ -118,7 +117,6 @@ export default function Hamburger({ pathname }: { pathname: string }) {
               ))}
             </div>
             <div className="flex flex-col gap-1">
-              <p className="text-sm">Socials</p>
               {socialItems.map((item) => (
                 <SocialLink key={item.id} item={item} />
               ))}
