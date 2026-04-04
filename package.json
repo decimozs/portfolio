@@ -25,6 +25,7 @@
     "lenis": "^1.1.20",
     "lucide-react": "^0.552.0",
     "motion": "^12.38.0",
+    "posthog-js": "^1.364.7",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "tailwind-merge": "^3.5.0"

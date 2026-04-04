@@ -61,6 +61,7 @@ import Layout from "../layouts/Layout.astro";
       class="italic text-muted-foreground hover:text-black underline-animate"
       target="_blank"
       rel="noopener noreferrer"
+      id="resume-link"
     >
       resume
     </a>
@@ -77,6 +78,7 @@ import Layout from "../layouts/Layout.astro";
       class="italic text-muted-foreground hover:text-black underline-animate"
       target="_blank"
       rel="noopener noreferrer"
+      id="github-profile-link"
     >
       @github.com/decimozs
     </a>
@@ -86,9 +88,22 @@ import Layout from "../layouts/Layout.astro";
       class="italic text-muted-foreground hover:text-black underline-animate"
       target="_blank"
       rel="noopener noreferrer"
+      id="linkedin-profile-link"
     >
       @linkedin.com/in/decimomartin
     </a>
     .
   </p>
 </Layout>
+
+<script is:inline>
+  document.getElementById('resume-link')?.addEventListener('click', function() {
+    window.posthog?.capture('resume_clicked', { source: 'about' });
+  });
+  document.getElementById('github-profile-link')?.addEventListener('click', function() {
+    window.posthog?.capture('github_profile_clicked', { source: 'about' });
+  });
+  document.getElementById('linkedin-profile-link')?.addEventListener('click', function() {
+    window.posthog?.capture('linkedin_profile_clicked', { source: 'about' });
+  });
+</script>

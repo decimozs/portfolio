@@ -28,7 +28,8 @@ const escapeRegExp = (str: string) =>
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-fit underline-animate"
+            class="w-fit underline-animate project-link"
+            data-project-title={item.title}
           >
             {item.title}
           </a>
@@ -87,6 +88,7 @@ const escapeRegExp = (str: string) =>
           target="_blank"
           rel="noopener noreferrer"
           class="inline-block"
+          id="github-more-projects-link"
         >
           <span class="cursor-pointer text-muted-foreground underline-animate hover:text-black transition-colors">
             @github/decimozs
@@ -102,6 +104,7 @@ const escapeRegExp = (str: string) =>
           target="_blank"
           rel="noopener noreferrer"
           class="inline-block"
+          id="works-resume-link"
         >
           <span class="cursor-pointer text-muted-foreground underline-animate hover:text-black transition-colors">
             resume
@@ -125,3 +128,20 @@ const escapeRegExp = (str: string) =>
     </div>
   </div>
 </Layout>
+
+<script is:inline>
+  document.querySelectorAll('.project-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+      window.posthog?.capture('project_link_clicked', {
+        project_title: link.getAttribute('data-project-title'),
+        project_url: link.getAttribute('href')
+      });
+    });
+  });
+  document.getElementById('github-more-projects-link')?.addEventListener('click', function() {
+    window.posthog?.capture('github_more_projects_clicked', { source: 'works' });
+  });
+  document.getElementById('works-resume-link')?.addEventListener('click', function() {
+    window.posthog?.capture('resume_clicked', { source: 'works' });
+  });
+</script>
