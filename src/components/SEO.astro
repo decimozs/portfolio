@@ -1,0 +1,55 @@
+---
+import { seo } from "../lib/seo";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: URL | string;
+}
+
+const {
+  title = seo.title.default,
+  description = seo.description,
+  image = "/opengraph-image.png",
+  canonicalURL = Astro.url,
+} = Astro.props;
+
+const url = new URL(
+  canonicalURL,
+  Astro.site || "https://marlonmartin.binspire.space",
+);
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={url} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="keywords" content={seo.keywords.join(", ")} />
+<meta name="author" content={seo.authors[0].name} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, url)} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, url)} />
+
+<!-- Verification -->
+<meta name="google-site-verification" content={seo.verification.google} />
