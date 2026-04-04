@@ -15,6 +15,8 @@ export default function Header({ pathname }: { pathname: string }) {
             width={150}
             height={150}
             className="rounded-md mb-4 select-none"
+            loading="eager"
+            decoding="async"
             onError={() => setImgError(true)}
           />
         </div>
