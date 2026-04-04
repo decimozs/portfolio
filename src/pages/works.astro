@@ -1,0 +1,127 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+const title = "Works";
+const description =
+  "A showcase of projects and accomplishments by Marlon Martin.";
+
+const worksCollection = await getCollection("works");
+const projectItems = worksCollection.map((entry) => entry.data);
+
+const escapeRegExp = (str: string) =>
+  str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+---
+
+<Layout title={title}>
+  <div class="flex flex-col gap-6">
+    {projectItems.map((item) => {
+      const highlights = item.highlights || [];
+      const texts = highlights.map((h) => h.text);
+      const parts = item.description.split(
+        new RegExp(`(${texts.map(escapeRegExp).join("|")})`, "g")
+      );
+
+      return (
+        <div class="flex flex-col gap-4">
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noreferrer"
+            class="w-fit underline-animate"
+          >
+            {item.title}
+          </a>
+          
+          <p>
+            {parts.map((part, idx) => {
+              const match = highlights.find((h) => h.text === part);
+              return match ? (
+                <a
+                  href={match.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="italic text-muted-foreground hover:text-black underline-animate"
+                >
+                  {part}
+                </a>
+              ) : (
+                <span>{part}</span>
+              );
+            })}
+          </p>
+
+          <div class="text-sm flex flex-row gap-2 flex-wrap">
+            {item.category.map((cat) => (
+              <p class="px-4 py-2 bg-accent">
+                {cat}
+              </p>
+            ))}
+          </div>
+
+          {item.awards && item.awards.length > 0 && (
+            <div class="text-sm">
+              <div class="bg-yellow-200 px-4 py-2">
+                {item.awards?.map((award) => (
+                  <div class="mb-4 last:mb-0">
+                    <div class="flex flex-row justify-between mb-2">
+                      <p class="text-2xl">{award.place}</p>
+                      <p>{award.date}</p>
+                    </div>
+                    <p>{award.event}</p>
+                    <p>{award.role}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    })}
+
+    <div class="flex flex-col gap-3 mt-4 text-lg">
+      <p>
+        View more on{" "}
+        <a
+          href="https://github.com/decimozs"
+          target="_blank"
+          rel="noreferrer"
+          class="inline-block"
+        >
+          <span class="cursor-pointer text-muted-foreground underline-animate hover:text-black transition-colors">
+            @github/decimozs
+          </span>
+        </a>{" "}
+        to check what I'm building.
+      </p>
+
+      <p>
+        You can also deep dive into my{" "}
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noreferrer"
+          class="inline-block"
+        >
+          <span class="cursor-pointer text-muted-foreground underline-animate hover:text-black transition-colors">
+            resume
+          </span>
+        </a>{" "}
+        to learn more about me or connect with me on{" "}
+        <a
+          href="https://linkedin.com/in/decimomartin"
+          target="_blank"
+          class="inline-block"
+        >
+          <span class="cursor-pointer text-muted-foreground underline-animate hover:text-black transition-colors">
+            @in/decimomartin
+          </span>
+        </a>
+        .
+      </p>
+      <p class="text-lg text-muted-foreground">
+        © 2026 Marlon Martin. All rights reserved.
+      </p>
+    </div>
+  </div>
+</Layout>

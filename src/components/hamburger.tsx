@@ -1,27 +1,66 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { navItems, socialItems } from "@/lib/constant";
 
-export default function Hamburger() {
+function NavLink({
+  item,
+  pathname,
+  onClick,
+  className,
+}: {
+  item: { id: string; label: string; href: string };
+  pathname: string;
+  onClick?: () => void;
+  className?: string;
+}) {
+  const isActive = pathname === item.href;
+  const isResume = item.id === "resume";
+
+  return (
+    <a
+      href={item.href}
+      key={item.id}
+      className={`w-fit transition-all duration-300 ease-in-out ${className ?? ""} ${
+        isActive
+          ? "cursor-default"
+          : "text-muted-foreground cursor-pointer hover:text-black"
+      }`}
+      target={isResume ? "_blank" : undefined}
+      rel={isResume ? "noopener noreferrer" : undefined}
+      onClick={onClick}
+    >
+      {item.label}
+    </a>
+  );
+}
+
+function SocialLink({
+  item,
+  className,
+}: {
+  item: { id: string; label: string; href: string };
+  className?: string;
+}) {
+  return (
+    <a
+      href={item.href}
+      key={item.id}
+      className={`text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black ${className ?? ""}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {item.label}
+    </a>
+  );
+}
+
+export default function Hamburger({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
   const toggleMenu = useCallback(() => {
     setOpen((prev) => !prev);
   }, []);
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleMenu();
-      }
-    },
-    [toggleMenu],
-  );
 
   useEffect(() => {
     if (open) {
@@ -49,76 +88,6 @@ export default function Hamburger() {
     return () => document.removeEventListener("click", handleOutsideClick);
   }, [open]);
 
-  const navLinks = useMemo(
-    () =>
-      navItems.map((item) => (
-        <Link
-          href={item.href}
-          key={item.id}
-          className={`w-fit transition-all duration-300 ease-in-out ${
-            pathname === item.href
-              ? "cursor-default"
-              : "text-muted-foreground cursor-pointer hover:text-black"
-          }`}
-          target={item.id === "resume" ? "_blank" : undefined}
-        >
-          {item.label}
-        </Link>
-      )),
-    [pathname],
-  );
-
-  const socialLinks = useMemo(
-    () =>
-      socialItems.map((item) => (
-        <Link
-          href={item.href}
-          className="text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black"
-          key={item.id}
-          target="_blank"
-          referrerPolicy="no-referrer"
-        >
-          {item.label}
-        </Link>
-      )),
-    [],
-  );
-
-  const mobileNavLinks = useMemo(
-    () =>
-      navItems.map((item) => (
-        <Link
-          href={item.href}
-          key={item.id}
-          className={`w-fit ${
-            pathname === item.href
-              ? "cursor-default"
-              : "text-muted-foreground cursor-pointer"
-          }`}
-          onClick={toggleMenu}
-        >
-          {item.label}
-        </Link>
-      )),
-    [pathname, toggleMenu],
-  );
-
-  const mobileSocialLinks = useMemo(
-    () =>
-      socialItems.map((item) => (
-        <Link
-          href={item.href}
-          key={item.id}
-          className="text-muted-foreground w-fit"
-          target="_blank"
-          referrerPolicy="no-referrer"
-        >
-          {item.label}
-        </Link>
-      )),
-    [],
-  );
-
   return (
     <>
       <div className="fixed top-6 right-6 z-50 xl:hidden">
@@ -126,7 +95,6 @@ export default function Hamburger() {
           type="button"
           className="flex flex-col gap-1 p-4 bg-accent hamburger-button"
           onClick={toggleMenu}
-          onKeyDown={handleKeyDown}
           aria-expanded={open}
           aria-label="Toggle menu"
         >
@@ -135,29 +103,25 @@ export default function Hamburger() {
         </button>
       </div>
 
-      <div className="hidden fixed top-0 left-0 p-6 text-2xl xl:block">
-        <div className="flex flex-col gap-6 mt-1">
-          <div className="flex flex-col gap-1">
-            <p className="text-sm">Nav</p>
-            {navLinks}
-          </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-sm">Socials</p>
-            {socialLinks}
-          </div>
-        </div>
-      </div>
-
       {open && (
         <div className="fixed top-0 left-0 w-full h-screen z-40 bg-white p-6 text-2xl xl:hidden hamburger-menu">
           <div className="flex flex-col gap-6 mt-1">
             <div className="flex flex-col gap-1">
               <p className="text-sm">Nav</p>
-              {mobileNavLinks}
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.id}
+                  item={item}
+                  pathname={pathname}
+                  onClick={toggleMenu}
+                />
+              ))}
             </div>
             <div className="flex flex-col gap-1">
               <p className="text-sm">Socials</p>
-              {mobileSocialLinks}
+              {socialItems.map((item) => (
+                <SocialLink key={item.id} item={item} />
+              ))}
             </div>
           </div>
         </div>
