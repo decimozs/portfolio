@@ -40,9 +40,11 @@ const formatDate = (date: Date) => {
               <div>
                 <a
                   href={source.href}
-                  class="text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black"
+                  class="text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black notebook-source-link"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-notebook-title={item.title}
+                  data-source-label={source.label}
                 >
                   {source.label}
                 </a>
@@ -69,3 +71,15 @@ const formatDate = (date: Date) => {
     </div>
   </div>
 </Layout>
+
+<script is:inline>
+  document.querySelectorAll('.notebook-source-link').forEach(function(link) {
+    link.addEventListener('click', function() {
+      window.posthog?.capture('notebook_source_clicked', {
+        notebook_title: link.getAttribute('data-notebook-title'),
+        source_label: link.getAttribute('data-source-label'),
+        source_url: link.getAttribute('href')
+      });
+    });
+  });
+</script>

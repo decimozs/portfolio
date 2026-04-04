@@ -49,6 +49,14 @@ function SocialLink({
       className={`text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black ${className ?? ""}`}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => {
+        // biome-ignore lint/suspicious/noExplicitAny: PostHog loaded via inline snippet
+        (window as any).posthog?.capture("social_link_clicked", {
+          platform: item.id,
+          label: item.label,
+          source: "hamburger",
+        });
+      }}
     >
       {item.label}
     </a>
@@ -59,7 +67,13 @@ export default function Hamburger({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
 
   const toggleMenu = useCallback(() => {
-    setOpen((prev) => !prev);
+    setOpen((prev) => {
+      if (!prev) {
+        // biome-ignore lint/suspicious/noExplicitAny: PostHog loaded via inline snippet
+        (window as any).posthog?.capture("hamburger_menu_opened");
+      }
+      return !prev;
+    });
   }, []);
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import Hamburger from "../components/hamburger";
 import Header from "../components/header";
 import MainLayout from "../components/main-layout";
 import Nav from "../components/nav";
+import PostHog from "../components/posthog.astro";
 import SEO from "../components/SEO.astro";
 import SmoothScroll from "../components/smooth-scroll";
 import { jsonLd } from "../lib/seo";
@@ -20,6 +21,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 <html lang="en" class="h-full">
 	<head>
 		<SEO title={title} />
+		<PostHog />
 		<link
 			rel="preload"
 			href="/font/OverusedGrotesk-Book.woff2"

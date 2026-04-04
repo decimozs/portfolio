@@ -34,6 +34,14 @@ export default function Nav({ pathname }: { pathname: string }) {
               className="text-lg text-muted-foreground hover:text-black transition-colors duration-200 w-fit"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                // biome-ignore lint/suspicious/noExplicitAny: PostHog loaded via inline snippet
+                (window as any).posthog?.capture("social_link_clicked", {
+                  platform: item.id,
+                  label: item.label,
+                  source: "nav",
+                });
+              }}
             >
               {item.label}
             </a>

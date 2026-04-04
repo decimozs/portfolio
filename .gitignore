@@ -1,5 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+#agent
+.claude/
+.opencode/
+
 # dependencies
 /node_modules
 /.pnp
@@ -28,6 +32,8 @@
 
 # production
 /build
+/dist 
+.dist/
 
 # misc
 .DS_Store
@@ -48,3 +54,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env
+
