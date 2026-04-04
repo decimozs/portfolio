@@ -1,24 +1,19 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-export default function Header() {
-  const pathname = usePathname();
+export default function Header({ pathname }: { pathname: string }) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className={`select-none mb-4`}>
-      {pathname === "/" && !imgError && (
+    <div className={`select-none w-full`}>
+      {!imgError && (
         <div>
-          <Image
+          <img
             src="/me.jpg"
             alt="Marlon Martin"
             width={150}
             height={150}
-            preload
             className="rounded-md mb-4 select-none"
             onError={() => setImgError(true)}
           />
@@ -40,23 +35,23 @@ export default function Header() {
           ></path>
         </svg>
       </div>
-      <div className="lg:flex lg:items-center lg:justify-between">
-        <p className="text-lg">
+      <div className="w-full lg:flex lg:items-center lg:justify-between">
+        <p className="text-lg w-full">
           {pathname === "/" && (
             <>
               Engineering{" "}
-              <Link
+              <a
                 href="https://www.binspire.space/"
                 target="_blank"
-                referrerPolicy="no-referrer"
-                className=" hover:underline"
+                rel="noopener noreferrer"
+                className=" underline-animate"
               >
                 @binspire
-              </Link>{" "}
+              </a>{" "}
             </>
           )}
-          {pathname === "/works" && `Projects I’ve worked on`}
-          {pathname === "/experience" && `Where I’ve worked and what I’ve done`}
+          {pathname === "/works" && `Notable projects I’ve worked on`}
+          {pathname === "/experience" && `What I’ve done`}
           {pathname === "/notebooks" && `My explorations and experiments`}
         </p>
       </div>

@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+const title = "Experience";
+const description =
+  "A detailed overview of Marlon Martin's professional experience, including roles, responsibilities, and achievements across various industries and positions.";
+
+const experienceCollection = await getCollection("experience");
+const experienceItems = experienceCollection.map((entry) => entry.data);
+
+const sortedExperience = [...experienceItems].sort(
+  (a, b) => b.startDate.getTime() - a.startDate.getTime(),
+);
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
+};
+---
+
+<Layout title={title}>
+  <div class="flex flex-col gap-6 w-full">
+    {sortedExperience.map((item) => (
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-row justify-between">
+          <div>
+            <p class="w-fit">{item.title}</p>
+            <p>{item.company}</p>
+            <div class="flex flex-row mt-1 gap-2 text-sm lg:hidden">
+              <p>{formatDate(item.startDate)}</p>
+              <p>-</p>
+              <p>{item.endDate ? formatDate(item.endDate) : "Present"}</p>
+            </div>
+          </div>
+          <div class="hidden lg:flex flex-row mt-1 gap-2 text-sm">
+            <p>{formatDate(item.startDate)}</p>
+            <p>-</p>
+            <p>{item.endDate ? formatDate(item.endDate) : "Present"}</p>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4 text-sm">
+          {item.description.map((desc) => (
+            <p class="px-4 py-2 bg-accent">
+              {desc}
+            </p>
+          ))}
+        </div>
+      </div>
+    ))}
+    <p class="text-lg text-muted-foreground">
+      © 2026 Marlon Martin. All rights reserved.
+    </p>
+  </div>
+</Layout>
