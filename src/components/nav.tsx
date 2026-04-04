@@ -17,7 +17,7 @@ export default function Nav({ pathname }: { pathname: string }) {
                   : "text-muted-foreground hover:text-black"
               }`}
               target={item.id === "resume" ? "_blank" : undefined}
-              rel={item.id === "resume" ? "noreferrer" : undefined}
+              rel={item.id === "resume" ? "noopener noreferrer" : undefined}
             >
               {item.label}
             </a>
@@ -33,7 +33,7 @@ export default function Nav({ pathname }: { pathname: string }) {
               href={item.href}
               className="text-lg text-muted-foreground hover:text-black transition-colors duration-200 w-fit"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               {item.label}
             </a>
