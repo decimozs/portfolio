@@ -1,0 +1,88 @@
+[
+  {
+    "id": "agentic-design-patterns",
+    "title": "Agentic Design Patterns",
+    "description": "Exploring the frontier of AI autonomy. Inspired by Antonio Gulli, this notebook synthesizes the architectural patterns required to move beyond simple prompts toward multi-agent coordination and ethical autonomous frameworks.",
+    "links": [
+      {
+        "label": "@github.com/decimozs/agentic-design-patterns-notebook",
+        "href": "https://github.com/decimozs/agentic-design-patterns-notebook"
+      },
+      {
+        "label": "@github.com/sarwarbeing-ai/Agentic_Design_Patterns",
+        "href": "https://github.com/sarwarbeing-ai/Agentic_Design_Patterns"
+      }
+    ],
+    "category": [
+      "Artificial Intelligence",
+      "Architecture",
+      "Agents",
+      "Retrieval-Augmented Generation"
+    ],
+    "date": "2025-09-01T00:00:00.000Z"
+  },
+  {
+    "id": "competitive-programming",
+    "title": "Competitive Programming",
+    "description": "A deep dive into algorithmic efficiency. This entry chronicles my journey through complex problem-solving, documenting the evolution of my logic from academic machine problems to optimized competitive solutions.",
+    "links": [
+      {
+        "label": "@github.com/decimozs/arsenals",
+        "href": "https://github.com/decimozs/arsenals"
+      },
+      {
+        "label": "@github.com/decimozs/leetcode-arsenals",
+        "href": "https://github.com/decimozs/leetcode-arsenals"
+      },
+      {
+        "label": "@github.com/decimozs/hacker-rank-arsenals",
+        "href": "https://github.com/decimozs/hacker-rank-arsenals"
+      },
+      {
+        "label": "@github.com/decimozs/practice-plp-itskills-problemsets",
+        "href": "https://github.com/decimozs/practice-plp-itskills-problemsets"
+      }
+    ],
+    "category": [
+      "Algorithms",
+      "Problem Solving",
+      "Data Structures",
+      "Big O Notation"
+    ],
+    "date": "2023-07-01T00:00:00.000Z"
+  },
+  {
+    "id": "swe-principles",
+    "title": "SWE Principles",
+    "description": "The blueprint of quality code. I’ve consolidated my self-guided study of fundamental engineering principles here, creating a central knowledge base for the patterns and practices that separate 'coding' from 'engineering'.",
+    "links": [
+      {
+        "label": "@github.com/decimozs/swe-notebook",
+        "href": "https://github.com/decimozs/swe-notebook"
+      }
+    ],
+    "category": ["Software Engineering", "Fundamentals"],
+    "date": "2023-07-01T00:00:00.000Z"
+  },
+  {
+    "id": "coding-interview-university",
+    "title": "Coding Interview University",
+    "description": "My personal translation of John Washam’s famous roadmap. This isn't just a checklist; it's a rigorous documentation of my transition from a student to an interview-ready engineer, focusing on Computer Science depth.",
+    "links": [
+      {
+        "label": "@github.com/decimozs/software-engineering-notebook",
+        "href": "https://github.com/decimozs/software-engineering-notebook"
+      },
+      {
+        "label": "@github.com/jwasham/coding-interview-university",
+        "href": "https://github.com/jwasham/coding-interview-university"
+      },
+      {
+        "label": "@github.com/decimozs/software-engineering-roadmap",
+        "href": "https://github.com/decimozs/software-engineering-roadmap"
+      }
+    ],
+    "category": ["Computer Science", "Career Growth"],
+    "date": "2023-03-01T00:00:00.000Z"
+  }
+]
