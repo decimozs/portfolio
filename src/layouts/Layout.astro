@@ -47,12 +47,12 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	</head>
 	<body class="antialiased bg-white text-black">
-		<SmoothScroll client:load />
-		<Hamburger client:load pathname={pathname} />
-		<MainLayout client:load pathname={pathname}>
+		<SmoothScroll client:only="react" />
+		<Hamburger client:only="react" pathname={pathname} />
+		<MainLayout client:only="react" pathname={pathname}>
 			<div class="flex flex-col gap-8 xl:sticky xl:top-8 xl:self-start">
-				<Header client:load pathname={pathname} />
-				<Nav client:load pathname={pathname} />
+				<Header client:only="react" pathname={pathname} />
+				<Nav client:only="react" pathname={pathname} />
 			</div>
 			<div class="w-full">
 				<slot />
