@@ -51,8 +51,8 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 		<Hamburger client:only="react" pathname={pathname} />
 		<MainLayout client:only="react" pathname={pathname}>
 			<div class="flex flex-col gap-8 xl:sticky xl:top-8 xl:self-start">
-				<Header client:only="react" pathname={pathname} />
-				<Nav client:only="react" pathname={pathname} />
+				<Header client:idle pathname={pathname} />
+				<Nav client:idle pathname={pathname} />
 			</div>
 			<div class="w-full">
 				<slot />
