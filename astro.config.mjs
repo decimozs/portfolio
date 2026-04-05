@@ -8,6 +8,7 @@ import { defineConfig } from "astro/config";
 // https://astro.build/config
 export default defineConfig({
   output: "static",
+  site: "https://marlonmartin.binspire.space",
   integrations: [react(), sitemap()],
 
   vite: {

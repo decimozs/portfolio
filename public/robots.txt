@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://marlonmartin.binspire.space/sitemap-index.xml

@@ -1,5 +1,3 @@
-"use client";
-
 import Lenis from "lenis";
 import { useEffect } from "react";
 
@@ -24,7 +22,7 @@ export default function SmoothScroll() {
 
     const rafId = requestAnimationFrame(raf);
 
-    // Watch for overflow hidden on body to stop lenis
+    // Watch for overflow hidden on body to pause lenis (e.g. hamburger menu open)
     const observer = new MutationObserver(() => {
       if (document.body.style.overflow === "hidden") {
         lenis.stop();

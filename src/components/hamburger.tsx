@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback, useEffect, useState } from "react";
 import { navItems, socialItems } from "@/lib/constant";
 
