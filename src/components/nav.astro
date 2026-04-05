@@ -1,0 +1,67 @@
+---
+import { navItems, socialItems } from "@/lib/constant";
+
+interface Props {
+  pathname: string;
+}
+
+const { pathname } = Astro.props;
+---
+
+<nav class="hidden xl:flex flex-col gap-8">
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-1">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class={`w-fit text-lg transition-colors duration-200 ${
+              pathname === item.href
+                ? "text-black cursor-default"
+                : "text-muted-foreground hover:text-black"
+            }`}
+            target={item.id === "resume" ? "_blank" : undefined}
+            rel={item.id === "resume" ? "noopener noreferrer" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-1">
+      {
+        socialItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-lg text-muted-foreground hover:text-black transition-colors duration-200 w-fit nav-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-platform={item.id}
+            data-label={item.label}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</nav>
+
+<script>
+  // PostHog tracking for social links in sidebar nav
+  document.querySelectorAll<HTMLAnchorElement>(".nav-social-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const platform = link.getAttribute("data-platform");
+      const label = link.getAttribute("data-label");
+      // biome-ignore lint/suspicious/noExplicitAny: PostHog loaded via inline snippet
+      (window as any).posthog?.capture("social_link_clicked", {
+        platform,
+        label,
+        source: "nav",
+      });
+    });
+  });
+</script>
