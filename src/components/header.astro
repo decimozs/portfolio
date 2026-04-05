@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import meImage from "../assets/me.jpg";
+
 interface Props {
   pathname: string;
 }
@@ -14,8 +17,8 @@ const subtitles: Record<string, string> = {
 
 <div class="select-none w-full">
   <div>
-    <img
-      src="/me.jpg"
+    <Image
+      src={meImage}
       alt="Marlon Martin"
       width={150}
       height={150}
