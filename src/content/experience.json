@@ -2,7 +2,7 @@
   {
     "id": "exist-software-labs",
     "title": "AI Engineer",
-    "company": "Exist Software Labs, Inc. – Internship, On-site",
+    "company": "Exist Software Labs, Inc. – Internship",
     "startDate": "2026-02-01T00:00:00.000Z",
     "description": [
       "Developed and presented a technical PoC for autonomous multi-agent medical fraud engine using LangGraph and MCP for stateful session persistence, real-time medical jargon translation, and voice-to-text integration; implemented a distributed AI Governance framework with custom LLM Guardrails to ensure deterministic alignment with security protocols across multiple providers to prove the feasibility of automated medical claims processing.",
@@ -12,7 +12,7 @@
   {
     "id": "freelance",
     "title": "Backend Engineer",
-    "company": "Freelance – Remote, Contractual",
+    "company": "Freelance",
     "startDate": "2024-06-01T00:00:00.000Z",
     "endDate": "2026-01-01T00:00:00.000Z",
     "description": [
@@ -33,7 +33,7 @@
   {
     "id": "binspire",
     "title": "Lead Software Engineer",
-    "company": "Binspire – Full-time",
+    "company": "Binspire",
     "startDate": "2023-10-01T00:00:00.000Z",
     "endDate": "2025-12-01T00:00:00.000Z",
     "description": [
