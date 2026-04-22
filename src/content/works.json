@@ -1,8 +1,8 @@
 [
   {
-    "id": "ollamaduct",
+    "id": "Ollamaduct",
     "title": "Ollamaduct",
-    "description": "Local-first AI gateway for Ollama - install via @ollamaduct/gateway - supporting both local and cloud-hybrid model orchestration; engineered multi-tenant workspaces, vector-based semantic caching (95% match rate) to reduce latency, and an automated Privacy Shield for redacting 25+ PII entity types via a high-performance Bun-powered CLI.",
+    "description": "Local-first AI gateway for Ollama - install via @ollamaduct/gateway (averaging 350 weekly downloads on the npm registry) - supporting both local and cloud-hybrid model orchestration; engineered multi-tenant workspaces, vector-based semantic caching (95% match rate) to reduce latency, and an automated Privacy Shield for redacting 25+ PII entity types via a high-performance Bun-powered CLI.",
     "link": "https://github.com/decimozs/ollamaduct",
     "category": [
       "TypeScript",
