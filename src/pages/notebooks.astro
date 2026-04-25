@@ -3,8 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 
 const title = "Notebooks";
-const description =
-  "A collection of Marlon Martin's notebooks, showcasing his thoughts, ideas, and insights on various topics, including technology, design, and personal reflections.";
 
 const notebooksCollection = await getCollection("notebooks");
 const notebookItems = notebooksCollection.map((entry) => entry.data);
@@ -22,64 +20,62 @@ const formatDate = (date: Date) => {
 ---
 
 <Layout title={title}>
-  <div class="mt-4 lg:mt-0 flex flex-col gap-6 w-full">
-    <div class="grid grid-cols-1 gap-4">
-      {sortedNotebooks.map((item) => (
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-col gap-4">
-            <div class="flex flex-row justify-between">
-              <p>{item.title}</p>
-              <p class="hidden xl:block text-sm">
-                {formatDate(item.date)}
-              </p>
-            </div>
-            <p>{item.description}</p>
-          </div>
-          <div class="text-sm">
-            {item.links.map((source) => (
-              <div>
-                <a
-                  href={source.href}
-                  class="text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black notebook-source-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-notebook-title={item.title}
-                  data-source-label={source.label}
-                >
-                  {source.label}
-                </a>
-              </div>
-            ))}
-          </div>
-          <div class="text-sm flex flex-row gap-2 flex-wrap">
-            {item.category.map((cat) => (
-              <p class="px-4 py-2 bg-accent">
-                {cat}
-              </p>
-            ))}
-          </div>
-          <div class="flex flex-row items-center justify-between text-sm">
-            <p class="xl:hidden">
-              {formatDate(item.date)}
+    <div class="mt-4 lg:mt-0 flex flex-col gap-6 w-full">
+        <div class="grid grid-cols-1 gap-4">
+            {
+                sortedNotebooks.map((item) => (
+                    <div class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-row justify-between">
+                                <p>{item.title}</p>
+                                <p class="hidden xl:block text-sm">
+                                    {formatDate(item.date)}
+                                </p>
+                            </div>
+                            <p>{item.description}</p>
+                        </div>
+                        <div class="text-sm">
+                            {item.links.map((source) => (
+                                <div>
+                                    <a
+                                        href={source.href}
+                                        class="text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black notebook-source-link"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        data-notebook-title={item.title}
+                                        data-source-label={source.label}
+                                    >
+                                        {source.label}
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                        <div class="text-sm flex flex-row gap-2 flex-wrap">
+                            {item.category.map((cat) => (
+                                <p class="px-4 py-2 bg-accent">{cat}</p>
+                            ))}
+                        </div>
+                        <div class="flex flex-row items-center justify-between text-sm">
+                            <p class="xl:hidden">{formatDate(item.date)}</p>
+                        </div>
+                    </div>
+                ))
+            }
+            <p class="text-lg text-muted-foreground">
+                © 2026 Marlon Martin. All rights reserved.
             </p>
-          </div>
         </div>
-      ))}
-      <p class="text-lg text-muted-foreground">
-        © 2026 Marlon Martin. All rights reserved.
-      </p>
     </div>
-  </div>
 </Layout>
 
 <script is:inline>
-  document.querySelectorAll('.notebook-source-link').forEach(function(link) {
-    link.addEventListener('click', function() {
-      window.posthog?.capture('notebook_source_clicked', {
-        notebook_title: link.getAttribute('data-notebook-title'),
-        source_label: link.getAttribute('data-source-label'),
-        source_url: link.getAttribute('href')
-      });
+    document.querySelectorAll(".notebook-source-link").forEach(function (link) {
+        link.addEventListener("click", function () {
+            window.posthog?.capture("notebook_source_clicked", {
+                notebook_title: link.getAttribute("data-notebook-title"),
+                source_label: link.getAttribute("data-source-label"),
+                source_url: link.getAttribute("href"),
+            });
+        });
     });
-  });
 </script>
