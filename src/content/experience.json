@@ -43,8 +43,8 @@
   },
   {
     "id": "ccs-academic-competition",
-    "title": "CCS Academic Competition",
-    "company": "Participant",
+    "title": "Participant",
+    "company": "CCS Academic Competition",
     "startDate": "2023-02-01T00:00:00.000Z",
     "endDate": "2023-02-01T00:00:00.000Z",
     "description": [
@@ -53,8 +53,8 @@
   },
   {
     "id": "open-source",
-    "title": "Open Source Software Developer",
-    "company": "Contributor & Maintainer",
+    "title": "Contributor & Maintainer",
+    "company": "Open Source Software Developer",
     "startDate": "2023-01-01T00:00:00.000Z",
     "description": [
       "Contributed to the Model Context Protocol (MCP) specifications within the LangChain ecosystem, specifically defining HTTP transport mechanisms for server-side weather integrations to ensure predictable request-response cycles.",
@@ -66,8 +66,8 @@
   },
   {
     "id": "hello-world",
-    "title": "Hello World!",
-    "company": "Student",
+    "title": "Student",
+    "company": "Hello World!",
     "startDate": "2019-12-01T00:00:00.000Z",
     "description": ["Wrote my first line of code."]
   }

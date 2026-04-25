@@ -1,5 +1,29 @@
 [
   {
+    "id": "binspire",
+    "title": "Binspire",
+    "description": "A Smart Waste Management System (SWMS) powered by real-time agents to make waste collection more efficient, sustainable, and transparent.",
+    "link": "https://www.binspire.space/",
+    "category": [
+      "IoT",
+      "HiveMQ",
+      "Nginx",
+      "Hono",
+      "AWS",
+      "MCP",
+      "Azure AI",
+      "LangGraph"
+    ],
+    "awards": [
+      {
+        "event": "14th IT Skills Olympics - IoT Category",
+        "role": "Lead Software Engineer & Team Leader",
+        "place": "1st Runner-Up",
+        "date": "November 2025"
+      }
+    ]
+  },
+  {
     "id": "Ollamaduct",
     "title": "Ollamaduct",
     "description": "Local-first AI gateway for Ollama - install via @ollamaduct/gateway (averaging 350 weekly downloads on the npm registry) - supporting both local and cloud-hybrid model orchestration; engineered multi-tenant workspaces, vector-based semantic caching (95% match rate) to reduce latency, and an automated Privacy Shield for redacting 25+ PII entity types via a high-performance Bun-powered CLI.",
@@ -50,30 +74,6 @@
       "LangGraph",
       "MCP",
       "Multi-Agent Systems"
-    ]
-  },
-  {
-    "id": "binspire",
-    "title": "Binspire",
-    "description": "A Smart Waste Management System (SWMS) powered by real-time agents to make waste collection more efficient, sustainable, and transparent.",
-    "link": "https://www.binspire.space/",
-    "category": [
-      "IoT",
-      "HiveMQ",
-      "Nginx",
-      "Hono",
-      "AWS",
-      "MCP",
-      "Azure AI",
-      "LangGraph"
-    ],
-    "awards": [
-      {
-        "event": "14th IT Skills Olympics - IoT Category",
-        "role": "Lead Software Engineer & Team Leader",
-        "place": "1st Runner-Up",
-        "date": "November 2025"
-      }
     ]
   },
   {

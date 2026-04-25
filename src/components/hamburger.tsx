@@ -110,8 +110,8 @@ export default function Hamburger({ pathname }: { pathname: string }) {
           aria-expanded={open}
           aria-label="Toggle menu"
         >
-          <span className="block h-[2px] w-5 bg-black" />
-          <span className="block h-[2px] w-5 bg-black" />
+          <span className="block h-0.5 w-5 bg-black" />
+          <span className="block h-0.5 w-5 bg-black" />
         </button>
       </div>
 
