@@ -14,7 +14,7 @@ const escapeRegExp = (str: string) =>
 ---
 
 <Layout title={title}>
-  <div class="mt-4 lg:mt-0 flex flex-col gap-6">
+  <div class="mt-4 lg:mt-0 flex flex-col gap-16">
     {projectItems.map((item) => {
       const highlights = item.highlights || [];
       const texts = highlights.map((h) => h.text);
@@ -28,7 +28,7 @@ const escapeRegExp = (str: string) =>
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-fit underline-animate project-link"
+            class="w-fit underline-animate project-link -mb-2"
             data-project-title={item.title}
           >
             {item.title}
@@ -95,33 +95,6 @@ const escapeRegExp = (str: string) =>
           </span>
         </a>{" "}
         to check what I'm building.
-      </p>
-
-      <p>
-        You can also deep dive into my{" "}
-        <a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-block"
-          id="works-resume-link"
-        >
-          <span class="cursor-pointer text-muted-foreground underline-animate hover:text-black transition-colors">
-            resume
-          </span>
-        </a>{" "}
-        to learn more about me or connect with me on{" "}
-        <a
-          href="https://linkedin.com/in/decimomartin"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-block"
-        >
-          <span class="cursor-pointer text-muted-foreground underline-animate hover:text-black transition-colors">
-            @in/decimomartin
-          </span>
-        </a>
-        .
       </p>
       <p class="text-lg text-muted-foreground">
         © 2026 Marlon Martin. All rights reserved.
