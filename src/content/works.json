@@ -77,13 +77,6 @@
     ]
   },
   {
-    "id": "blepp-reviewer",
-    "title": "BLEPP Reviewer",
-    "description": "An AI-powered exam preparation companion for Board Licensure Examination for Psychometricians (BLEPP); featuring an intelligent review agent that provides timed practice exams, tracks progress with analytics, and works offline through Progressive Web App (PWA) technology.",
-    "link": "https://github.com/decimozs/blepp-reviewer",
-    "category": ["TypeScript", "AI Agent", "PWA"]
-  },
-  {
     "id": "vantage",
     "title": "Vantage",
     "description": "A local-first, high-precision resume intelligence engine engineered to uncover the \"why\" behind career performance, analyzes skill density and industry alignment providing data-driven insights without sensitive data ever leaving your local environment.",
@@ -142,18 +135,6 @@
       "Matplotlib",
       "Seaborn",
       "Scikit-learn"
-    ]
-  },
-  {
-    "id": "art",
-    "title": "ART",
-    "description": "A execution time measurement, profiling and efficiency analysis to evaluate algorithmic complexity in practice.",
-    "link": "https://github.com/decimozs/art-cli",
-    "category": [
-      "Data Structures & Algorithms",
-      "Big O Notation",
-      "Benchmarking",
-      "CLI"
     ]
   }
 ]
