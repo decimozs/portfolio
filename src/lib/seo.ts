@@ -1,8 +1,8 @@
 const url = "https://marlonmartin.binspire.space";
 const name = "Marlon Martin";
-const title = "Marlon Martin - Software Engineer";
+const title = "Marlon Martin - AI Software Engineer";
 const description =
-  "Based in Manila. I love building things that actually make a difference from scalable backend systems to creative side projects.";
+  "Based in Manila. I love building things that actually make a difference from scalable backend and generative ai systems to creative side projects.";
 
 interface SeoConfig {
   metadataBase: URL;
@@ -67,13 +67,9 @@ export const seo: SeoConfig = {
   keywords: [
     "Backend Engineer",
     "Software Engineer",
-    "Full Stack Developer",
     "Philippines",
     "Manila",
-    "Systems Architect",
     "Portfolio",
-    "TypeScript",
-    "Node.js",
     "AI Engineer",
   ],
   authors: [{ name: "Marlon Martin", url: url }],
