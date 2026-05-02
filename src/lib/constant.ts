@@ -45,7 +45,7 @@ export const socialItems: SocialItem[] = [
   },
   {
     id: "github",
-    label: "@github/decimozs",
+    label: "@gh/decimozs",
     href: "https://github.com/decimozs",
   },
   {
