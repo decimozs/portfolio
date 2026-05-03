@@ -24,16 +24,15 @@ const formatDate = (date: Date) => {
         <div class="grid grid-cols-1 gap-4">
             {
                 sortedNotebooks.map((item) => (
-                    <div class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-14">
                         <div class="flex flex-col gap-4">
                             <div class="flex flex-row justify-between">
-                                <p>{item.title}</p>
+                                <p class="-mb-2">{item.title}</p>
                                 <p class="hidden xl:block text-sm">
                                     {formatDate(item.date)}
                                 </p>
                             </div>
                             <p>{item.description}</p>
-                        </div>
                         <div class="text-sm">
                             {item.links.map((source) => (
                                 <div>
@@ -54,6 +53,7 @@ const formatDate = (date: Date) => {
                             {item.category.map((cat) => (
                                 <p class="px-4 py-2 bg-accent">{cat}</p>
                             ))}
+                        </div>
                         </div>
                         <div class="flex flex-row items-center justify-between text-sm">
                             <p class="xl:hidden">{formatDate(item.date)}</p>
