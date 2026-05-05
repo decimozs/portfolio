@@ -1,25 +1,25 @@
 [
   {
-    "id": "agentic-design-patterns",
-    "title": "Agentic Design Patterns",
-    "description": "Exploring the frontier of AI autonomy. Inspired by Antonio Gulli, this notebook synthesizes the architectural patterns required to move beyond simple prompts toward multi-agent coordination and ethical autonomous frameworks.",
+    "id": "building-effective-agents",
+    "title": "Building Effective Agents",
+    "description": "A hands-on exploration of building effective agents with LangGraph, inspired by Anthropic's guide on simple, composable agent patterns, routing, parallelization, orchestration, evaluation loops, and tool use.",
     "links": [
       {
-        "label": "@github.com/decimozs/agentic-design-patterns-notebook",
-        "href": "https://github.com/decimozs/agentic-design-patterns-notebook"
+        "label": "@github.com/decimozs/building-effective-agents",
+        "href": "https://github.com/decimozs/building-effective-agents"
       },
       {
-        "label": "@github.com/sarwarbeing-ai/Agentic_Design_Patterns",
-        "href": "https://github.com/sarwarbeing-ai/Agentic_Design_Patterns"
+        "label": "@anthropic.com/engineering/building-effective-agents",
+        "href": "https://www.anthropic.com/engineering/building-effective-agents"
       }
     ],
     "category": [
       "Artificial Intelligence",
-      "Architecture",
-      "Agents",
-      "Retrieval-Augmented Generation"
+      "LLM Agents",
+      "LangGraph",
+      "Workflow Design"
     ],
-    "date": "2025-09-01T00:00:00.000Z"
+    "date": "2026-05-05T00:00:00.000Z"
   },
   {
     "id": "competitive-programming",
