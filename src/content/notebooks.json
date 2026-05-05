@@ -22,6 +22,28 @@
     "date": "2026-05-05T00:00:00.000Z"
   },
   {
+    "id": "agentic-design-patterns",
+    "title": "Agentic Design Patterns",
+    "description": "Exploring the frontier of AI autonomy. Inspired by Antonio Gulli, this notebook synthesizes the architectural patterns required to move beyond simple prompts toward multi-agent coordination and ethical autonomous frameworks.",
+    "links": [
+      {
+        "label": "@github.com/decimozs/agentic-design-patterns-notebook",
+        "href": "https://github.com/decimozs/agentic-design-patterns-notebook"
+      },
+      {
+        "label": "@github.com/sarwarbeing-ai/Agentic_Design_Patterns",
+        "href": "https://github.com/sarwarbeing-ai/Agentic_Design_Patterns"
+      }
+    ],
+    "category": [
+      "Artificial Intelligence",
+      "Architecture",
+      "Agents",
+      "Retrieval-Augmented Generation"
+    ],
+    "date": "2025-09-01T00:00:00.000Z"
+  },
+  {
     "id": "competitive-programming",
     "title": "Competitive Programming",
     "description": "A deep dive into algorithmic efficiency. This entry chronicles my journey through complex problem-solving, documenting the evolution of my logic from academic machine problems to optimized competitive solutions.",
