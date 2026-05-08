@@ -1,5 +1,20 @@
 [
   {
+    "id": "seia",
+    "title": "SEIA",
+    "description": "An intelligent RPA agent that automates expense auditing and reporting; uses multi-stage reasoning to detect policy violations and ensure financial compliance.",
+    "link": "https://github.com/decimozs/seia",
+    "category": [
+      "RPA",
+      "AI Agent",
+      "Automation",
+      "UiPath",
+      "LangGraph",
+      "Haystack",
+      "Langfuse"
+    ]
+  },
+  {
     "id": "binspire",
     "title": "Binspire",
     "description": "A Smart Waste Management System (SWMS) powered by real-time agents to make waste collection more efficient, sustainable, and transparent.",
