@@ -128,10 +128,13 @@ export default function Hamburger({ pathname }: { pathname: string }) {
                 />
               ))}
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="mt-4 flex flex-col gap-1">
               {socialItems.map((item) => (
                 <SocialLink key={item.id} item={item} />
               ))}
+            </div>
+            <div className="block text-sm text-muted-foreground fixed bottom-4 left-4 lg:hidden">
+              <p>© 2026 Marlon Martin. All rights reserved.</p>
             </div>
           </div>
         </div>

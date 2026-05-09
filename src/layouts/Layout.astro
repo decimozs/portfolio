@@ -50,7 +50,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
         <!-- SmoothScroll: returns null, client:only is correct here -->
         <SmoothScroll client:only="react" />
         <Hamburger client:only="react" pathname={pathname} />
-        <div class="fixed text-sm bottom-4 z-50 left-4 opacity-50 text-muted-foreground hover:text-black hover:opacity-100">
+        <div class="hidden lg:block fixed text-sm bottom-4 z-50 left-4 opacity-50 text-muted-foreground hover:text-black hover:opacity-100">
         <p>© 2026 Marlon Martin. All rights reserved.</p>
         </div>
         <MainLayout>
