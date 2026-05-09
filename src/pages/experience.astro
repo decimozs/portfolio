@@ -22,36 +22,48 @@ const formatDate = (date: Date) => {
 ---
 
 <Layout title={title}>
-  <div class="mt-4 lg:mt-0 flex flex-col gap-16 w-full">
-    {sortedExperience.map((item) => (
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-row justify-between">
-          <div>
-            <p class="w-fit">{item.title}</p>
-            <p>{item.company}</p>
-            <div class="flex flex-row mt-1 gap-2 text-sm lg:hidden">
-              <p>{formatDate(item.startDate)}</p>
-              <p>-</p>
-              <p>{item.endDate ? formatDate(item.endDate) : "Present"}</p>
+  <div class="mt-4 lg:mt-0 flex flex-col gap-14 w-full">
+    <div class="relative flex flex-col gap-14 pl-4">
+      <div
+        aria-hidden="true"
+        class="absolute -left-4 top-0 bottom-0 w-0.5 bg-accent"
+      ></div>
+      {sortedExperience.map((item) => (
+        <div class="relative flex flex-col gap-4">
+          <div
+            aria-hidden="true"
+            class="absolute -left-8 top-1.5 size-3 -translate-x-1/2 rounded-full bg-accent"
+          ></div>
+          <div class="flex flex-row justify-between">
+            <div>
+              <p class="w-fit">{item.title}</p>
+              <p>{item.company}</p>
+              <div class="flex flex-row mt-1 gap-2 text-sm lg:hidden">
+                {item.id === "hello-world" ? (
+                  <p>{formatDate(item.startDate)}</p>
+                ) : (
+                  <>
+                    <p>{formatDate(item.startDate)}</p>
+                    <p>-</p>
+                    <p>{item.endDate ? formatDate(item.endDate) : "Present"}</p>
+                  </>
+                )}
+              </div>
+            </div>
+            <div class="hidden lg:flex flex-row mt-1 gap-2 text-sm">
+              {item.id === "hello-world" ? (
+                <p>{formatDate(item.startDate)}</p>
+              ) : (
+                <>
+                  <p>{formatDate(item.startDate)}</p>
+                  <p>-</p>
+                  <p>{item.endDate ? formatDate(item.endDate) : "Present"}</p>
+                </>
+              )}
             </div>
           </div>
-          <div class="hidden lg:flex flex-row mt-1 gap-2 text-sm">
-            <p>{formatDate(item.startDate)}</p>
-            <p>-</p>
-            <p>{item.endDate ? formatDate(item.endDate) : "Present"}</p>
-          </div>
         </div>
-        <div class="flex flex-col gap-4 text-sm">
-          {item.description.map((desc) => (
-            <p class="px-4 py-2 bg-accent">
-              {desc}
-            </p>
-          ))}
-        </div>
-      </div>
-    ))}
-    <p class="text-lg text-muted-foreground">
-      © 2026 Marlon Martin. All rights reserved.
-    </p>
+      ))}
+    </div>
   </div>
 </Layout>
