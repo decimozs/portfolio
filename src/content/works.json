@@ -15,6 +15,20 @@
     ]
   },
   {
+    "id": "medcurial-ai",
+    "title": "Medcurial AI",
+    "description": "AI-powered signature fraud detection for medical documents, built as a multi-service system with RAG, CV verification, and agentic workflows to accelerate analysis and automate claims review.",
+    "link": "https://github.com/decimozs/medcurial-ai",
+    "category": [
+      "AI",
+      "Computer Vision",
+      "LangGraph",
+      "FastAPI",
+      "Machine Learning",
+      "Multi-Agent System"
+    ]
+  },
+  {
     "id": "binspire",
     "title": "Binspire",
     "description": "A Smart Waste Management System (SWMS) powered by real-time agents to make waste collection more efficient, sustainable, and transparent.",

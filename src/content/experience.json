@@ -5,8 +5,7 @@
     "company": "Exist Software Labs, Inc. – Internship",
     "startDate": "2026-02-01T00:00:00.000Z",
     "description": [
-      "Developed and presented a technical PoC for autonomous multi-agent medical fraud engine using LangGraph and MCP for stateful session persistence, real-time medical jargon translation, and voice-to-text integration; implemented a distributed AI Governance framework with custom LLM Guardrails to ensure deterministic alignment with security protocols across multiple providers to prove the feasibility of automated medical claims processing.",
-      "Engineered a Hybrid RAG pipeline utilizing Azure AI Search (BM25 + Vector Retrieval) with cross-encoder reranking and a Computer Vision pipeline (PyTorch, YOLO, SAM3, Roboflow) for vector-based signature verification; developed a high-concurrency synchronization layer to enable real-time collaborative audits and presence awareness during claim reviews."
+      "Optimized document analysis by fine-tuning SLMs, cutting PoC latency from 2 minutes to 40 seconds. Built a Hybrid RAG stack with Azure AI Search + reranking to reduce analysis time by 65%. Implemented AI governance guardrails for deterministic security and shipped CV-based signature verification with PyTorch/YOLO/SAM3 to enable claims automation."
     ]
   },
   {
@@ -16,14 +15,13 @@
     "startDate": "2024-06-01T00:00:00.000Z",
     "endDate": "2026-01-01T00:00:00.000Z",
     "description": [
-      "Architected a high-concurrency lending and financial infrastructure using DDD principles and state-machine audit systems for 100% lifecycle traceability; engineered a secure hybrid RBAC/PBAC model with idempotent, atomic transactions and automated test-driven suites to ensure system reliability and granular access control.",
-      "Optimized and automated CI/CD workflows using Github Actions and Turborepo, implementing remote caching to eliminate redundant build tasks. Improved the global build-to-deployment pipeline from 41 minutes to under 5 minutes (an 87% reduction)."
+      "Architected lending infrastructure using DDD + state machines for full financial lifecycle traceability and strong data integrity. Built hybrid RBAC/PBAC with atomic transactions and automated TDD suites to keep reliability high and coverage above 95%. Optimized CI/CD with Turborepo + remote caching, reducing build-to-deploy time by 87% (41m → <5m)."
     ]
   },
   {
     "id": "it-skills-olympics",
-    "title": "14th IT Skills Olympics",
-    "company": "Team Leader",
+    "title": "Team Leader",
+    "company": "14th IT Skills Olympics",
     "startDate": "2025-11-01T00:00:00.000Z",
     "endDate": "2025-11-01T00:00:00.000Z",
     "description": [
@@ -35,10 +33,9 @@
     "title": "Lead Software Engineer",
     "company": "Binspire",
     "startDate": "2023-10-01T00:00:00.000Z",
-    "endDate": "2025-12-01T00:00:00.000Z",
+    "endDate": "2025-11-01T00:00:00.000Z",
     "description": [
-      "Directed the end-to-end engineering lifecycle of a production-ready AI Smart-City solution, from cost-finance modeling to multi-node deployment; architected an autonomous Agentic Engine using a custom MCP (Model Context Protocol) Server to expose IoT data as executable tools for multi-model LLM orchestration.",
-      "Engineered a high-performance IoT fleet-management system using Raspberry Pi, MQTT, and WebSockets for Arcovia City; optimized collection routes via agentic reasoning and reduced module startup time by 90% (<10s) while implementing a vision pipeline with QR-code verification for 100% log accountability."
+      "Led end-to-end software + AI delivery for smart-city systems, from cost modeling to multi-node deployment. Built an autonomous Agentic Engine with custom MCP servers to expose IoT data for multi-model orchestration. Shipped Raspberry Pi/MQTT fleet management and CV-based QR verification, cutting module startup time by 90% and improving urban routing efficiency."
     ]
   },
   {
@@ -57,11 +54,7 @@
     "company": "Open Source Software Developer",
     "startDate": "2023-01-01T00:00:00.000Z",
     "description": [
-      "Contributed to the Model Context Protocol (MCP) specifications within the LangChain ecosystem, specifically defining HTTP transport mechanisms for server-side weather integrations to ensure predictable request-response cycles.",
-      "Engineered a controlled data flow pattern for search systems, implementing URL-persisted state using nuqs. This ensured strict synchronization between the client-side state and backend query parameters, improving the reliability of filtered data fetching.",
-      "Developed centralized utility layers in TypeScript to standardize data transformation and category formatting. This reduced technical debt by abstracting business logic away from the presentation layer and ensuring data consistency across multiple services.",
-      "Diagnosed and resolved synchronization conflicts between third-party geospatial libraries and application state. Improved system stability by managing event propagation and removing redundant control logic.",
-      "Authored and refined technical documentation for core AI orchestration frameworks, focusing on clarifying server-to-server communication headers and setup procedures for global developers."
+      "Contributed to MCP specifications in the LangChain ecosystem, defining HTTP transport for server-side weather integrations. Engineered URL-persisted state using nuqs for strict client-backend sync in search systems. Built TypeScript utility layers to standardize data transformation and reduce technical debt. Resolved geospatial library conflicts and authored technical documentation for AI orchestration frameworks."
     ]
   },
   {
