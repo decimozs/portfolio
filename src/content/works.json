@@ -2,14 +2,16 @@
   {
     "id": "corsair",
     "title": "Corsair",
-    "description": "A high-throughput FastAPI and PaddleOCR microservice with an abstracted architecture for swappable model backends. It features an async processing pipeline with an in-memory background queue (with TTL handling) and leverages Gotenberg to convert office files, URLs, and HTML into PDFs before executing layout recognition to return structured JSON, markdown, or XML.",
+    "description": "A high-throughput PaddleOCR microservice with an abstracted architecture for swappable model backends. It features an async processing pipeline with an in-memory background queue (with TTL handling) and leverages Gotenberg to convert office files, URLs, and HTML into PDFs before executing layout recognition to return structured JSON, markdown, or XML.",
     "link": "https://github.com/decimozs/corsair",
     "category": [
       "OCR",
       "Microservice",
       "Document Intelligence",
       "Gotenberg",
-      "Structured Data"
+      "Docker",
+      "Structured Data",
+      "FastAPI"
     ]
   },
   {
