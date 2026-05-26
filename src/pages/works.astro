@@ -13,7 +13,7 @@ const escapeRegExp = (str: string) =>
   str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 ---
 
-<Layout title={title}>
+<Layout title={title} description={description}>
   <div class="mt-4 xl:mt-0 flex flex-col gap-16">
     {projectItems.map((item) => {
       const highlights = item.highlights || [];

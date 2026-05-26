@@ -11,16 +11,17 @@ import "../styles/globals.css";
 
 interface Props {
   title?: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
 <!doctype html>
 <html lang="en" class="h-full">
     <head>
-        <SEO title={title} />
+        <SEO title={title} description={description} />
         <PostHog />
         <link
             rel="preload"
