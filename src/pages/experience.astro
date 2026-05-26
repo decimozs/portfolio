@@ -3,8 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 
 const title = "Experience";
-const description =
-  "A detailed overview of Marlon Martin's professional experience, including roles, responsibilities, and achievements across various industries and positions.";
 
 const experienceCollection = await getCollection("experience");
 const experienceItems = experienceCollection.map((entry) => entry.data);
@@ -13,55 +11,111 @@ const sortedExperience = [...experienceItems].sort(
   (a, b) => b.startDate.getTime() - a.startDate.getTime(),
 );
 
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  });
-};
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+
+// Group consecutive entries by company name
+type ExperienceItem = (typeof sortedExperience)[number];
+type Group = { company: string; roles: ExperienceItem[] };
+
+const grouped: Group[] = sortedExperience.reduce((acc: Group[], item) => {
+  const last = acc[acc.length - 1];
+  // Strip suffixes like "– Internship" for grouping key
+  const companyBase = item.company.split("–")[0]?.trim();
+  if (last && last.company === companyBase) {
+    last.roles.push(item);
+  } else {
+    acc.push({ company: companyBase || "", roles: [item] });
+  }
+  return acc;
+}, []);
 ---
 
 <Layout title={title}>
-  <div class="mt-4 lg:mt-0 flex flex-col gap-14 w-full">
+  <div class="ml-5 mt-4 xl:mt-0 flex flex-col gap-14 w-full xl:ml-0">
     <div class="relative flex flex-col gap-14 pl-4">
-      <div
-        aria-hidden="true"
-        class="absolute -left-4 top-0 bottom-0 w-0.5 bg-accent"
-      ></div>
-      {sortedExperience.map((item) => (
-        <div class="relative flex flex-col gap-4">
+      <div aria-hidden="true" class="absolute -left-4 top-0 bottom-0 w-0.5 bg-accent"></div>
+
+      {grouped.map((group) => (
+        <div class="relative flex flex-col gap-2">
+          {/* Main timeline dot */}
           <div
             aria-hidden="true"
             class="absolute -left-8 top-1.5 size-3 -translate-x-1/2 rounded-full bg-accent"
           ></div>
-          <div class="flex flex-row justify-between">
-            <div>
-              <p class="w-fit">{item.title}</p>
-              <p>{item.company}</p>
-              <div class="flex flex-row mt-1 gap-2 text-sm lg:hidden">
-                {item.id === "hello-world" ? (
-                  <p>{formatDate(item.startDate)}</p>
+
+          {/* Company name header (only shown when grouped) */}
+          {group.roles.length > 1 && (
+            <p>{group.company}</p>
+          )}
+
+          {group.roles.length === 1 ? (
+            /* ── Single role: original layout ── */
+            <div class="flex flex-row justify-between">
+              <div>
+                <p class="w-fit">{group.roles[0].title}</p>
+                <p>{group.roles[0].company}</p>
+                <div class="flex flex-row mt-1 gap-2 text-sm lg:hidden">
+                  {group.roles[0].id === "hello-world" ? (
+                    <p>{formatDate(group.roles[0].startDate)}</p>
+                  ) : (
+                    <>
+                      <p>{formatDate(group.roles[0].startDate)}</p>
+                      <p>-</p>
+                      <p>{group.roles[0].endDate ? formatDate(group.roles[0].endDate) : "Present"}</p>
+                    </>
+                  )}
+                </div>
+              </div>
+              <div class="hidden lg:flex flex-row mt-1 gap-2 text-sm">
+                {group.roles[0].id === "hello-world" ? (
+                  <p>{formatDate(group.roles[0].startDate)}</p>
                 ) : (
                   <>
-                    <p>{formatDate(item.startDate)}</p>
+                    <p>{formatDate(group.roles[0].startDate)}</p>
                     <p>-</p>
-                    <p>{item.endDate ? formatDate(item.endDate) : "Present"}</p>
+                    <p>{group.roles[0].endDate ? formatDate(group.roles[0].endDate) : "Present"}</p>
                   </>
                 )}
               </div>
             </div>
-            <div class="hidden lg:flex flex-row mt-1 gap-2 text-sm">
-              {item.id === "hello-world" ? (
-                <p>{formatDate(item.startDate)}</p>
-              ) : (
-                <>
-                  <p>{formatDate(item.startDate)}</p>
-                  <p>-</p>
-                  <p>{item.endDate ? formatDate(item.endDate) : "Present"}</p>
-                </>
-              )}
+          ) : (
+            /* ── Multiple roles: nested inner timeline ── */
+            <div class="relative flex flex-col gap-6 pl-4 mt-1">
+              <div aria-hidden="true" class="absolute -left-0 top-0 bottom-0 w-px bg-accent/40"></div>
+
+              {group.roles.map((role) => (
+                <div class="relative flex flex-row justify-between">
+                  {/* Inner dot */}
+                  <div
+                    aria-hidden="true"
+                    class="absolute -left-4 top-1.5 size-2 -translate-x-1/2 rounded-full bg-accent/60"
+                  ></div>
+
+                  <div>
+                    <p class="w-fit">{role.title}</p>
+                    {/* Show role suffix like "Internship" if present */}
+                    {role.company.includes("–") && (
+                      <p class="text-sm text-muted-foreground">
+                        {role.company.split("–")[1]?.trim()}
+                      </p>
+                    )}
+                    <div class="flex flex-row mt-1 gap-2 text-sm lg:hidden">
+                      <p>{formatDate(role.startDate)}</p>
+                      <p>-</p>
+                      <p>{role.endDate ? formatDate(role.endDate) : "Present"}</p>
+                    </div>
+                  </div>
+
+                  <div class="hidden lg:flex flex-row mt-1 gap-2 text-sm">
+                    <p>{formatDate(role.startDate)}</p>
+                    <p>-</p>
+                    <p>{role.endDate ? formatDate(role.endDate) : "Present"}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
+          )}
         </div>
       ))}
     </div>
