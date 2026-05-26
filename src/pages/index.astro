@@ -87,23 +87,25 @@ const works = worksCollection.map((entry) => entry.data);
     </p>
 </Layout>
 
-<script is:inline>
+<script>
+    import { track } from "@/lib/tracking";
+
     document
         .getElementById("resume-link")
         ?.addEventListener("click", function () {
-            window.posthog?.capture("resume_clicked", { source: "about" });
+            track("resume_clicked", { source: "about" });
         });
     document
         .getElementById("github-profile-link")
         ?.addEventListener("click", function () {
-            window.posthog?.capture("github_profile_clicked", {
+            track("github_profile_clicked", {
                 source: "about",
             });
         });
     document
         .getElementById("linkedin-profile-link")
         ?.addEventListener("click", function () {
-            window.posthog?.capture("linkedin_profile_clicked", {
+            track("linkedin_profile_clicked", {
                 source: "about",
             });
         });

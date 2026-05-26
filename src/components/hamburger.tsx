@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { navItems, socialItems } from "@/lib/constant";
+import { track } from "@/lib/tracking";
 
 function NavLink({
   item,
@@ -48,8 +49,7 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => {
-        // biome-ignore lint/suspicious/noExplicitAny: PostHog loaded via inline snippet
-        (window as any).posthog?.capture("social_link_clicked", {
+        track("social_link_clicked", {
           platform: item.id,
           label: item.label,
           source: "hamburger",
@@ -67,8 +67,7 @@ export default function Hamburger({ pathname }: { pathname: string }) {
   const toggleMenu = useCallback(() => {
     setOpen((prev) => {
       if (!prev) {
-        // biome-ignore lint/suspicious/noExplicitAny: PostHog loaded via inline snippet
-        (window as any).posthog?.capture("hamburger_menu_opened");
+        track("hamburger_menu_opened");
       }
       return !prev;
     });
