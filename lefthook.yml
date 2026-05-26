@@ -2,6 +2,12 @@ pre-commit:
   parallel: true
   commands:
     biome-check:
-      glob: "**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      glob: "**/*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,astro,css}"
       run: bunx biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
       stage_fixed: true
+
+pre-push:
+  parallel: true
+  commands:
+    biome-ci:
+      run: bun run biome ci
