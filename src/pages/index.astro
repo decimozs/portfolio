@@ -1,11 +1,15 @@
 ---
-import notebooks from "@/content/notebooks.json";
-import works from "@/content/works.json";
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 
-const recentNotebooks = [...notebooks]
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+const notebooksCollection = await getCollection("notebooks");
+const notebookItems = notebooksCollection.map((entry) => entry.data);
+const recentNotebooks = [...notebookItems]
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
   .slice(0, 4);
+
+const worksCollection = await getCollection("works");
+const works = worksCollection.map((entry) => entry.data);
 ---
 
 <Layout>

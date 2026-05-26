@@ -65,7 +65,6 @@ Use this playbook to match the maintainer's expectations when editing the portfo
 ## 11. Component Authoring Patterns
 - Default to server components; add `"use client"` only when a hook, event handler, or browser API demands it.
 - Keep components small; lift reusable visuals into `src/components` and compose them in route files.
-- Always merge class names via `cn()` from `@/lib/utils` to avoid conflicting Tailwind tokens.
 - Accept `className` passthrough props on reusable components.
 
 ## 12. Tailwind & Styling Guidance

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { formatDate } from "@/lib/date";
 import Layout from "../layouts/Layout.astro";
 
 const title = "Experience";
@@ -10,9 +11,6 @@ const experienceItems = experienceCollection.map((entry) => entry.data);
 const sortedExperience = [...experienceItems].sort(
   (a, b) => b.startDate.getTime() - a.startDate.getTime(),
 );
-
-const formatDate = (date: Date) =>
-  date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 
 // Group consecutive entries by company name
 type ExperienceItem = (typeof sortedExperience)[number];
