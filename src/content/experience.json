@@ -4,9 +4,17 @@
     "title": "AI Engineer",
     "company": "Exist Software Labs, Inc. – Internship",
     "startDate": "2026-02-01T00:00:00.000Z",
+    "endDate": "2026-05-01T00:00:00.000Z",
     "description": [
       "Optimized document analysis by fine-tuning SLMs, cutting PoC latency from 2 minutes to 40 seconds. Built a Hybrid RAG stack with Azure AI Search + reranking to reduce analysis time by 65%. Implemented AI governance guardrails for deterministic security and shipped CV-based signature verification with PyTorch/YOLO/SAM3 to enable claims automation."
     ]
+  },
+  {
+    "id": "exist-software-labs-trainee",
+    "title": "AI Engineer",
+    "company": "Exist Software Labs, Inc. – Trainee",
+    "startDate": "2026-05-01T00:00:00.000Z",
+    "description": ["..."]
   },
   {
     "id": "freelance",
