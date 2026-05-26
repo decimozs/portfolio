@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { navItems, socialItems } from "@/lib/constant";
 import { track } from "@/lib/tracking";
 
-function NavLink({
+const NavLink = memo(function NavLink({
   item,
   pathname,
   onClick,
@@ -32,15 +32,23 @@ function NavLink({
       {item.label}
     </a>
   );
-}
+});
 
-function SocialLink({
+const SocialLink = memo(function SocialLink({
   item,
   className,
 }: {
   item: { id: string; label: string; href: string };
   className?: string;
 }) {
+  const handleClick = useCallback(() => {
+    track("social_link_clicked", {
+      platform: item.id,
+      label: item.label,
+      source: "hamburger",
+    });
+  }, [item.id, item.label]);
+
   return (
     <a
       href={item.href}
@@ -48,18 +56,12 @@ function SocialLink({
       className={`text-muted-foreground w-fit transition-all duration-300 ease-in-out hover:text-black ${className ?? ""}`}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() => {
-        track("social_link_clicked", {
-          platform: item.id,
-          label: item.label,
-          source: "hamburger",
-        });
-      }}
+      onClick={handleClick}
     >
       {item.label}
     </a>
   );
-}
+});
 
 export default function Hamburger({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
