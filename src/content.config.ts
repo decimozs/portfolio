@@ -41,7 +41,6 @@ const experience = defineCollection({
       .string()
       .transform((str: string) => new Date(str))
       .optional(),
-    description: z.array(z.string()),
   }),
 });
 
