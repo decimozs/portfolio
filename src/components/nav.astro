@@ -55,13 +55,14 @@ const { pathname } = Astro.props;
 </nav>
 
 <script>
+  import { track } from "@/lib/tracking";
+
   // PostHog tracking for social links in sidebar nav
   document.querySelectorAll<HTMLAnchorElement>(".nav-social-link").forEach((link) => {
     link.addEventListener("click", () => {
       const platform = link.getAttribute("data-platform");
       const label = link.getAttribute("data-label");
-      // biome-ignore lint/suspicious/noExplicitAny: PostHog loaded via inline snippet
-      (window as any).posthog?.capture("social_link_clicked", {
+      track("social_link_clicked", {
         platform,
         label,
         source: "nav",
