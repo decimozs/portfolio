@@ -4,72 +4,52 @@
     "title": "AI Engineer",
     "company": "Exist Software Labs, Inc. – Internship",
     "startDate": "2026-02-01T00:00:00.000Z",
-    "endDate": "2026-05-01T00:00:00.000Z",
-    "description": [
-      "Optimized document analysis by fine-tuning SLMs, cutting PoC latency from 2 minutes to 40 seconds. Built a Hybrid RAG stack with Azure AI Search + reranking to reduce analysis time by 65%. Implemented AI governance guardrails for deterministic security and shipped CV-based signature verification with PyTorch/YOLO/SAM3 to enable claims automation."
-    ]
+    "endDate": "2026-05-01T00:00:00.000Z"
   },
   {
     "id": "exist-software-labs-trainee",
     "title": "AI Engineer",
     "company": "Exist Software Labs, Inc. – Trainee",
-    "startDate": "2026-05-01T00:00:00.000Z",
-    "description": ["..."]
+    "startDate": "2026-05-01T00:00:00.000Z"
   },
   {
     "id": "freelance",
     "title": "Backend Engineer",
     "company": "Freelance",
     "startDate": "2024-06-01T00:00:00.000Z",
-    "endDate": "2026-01-01T00:00:00.000Z",
-    "description": [
-      "Architected lending infrastructure using DDD + state machines for full financial lifecycle traceability and strong data integrity. Built hybrid RBAC/PBAC with atomic transactions and automated TDD suites to keep reliability high and coverage above 95%. Optimized CI/CD with Turborepo + remote caching, reducing build-to-deploy time by 87% (41m → <5m)."
-    ]
+    "endDate": "2026-01-01T00:00:00.000Z"
   },
   {
     "id": "it-skills-olympics",
     "title": "Team Leader",
     "company": "14th IT Skills Olympics",
     "startDate": "2025-11-01T00:00:00.000Z",
-    "endDate": "2025-11-01T00:00:00.000Z",
-    "description": [
-      "Led my university team to secure 1st Runner-Up in the IoT Category at the 14th IT Skills Olympics, showcasing our innovative Smart Waste Management System that integrates real-time monitoring and efficient data handling to revolutionize waste collection processes."
-    ]
+    "endDate": "2025-11-01T00:00:00.000Z"
   },
   {
     "id": "binspire",
     "title": "Lead Software Engineer",
     "company": "Binspire",
     "startDate": "2023-10-01T00:00:00.000Z",
-    "endDate": "2025-11-01T00:00:00.000Z",
-    "description": [
-      "Led end-to-end software + AI delivery for smart-city systems, from cost modeling to multi-node deployment. Built an autonomous Agentic Engine with custom MCP servers to expose IoT data for multi-model orchestration. Shipped Raspberry Pi/MQTT fleet management and CV-based QR verification, cutting module startup time by 90% and improving urban routing efficiency."
-    ]
+    "endDate": "2025-11-01T00:00:00.000Z"
   },
   {
     "id": "ccs-academic-competition",
     "title": "Participant",
     "company": "CCS Academic Competition",
     "startDate": "2023-02-01T00:00:00.000Z",
-    "endDate": "2023-02-01T00:00:00.000Z",
-    "description": [
-      "Solved 3 out of 4 problem sets in my university Java programming contest during the first year."
-    ]
+    "endDate": "2023-02-01T00:00:00.000Z"
   },
   {
     "id": "open-source",
     "title": "Contributor & Maintainer",
     "company": "Open Source Software Developer",
-    "startDate": "2023-01-01T00:00:00.000Z",
-    "description": [
-      "Contributed to MCP specifications in the LangChain ecosystem, defining HTTP transport for server-side weather integrations. Engineered URL-persisted state using nuqs for strict client-backend sync in search systems. Built TypeScript utility layers to standardize data transformation and reduce technical debt. Resolved geospatial library conflicts and authored technical documentation for AI orchestration frameworks."
-    ]
+    "startDate": "2023-01-01T00:00:00.000Z"
   },
   {
     "id": "hello-world",
     "title": "Student",
     "company": "Hello World!",
-    "startDate": "2019-12-01T00:00:00.000Z",
-    "description": ["Wrote my first line of code."]
+    "startDate": "2019-12-01T00:00:00.000Z"
   }
 ]
