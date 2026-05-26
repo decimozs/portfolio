@@ -4,17 +4,18 @@ Use this playbook to match the maintainer's expectations when editing the portfo
 
 ## 1. Project Snapshot
 - Astro 6.x, React 19, TypeScript, Tailwind v4, Bun package manager.
-- Repo root: `/home/decimo/portfolio/portfolio`. All paths below are relative to this directory.
+- Repo root: repository root. All paths below are relative to this directory.
 - Hosting: Cloudflare Pages (static output via `astro build`).
 
 ## 2. Directory Landmarks
 - `src/pages` – Astro page routes (`index.astro`, `works.astro`, `experience.astro`, `notebooks.astro`).
 - `src/layouts` – Page layouts (`Layout.astro`).
-- `src/components` – UI components (React `.tsx`, Astro `.astro`).
-- `src/lib` – Utilities (`utils.ts`, `seo.ts`, `constant.ts`).
-- `src/content` – Content collections (`works.json`, `experience.json`, `notebooks.json`).
+- `src/components` – UI components: `SEO.astro` (head metadata), `posthog.astro` (analytics embed), `main-layout.astro` (grid shell), `header.astro`, `nav.astro` (sidebar), `hamburger.tsx` (mobile menu, React), `smooth-scroll.tsx` (Lenis, React).
+- `src/lib` – Utilities: `constant.ts` (nav/social config), `seo.ts` (OG/Twitter/JSON-LD), `tracking.ts` (PostHog adapter), `date.ts` (formatDate), `group-experience.ts` (groupByCompany).
+- `src/content` – Content collections: `works.json`, `experience.json`, `notebooks.json`. Collection config in `src/content.config.ts`.
 - `src/styles` – Global styles (`globals.css`).
-- Config roots: `biome.json`, `astro.config.mjs`, `tsconfig.json`, `lefthook.yml`.
+- Config roots: `biome.json`, `astro.config.mjs`, `tsconfig.json`, `lefthook.yml`, `wrangler.jsonc`.
+- Domain: `https://marlonmartin.binspire.space` (Cloudflare Pages).
 
 ## 3. Commands & Tooling
 - Install deps: `bun install --frozen-lockfile` (CI uses the same flag).
@@ -26,7 +27,7 @@ Use this playbook to match the maintainer's expectations when editing the portfo
 - Tests: Not yet authored. When adding Vitest, run `bun vitest run` or for single file: `bun vitest run src/path/to/file.test.ts`.
 
 ## 4. Git Workflow Expectations
-- Git hooks powered by Lefthook run Biome checks on staged files; let them finish and fix surfaced issues locally.
+- Git hooks powered by Lefthook run Biome checks on staged files (pre-commit) and full CI validation (pre-push); let them finish and fix surfaced issues locally.
 - Never rewrite history for others; avoid `git push --force` unless a maintainer asks.
 - Keep commits scoped; run `bun run check` before staging to avoid hook failures.
 
@@ -102,7 +103,8 @@ Use this playbook to match the maintainer's expectations when editing the portfo
 - No secrets or credentials in diffs.
 
 ## 18. Cursor / Copilot Rules
-- No `.cursor/rules` or `.github/copilot-instructions.md` files exist; follow this AGENTS guide as the source of truth.
+- `CLAUDE.md` is a symlink to `AGENTS.md`; both contain the same agentic guidelines.
+- No `.cursor/rules` or `.github/copilot-instructions.md` files exist; follow AGENTS.md/CLAUDE.md as the source of truth.
 
 ## 19. Troubleshooting
 - `bun run dev` fails → clear `dist/` and rerun `bun install --frozen-lockfile`.
