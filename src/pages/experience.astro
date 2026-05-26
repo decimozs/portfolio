@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { formatDate } from "@/lib/date";
+import { groupByCompany } from "@/lib/group-experience";
 import Layout from "../layouts/Layout.astro";
 
 const title = "Experience";
@@ -12,21 +13,7 @@ const sortedExperience = [...experienceItems].sort(
   (a, b) => b.startDate.getTime() - a.startDate.getTime(),
 );
 
-// Group consecutive entries by company name
-type ExperienceItem = (typeof sortedExperience)[number];
-type Group = { company: string; roles: ExperienceItem[] };
-
-const grouped: Group[] = sortedExperience.reduce((acc: Group[], item) => {
-  const last = acc[acc.length - 1];
-  // Strip suffixes like "– Internship" for grouping key
-  const companyBase = item.company.split("–")[0]?.trim();
-  if (last && last.company === companyBase) {
-    last.roles.push(item);
-  } else {
-    acc.push({ company: companyBase || "", roles: [item] });
-  }
-  return acc;
-}, []);
+const grouped = groupByCompany(sortedExperience);
 ---
 
 <Layout title={title}>
