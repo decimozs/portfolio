@@ -9,6 +9,7 @@ const works = defineCollection({
     description: z.string(),
     link: z.string().url(),
     category: z.array(z.string()),
+    date: z.string().transform((str: string) => new Date(str)),
     highlights: z
       .array(
         z.object({
