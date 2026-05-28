@@ -9,7 +9,9 @@ const recentNotebooks = [...notebookItems]
   .slice(0, 4);
 
 const worksCollection = await getCollection("works");
-const works = worksCollection.map((entry) => entry.data);
+const works = [...worksCollection.map((entry) => entry.data)].sort(
+  (a, b) => b.date.getTime() - a.date.getTime(),
+);
 ---
 
 <Layout>

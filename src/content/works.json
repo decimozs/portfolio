@@ -1,6 +1,7 @@
 [
   {
     "id": "corsair",
+    "date": "2026-05-01",
     "title": "Corsair",
     "description": "A high-throughput PaddleOCR microservice with an abstracted architecture for swappable model backends. It features an async processing pipeline with an in-memory background queue (with TTL handling) and leverages Gotenberg to convert office files, URLs, and HTML into PDFs before executing layout recognition to return structured JSON, markdown, or XML.",
     "link": "https://github.com/decimozs/corsair",
@@ -16,6 +17,7 @@
   },
   {
     "id": "seia",
+    "date": "2026-03-01",
     "title": "SEIA",
     "description": "An intelligent RPA agent that automates expense auditing and reporting; uses multi-stage reasoning to detect policy violations and ensure financial compliance.",
     "link": "https://github.com/decimozs/seia",
@@ -31,6 +33,7 @@
   },
   {
     "id": "medcurial-ai",
+    "date": "2026-03-31",
     "title": "Medcurial AI",
     "description": "AI-powered signature fraud detection for medical documents, built as a multi-service system with RAG, CV verification, and agentic workflows to accelerate analysis and automate claims review.",
     "link": "https://github.com/decimozs/medcurial-ai",
@@ -45,6 +48,7 @@
   },
   {
     "id": "binspire",
+    "date": "2023-10-12",
     "title": "Binspire",
     "description": "A Smart Waste Management System (SWMS) powered by real-time agents to make waste collection more efficient, sustainable, and transparent.",
     "link": "https://www.binspire.space/",
@@ -68,7 +72,8 @@
     ]
   },
   {
-    "id": "Ollamaduct",
+    "id": "ollamaduct",
+    "date": "2026-04-20",
     "title": "Ollamaduct",
     "description": "Local-first AI gateway for Ollama - install via @ollamaduct/gateway (averaging 350 weekly downloads on the npm registry) - supporting both local and cloud-hybrid model orchestration; engineered multi-tenant workspaces, vector-based semantic caching (95% match rate) to reduce latency, and an automated Privacy Shield for redacting 25+ PII entity types via a high-performance Bun-powered CLI.",
     "link": "https://github.com/decimozs/ollamaduct",
@@ -89,6 +94,7 @@
   },
   {
     "id": "haribon",
+    "date": "2025-12-05",
     "title": "Haribon",
     "description": "Autonomous civic-tech agent for the BetterGov.ph platform; architected a Hybrid-RAG pipeline using LangGraph to automate data aggregation and content summarization, enabling high-fidelity retrieval of civic information and public records through an extensible agent harness.",
     "link": "https://github.com/decimozs/haribon",
@@ -109,6 +115,7 @@
   },
   {
     "id": "workflow",
+    "date": "2025-12-02",
     "title": "Workflow",
     "description": "Agentic Waste Engine using a Multi-Agent System (MAS) architecture to transform rigid collection schedules into a demand-responsive network; orchestrated autonomous workflows with LangGraph and developed a custom MCP server to bridge the Binspire API with LLMs, enabling self-correcting data retrieval and proactive operational tasking for urban disposal.",
     "link": "https://github.com/decimozs/workflow",
@@ -122,6 +129,7 @@
   },
   {
     "id": "vantage",
+    "date": "2025-02-04",
     "title": "Vantage",
     "description": "A local-first, high-precision resume intelligence engine engineered to uncover the \"why\" behind career performance, analyzes skill density and industry alignment providing data-driven insights without sensitive data ever leaving your local environment.",
     "link": "https://github.com/decimozs/vantage-cv",
@@ -136,6 +144,7 @@
   },
   {
     "id": "base",
+    "date": "2025-01-03",
     "title": "Base",
     "description": "An opinionated, Full-Stack Monorepo - install via @create-base-stack - designed for high-performance applications. Averaging 400+ weekly downloads, it leverages a strictly type-safe architecture to streamline workflows and ensure end-to-end integrity across the stack.",
     "link": "https://github.com/decimozs/base",
@@ -156,6 +165,7 @@
   },
   {
     "id": "hiraya",
+    "date": "2024-12-18",
     "title": "Hiraya",
     "description": "A Filipino-inspired programming language to explore language design, syntax parsing, and compiler construction, demonstrating solid expertise in compiler architecture, abstract machine design, and programming language theory.",
     "link": "https://github.com/decimozs/hiraya",
@@ -169,6 +179,7 @@
   },
   {
     "id": "predicting-carbon-monoxide-levels",
+    "date": "2024-01-16",
     "title": "Predicting Carbon Monoxide Levels",
     "description": "A machine learning powered CO prediction system that analyzes environmental sensor data to forecast carbon monoxide levels with high accuracy, enabling improved real-time air quality monitoring and supporting data-driven public.",
     "link": "https://github.com/decimozs/predicting-carbon-monoxide-levels",
