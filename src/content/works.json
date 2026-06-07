@@ -1,5 +1,13 @@
 [
   {
+    "id": "regtrace",
+    "date": "2026-06-01",
+    "title": "Regtrace",
+    "description": "A a regression-first evaluation framework for LLM outputs. Define golden sets, score outputs across multiple dimensions, and catch quality degradation before it ships.",
+    "link": "https://github.com/decimozs/regtrace",
+    "category": ["LLM", "Evaluation", "DevOps", "CI Native", "Observability"]
+  },
+  {
     "id": "corsair",
     "date": "2026-05-01",
     "title": "Corsair",
