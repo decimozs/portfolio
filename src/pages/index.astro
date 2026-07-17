@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import GithubContributions from "@/components/github-contributions.astro";
 import Layout from "../layouts/Layout.astro";
 
 const notebooksCollection = await getCollection("notebooks");
@@ -16,8 +17,9 @@ const works = [...worksCollection.map((entry) => entry.data)].sort(
 
 <Layout>
     <p class="mt-4 lg:mt-0">
-    Based in Manila, I engineer AI systems that work — not just in theory, but in the real world, I build and deploy ai solutions that make everyday life measurably easier.
+    Based in Manila, I engineer AI systems that work - not just in theory, but in the real world, I build and deploy ai solutions that make everyday life measurably easier.
     </p>
+    <GithubContributions />
     <p class="mt-10 mb-4">
       A selection of projects I've recently shipped
     </p>

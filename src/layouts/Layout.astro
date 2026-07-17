@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Hamburger from "../components/hamburger";
 import Header from "../components/header.astro";
 import MainLayout from "../components/main-layout.astro";
@@ -21,6 +22,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 <!doctype html>
 <html lang="en" class="h-full">
     <head>
+        <ClientRouter />
         <SEO title={title} description={description} />
         <PostHog />
         <link
@@ -48,6 +50,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     </head>
     <body class="antialiased bg-white text-black">
+        <div id="page-loader" aria-hidden="true"></div>
         <!-- SmoothScroll: returns null, client:only is correct here -->
         <SmoothScroll client:only="react" />
         <Hamburger client:only="react" pathname={pathname} />
@@ -63,5 +66,27 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
                 <slot />
             </div>
         </MainLayout>
+        <script is:inline>
+            (() => {
+                if (window.__pageLoaderWired) {
+                    return;
+                }
+
+                window.__pageLoaderWired = true;
+                const getPageLoader = () => document.getElementById("page-loader");
+
+                document.addEventListener("astro:before-preparation", () => {
+                    getPageLoader()?.classList.add("is-loading");
+                });
+
+                document.addEventListener("astro:after-preparation", () => {
+                    getPageLoader()?.classList.remove("is-loading");
+                });
+
+                document.addEventListener("astro:page-load", () => {
+                    getPageLoader()?.classList.remove("is-loading");
+                });
+            })();
+        </script>
     </body>
 </html>

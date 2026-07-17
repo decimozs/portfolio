@@ -1,4 +1,4 @@
-# AGENTS.md – Agentic Coding Guidelines
+# AGENTS.md - Agentic Coding Guidelines
 
 Use this playbook to match the maintainer's expectations when editing the portfolio.
 
@@ -8,12 +8,12 @@ Use this playbook to match the maintainer's expectations when editing the portfo
 - Hosting: Cloudflare Pages (static output via `astro build`).
 
 ## 2. Directory Landmarks
-- `src/pages` – Astro page routes (`index.astro`, `works.astro`, `experience.astro`, `notebooks.astro`).
-- `src/layouts` – Page layouts (`Layout.astro`).
-- `src/components` – UI components: `SEO.astro` (head metadata), `posthog.astro` (analytics embed), `main-layout.astro` (grid shell), `header.astro`, `nav.astro` (sidebar), `hamburger.tsx` (mobile menu, React), `smooth-scroll.tsx` (Lenis, React).
-- `src/lib` – Utilities: `constant.ts` (nav/social config), `seo.ts` (OG/Twitter/JSON-LD), `tracking.ts` (PostHog adapter), `date.ts` (formatDate), `group-experience.ts` (groupByCompany).
-- `src/content` – Content collections: `works.json`, `experience.json`, `notebooks.json`. Collection config in `src/content.config.ts`.
-- `src/styles` – Global styles (`globals.css`).
+- `src/pages` - Astro page routes (`index.astro`, `works.astro`, `experience.astro`, `notebooks.astro`).
+- `src/layouts` - Page layouts (`Layout.astro`).
+- `src/components` - UI components: `SEO.astro` (head metadata), `posthog.astro` (analytics embed), `main-layout.astro` (grid shell), `header.astro`, `nav.astro` (sidebar), `hamburger.tsx` (mobile menu, React), `smooth-scroll.tsx` (Lenis, React).
+- `src/lib` - Utilities: `constant.ts` (nav/social config), `seo.ts` (OG/Twitter/JSON-LD), `tracking.ts` (PostHog adapter), `date.ts` (formatDate), `group-experience.ts` (groupByCompany).
+- `src/content` - Content collections: `works.json`, `experience.json`, `notebooks.json`. Collection config in `src/content.config.ts`.
+- `src/styles` - Global styles (`globals.css`).
 - Config roots: `biome.json`, `astro.config.mjs`, `tsconfig.json`, `lefthook.yml`, `wrangler.jsonc`.
 - Domain: `https://marlonmartin.binspire.space` (Cloudflare Pages).
 

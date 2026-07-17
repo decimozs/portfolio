@@ -109,9 +109,34 @@ html.lenis body {
   html {
     scroll-behavior: auto;
   }
+  #page-loader {
+    transition: none;
+  }
   .underline-animate::after {
     transition: none;
   }
+}
+
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 1px;
+  pointer-events: none;
+  background: black;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition:
+    opacity 120ms ease,
+    transform 420ms ease;
+}
+
+#page-loader.is-loading {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .underline-animate {
