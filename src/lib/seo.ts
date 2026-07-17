@@ -2,7 +2,7 @@ const url = "https://marlonmartin.binspire.space";
 const name = "Marlon Martin";
 const title = "Marlon Martin - AI Software Engineer";
 const description =
-  "Based in Manila, I engineer AI systems that work — not just in theory, but in the real world, I build and deploy ai solutions that make everyday life measurably easier.";
+  "Based in Manila, I engineer AI systems that work - not just in theory, but in the real world, I build and deploy ai solutions that make everyday life measurably easier.";
 
 interface SeoConfig {
   metadataBase: URL;

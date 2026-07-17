@@ -1,0 +1,43 @@
+---
+import { getGithubContributions } from "@/lib/github";
+
+const contributions = await getGithubContributions("decimozs");
+
+const levelClassNames = [
+  "bg-white",
+  "bg-zinc-300",
+  "bg-zinc-500",
+  "bg-zinc-700",
+  "bg-black",
+];
+---
+
+{
+  contributions && (
+    <section class="mt-10 mb-10">
+      <div class="bg-accent px-4 py-3">
+        <a
+          href="https://github.com/decimozs"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block overflow-x-auto pb-1"
+          aria-label={`View ${contributions.total.toLocaleString()} GitHub contributions from decimozs`}
+          id="github-contributions-link"
+        >
+          <div class="flex min-w-max gap-1" aria-hidden="true">
+            {contributions.weeks.map((week) => (
+              <div class="grid grid-rows-7 gap-1">
+                {week.days.map((day) => (
+                  <span
+                    class={`h-2.5 w-2.5 ${levelClassNames[day.level]}`}
+                    title={`${day.count} contributions on ${day.date}`}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </a>
+      </div>
+    </section>
+  )
+}
