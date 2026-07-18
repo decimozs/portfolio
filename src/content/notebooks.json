@@ -1,5 +1,24 @@
 [
   {
+    "id": "trial-query-engine",
+    "title": "Trial Query Engine",
+    "description": "A retrieval-augmented backend for querying clinical trial data. It ingests ClinicalTrials.gov records, retrieves source material for natural-language questions, streams grounded answers, and keeps source traceability through retrieved chunks.",
+    "links": [
+      {
+        "label": "@github.com/decimozs/trial-query-engine",
+        "href": "https://github.com/decimozs/trial-query-engine"
+      }
+    ],
+    "category": [
+      "Clinical Data Retrieval",
+      "Grounded Answering",
+      "Hybrid Search",
+      "Source Traceability",
+      "AI Safety"
+    ],
+    "date": "2026-07-18T00:00:00.000Z"
+  },
+  {
     "id": "building-effective-agents",
     "title": "Building Effective Agents",
     "description": "A hands-on exploration of building effective agents with LangGraph, inspired by Anthropic's guide on simple, composable agent patterns, routing, parallelization, orchestration, evaluation loops, and tool use.",
