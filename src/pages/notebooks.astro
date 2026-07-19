@@ -45,7 +45,9 @@ const sortedNotebooks = [...notebookItems].sort(
                         </div>
                         <div class="text-sm flex flex-row gap-2 flex-wrap">
                             {item.category.map((cat) => (
-                                <p class="px-4 py-2 bg-accent">{cat}</p>
+                                <p class="px-4 py-2 bg-accent transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400">
+                                    {cat}
+                                </p>
                             ))}
                         </div>
                         </div>
