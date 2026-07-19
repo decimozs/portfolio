@@ -25,7 +25,7 @@ const works = [...worksCollection.map((entry) => entry.data)].sort(
     </p>
     <div class="mb-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
       {works.slice(0, 4).map((work) => (
-      <a class="px-4 py-2 bg-accent" href={work.link} 
+      <a class="px-4 py-2 bg-accent transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400" href={work.link} 
             target="_blank"
             rel="noopener noreferrer"
         >
@@ -39,7 +39,7 @@ const works = [...worksCollection.map((entry) => entry.data)].sort(
     </p>
     <div class="mb-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
       {recentNotebooks.map((notebook) => (
-      <a class="px-4 py-2 bg-accent" href={notebook.links[0]?.href} 
+      <a class="px-4 py-2 bg-accent transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400" href={notebook.links[0]?.href} 
             target="_blank"
             rel="noopener noreferrer"
         >
