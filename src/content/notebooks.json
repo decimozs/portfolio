@@ -1,7 +1,7 @@
 [
   {
     "id": "adverse-event-signal-mechanism",
-    "title": "Adverse Event Signal Mechanism",
+    "title": "AE Signal Mechanism",
     "description": "A GraphRAG backend for exploring FDA adverse event reports from the openFDA API. It ingests FAERS/AEMS reports, builds a Neo4j co-occurrence graph, indexes report embeddings in PostgreSQL with pgvector, and streams grounded answers with report-level provenance.",
     "links": [
       {
