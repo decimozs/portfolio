@@ -3,17 +3,16 @@ import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig, sessionDrivers } from "astro/config";
+import { defineConfig } from "astro/config";
 
 const isDevServer = process.argv.some((arg) => arg.includes("dev"));
 
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  adapter: isDevServer ? undefined : cloudflare(),
-  session: {
-    driver: sessionDrivers.lruCache(),
-  },
+  adapter: isDevServer
+    ? undefined
+    : cloudflare({ sessionKVBindingName: "ASTRO_SESSION" }),
   site: "https://marlonmartin.binspire.space",
   integrations: [
     react(),
