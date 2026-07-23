@@ -1,4 +1,3 @@
-import { env } from "cloudflare:workers";
 import type { APIRoute } from "astro";
 import {
   type GovernedChatMessage,
@@ -27,6 +26,16 @@ type OllamaChatResponse = {
 
 type RequestBody = {
   messages?: unknown;
+};
+
+type RuntimeEnv = {
+  OLLAMA_API_KEY?: string;
+  OLLAMA_MODEL?: string;
+  NEO4J_URI?: string;
+  NEO4J_USERNAME?: string;
+  NEO4J_PASSWORD?: string;
+  NEO4J_DATABASE?: string;
+  NEO4J_QUERY_API_URL?: string;
 };
 
 const OLLAMA_ENDPOINT = "https://ollama.com/api/chat";
@@ -112,15 +121,32 @@ function normalizeMessages(raw: unknown): ChatMessage[] | null {
   return messages.slice(-MAX_HISTORY);
 }
 
-function resolveApiKey(): string | undefined {
-  return env.OLLAMA_API_KEY ?? import.meta.env.OLLAMA_API_KEY;
+async function resolveRuntimeEnv(): Promise<RuntimeEnv> {
+  if (import.meta.env.DEV) {
+    return import.meta.env;
+  }
+
+  try {
+    const workerModule = (await import(
+      /* @vite-ignore */ "cloudflare:workers"
+    )) as { env?: RuntimeEnv };
+    return workerModule.env ?? import.meta.env;
+  } catch {
+    return import.meta.env;
+  }
 }
 
-function resolveModel(): string {
-  return env.OLLAMA_MODEL ?? import.meta.env.OLLAMA_MODEL ?? DEFAULT_MODEL;
+function resolveApiKey(runtimeEnv: RuntimeEnv): string | undefined {
+  return runtimeEnv.OLLAMA_API_KEY ?? import.meta.env.OLLAMA_API_KEY;
 }
 
-function resolveGraphConfig(): {
+function resolveModel(runtimeEnv: RuntimeEnv): string {
+  return (
+    runtimeEnv.OLLAMA_MODEL ?? import.meta.env.OLLAMA_MODEL ?? DEFAULT_MODEL
+  );
+}
+
+function resolveGraphConfig(runtimeEnv: RuntimeEnv): {
   uri?: string;
   username?: string;
   password?: string;
@@ -128,11 +154,12 @@ function resolveGraphConfig(): {
   queryApiUrl?: string;
 } {
   return {
-    uri: env.NEO4J_URI ?? import.meta.env.NEO4J_URI,
-    username: env.NEO4J_USERNAME ?? import.meta.env.NEO4J_USERNAME,
-    password: env.NEO4J_PASSWORD ?? import.meta.env.NEO4J_PASSWORD,
-    database: env.NEO4J_DATABASE ?? import.meta.env.NEO4J_DATABASE,
-    queryApiUrl: env.NEO4J_QUERY_API_URL ?? import.meta.env.NEO4J_QUERY_API_URL,
+    uri: runtimeEnv.NEO4J_URI ?? import.meta.env.NEO4J_URI,
+    username: runtimeEnv.NEO4J_USERNAME ?? import.meta.env.NEO4J_USERNAME,
+    password: runtimeEnv.NEO4J_PASSWORD ?? import.meta.env.NEO4J_PASSWORD,
+    database: runtimeEnv.NEO4J_DATABASE ?? import.meta.env.NEO4J_DATABASE,
+    queryApiUrl:
+      runtimeEnv.NEO4J_QUERY_API_URL ?? import.meta.env.NEO4J_QUERY_API_URL,
   };
 }
 
@@ -283,12 +310,13 @@ function streamOllama(upstream: Response): Response {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const apiKey = resolveApiKey();
+  const runtimeEnv = await resolveRuntimeEnv();
+  const apiKey = resolveApiKey(runtimeEnv);
   if (!apiKey) {
     return jsonError("Agent is not configured.", 500);
   }
 
-  const model = resolveModel();
+  const model = resolveModel(runtimeEnv);
 
   let body: RequestBody;
   try {
@@ -338,7 +366,7 @@ export const POST: APIRoute = async ({ request }) => {
     sanitizedMessages,
     classification,
   );
-  const graphConfig = resolveGraphConfig();
+  const graphConfig = resolveGraphConfig(runtimeEnv);
   const graphContext = await getAgentGraphContext(graphConfig);
   if (!graphContext) {
     console.warn("Agent graph context unavailable", {
