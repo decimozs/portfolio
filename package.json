@@ -11,17 +11,21 @@
     "lint": "bunx biome lint --write",
     "check": "bunx biome check --write",
     "prepush": "bun run format && bun run lint && bun run check",
+    "ingest:neo4j": "bun run scripts/ingest-neo4j.ts",
     "generate-types": "wrangler types",
     "deploy": "bun run build && wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.1.3",
     "@astrojs/react": "6.0.1",
     "@astrojs/sitemap": "3.7.3",
     "astro": "7.1.1",
     "lenis": "^1.3.25",
     "lucide-react": "^0.552.0",
     "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react-dom": "19.2.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.10",

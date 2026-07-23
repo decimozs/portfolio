@@ -17,12 +17,14 @@ export type GithubContributionWeek = {
 
 export type GithubContributions = {
   total: number;
+  allTimeTotal: number;
   weeks: GithubContributionWeek[];
 };
 
 type GithubContributionCalendarResponse = {
   data?: {
     user?: {
+      createdAt: string;
       contributionsCollection?: {
         contributionCalendar?: {
           totalContributions: number;
@@ -113,6 +115,7 @@ async function fetchGithubContributions(
         query: `
           query Contributions($username: String!) {
             user(login: $username) {
+              createdAt
               contributionsCollection {
                 contributionCalendar {
                   totalContributions
@@ -140,13 +143,27 @@ async function fetchGithubContributions(
       (await response.json()) as GithubContributionCalendarResponse;
     const calendar =
       result.data?.user?.contributionsCollection?.contributionCalendar;
+    const createdAt = result.data?.user?.createdAt;
 
-    if (result.errors || !calendar || calendar.weeks.length === 0) {
+    if (
+      result.errors ||
+      !calendar ||
+      !createdAt ||
+      calendar.weeks.length === 0
+    ) {
       return staleData ?? null;
     }
 
+    const allTimeTotal = await fetchGithubAllTimeContributionTotal(
+      username,
+      token,
+      new Date(createdAt),
+      staleData?.allTimeTotal ?? calendar.totalContributions,
+    );
+
     const data = {
       total: calendar.totalContributions,
+      allTimeTotal,
       weeks: calendar.weeks.map((week) => ({
         days: week.contributionDays.map((day) => ({
           date: day.date,
@@ -167,4 +184,85 @@ async function fetchGithubContributions(
   } finally {
     clearTimeout(timeout);
   }
+}
+
+async function fetchGithubAllTimeContributionTotal(
+  username: string,
+  token: string,
+  createdAt: Date,
+  fallback: number,
+): Promise<number> {
+  if (Number.isNaN(createdAt.getTime())) {
+    return fallback;
+  }
+
+  try {
+    const totals = await Promise.all(
+      getContributionYearRanges(createdAt).map(async ({ from, to }) => {
+        const response = await fetch("https://api.github.com/graphql", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: `
+              query ContributionsTotal($username: String!, $from: DateTime!, $to: DateTime!) {
+                user(login: $username) {
+                  contributionsCollection(from: $from, to: $to) {
+                    contributionCalendar {
+                      totalContributions
+                    }
+                  }
+                }
+              }
+            `,
+            variables: { username, from, to },
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("GitHub contribution total request failed.");
+        }
+
+        const result =
+          (await response.json()) as GithubContributionCalendarResponse;
+
+        if (result.errors) {
+          throw new Error("GitHub contribution total returned errors.");
+        }
+
+        return (
+          result.data?.user?.contributionsCollection?.contributionCalendar
+            ?.totalContributions ?? 0
+        );
+      }),
+    );
+
+    return totals.reduce((sum, total) => sum + total, 0);
+  } catch {
+    return fallback;
+  }
+}
+
+function getContributionYearRanges(
+  createdAt: Date,
+): Array<{ from: string; to: string }> {
+  const now = new Date();
+  const startYear = createdAt.getUTCFullYear();
+  const endYear = now.getUTCFullYear();
+  const ranges: Array<{ from: string; to: string }> = [];
+
+  for (let year = startYear; year <= endYear; year += 1) {
+    const from =
+      year === startYear ? createdAt : new Date(Date.UTC(year, 0, 1));
+    const to =
+      year === endYear
+        ? now
+        : new Date(Date.UTC(year, 11, 31, 23, 59, 59, 999));
+
+    ranges.push({ from: from.toISOString(), to: to.toISOString() });
+  }
+
+  return ranges;
 }

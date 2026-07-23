@@ -1,56 +1,97 @@
 ---
-import { navItems, socialItems } from "@/lib/constant";
+import { navItems, socialItems, starterPrompts } from "@/lib/constant";
 
 interface Props {
   pathname: string;
 }
 
 const { pathname } = Astro.props;
+const isAgent = pathname === "/agent";
 ---
 
 <nav class="hidden xl:flex flex-col gap-10">
-  <div class="flex flex-col gap-2">
-    <div class="flex flex-col gap-1">
-      {
-        navItems.map((item) => (
-          <a
-            href={item.href}
-            class={`w-fit text-lg transition-colors duration-200 ${
-              pathname === item.href
-                ? "text-black cursor-default"
-                : "opacity-50 text-muted-foreground hover:text-black hover:opacity-100"
-            }`}
-            target={item.id === "resume" ? "_blank" : undefined}
-            rel={item.id === "resume" ? "noopener noreferrer" : undefined}
+  {
+    isAgent && (
+      <div class="flex flex-col gap-1">
+        <p class="text-lg">Try Asking</p>
+        {starterPrompts.map((prompt) => (
+          <button
+            type="button"
+            class="agent-prompt w-fit text-left text-lg text-muted-foreground opacity-50 hover:text-black hover:opacity-100 transition-colors duration-200 cursor-pointer"
+            data-prompt={prompt}
           >
-            {item.label}
-          </a>
-        ))
-      }
-    </div>
-  </div>
+            {prompt}
+          </button>
+        ))}
+      </div>
+    )
+  }
 
-  <div class="flex flex-col gap-2">
-    <div class="flex flex-col gap-1">
-      {
-        socialItems.map((item) => (
-          <a
-            href={item.href}
-            class="text-lg text-muted-foreground opacity-50 hover:text-black hover:opacity-100 transition-colors duration-200 w-fit nav-social-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-platform={item.id}
-            data-label={item.label}
-          >
-            {item.label}
-          </a>
-        ))
-      }
-    </div>
-  </div>
+  {
+    !isAgent && (
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-1">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              class={`w-fit text-lg transition-colors duration-200 ${
+                pathname === item.href
+                  ? "text-black cursor-default"
+                  : "opacity-50 text-muted-foreground hover:text-black hover:opacity-100"
+              }`}
+              target={item.id === "resume" ? "_blank" : undefined}
+              rel={item.id === "resume" ? "noopener noreferrer" : undefined}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
 
-  <div class="px-4 py-2 bg-accent text-muted-foreground w-[205px]">
-    <p class="text-sm">Agent mode - coming soon.</p>
+  {
+    !isAgent && (
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-1">
+          {socialItems.map((item) => (
+            <a
+              href={item.href}
+              class="text-lg text-muted-foreground opacity-50 hover:text-black hover:opacity-100 transition-colors duration-200 w-fit nav-social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-platform={item.id}
+              data-label={item.label}
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  <div class="flex flex-row gap-1 bg-accent p-1 w-[205px] text-sm">
+    <a
+      href="/"
+      class={`flex-1 text-center px-3 py-1 transition-colors duration-200 ${
+        pathname === "/agent"
+          ? "text-muted-foreground hover:text-black"
+          : "bg-white text-black"
+      }`}
+    >
+      Web
+    </a>
+    <a
+      href="/agent"
+      class={`flex-1 text-center px-3 py-1 transition-colors duration-200 ${
+        pathname === "/agent"
+          ? "bg-white text-black"
+          : "text-muted-foreground hover:text-black"
+      }`}
+    >
+      Agent
+    </a>
   </div>
 </nav>
 
@@ -69,4 +110,28 @@ const { pathname } = Astro.props;
       });
     });
   });
+
+  function wireAgentPrompts() {
+    document
+      .querySelectorAll<HTMLButtonElement>(".agent-prompt")
+      .forEach((button) => {
+        if (button.dataset.wired === "true") {
+          return;
+        }
+
+        button.dataset.wired = "true";
+        button.addEventListener("click", () => {
+          const prompt = button.getAttribute("data-prompt");
+          if (prompt) {
+            window.dispatchEvent(
+              new CustomEvent("agent:prompt", { detail: prompt }),
+            );
+          }
+        });
+      });
+  }
+
+  wireAgentPrompts();
+  document.addEventListener("astro:page-load", wireAgentPrompts);
+
 </script>

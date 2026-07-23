@@ -13,9 +13,10 @@ import "../styles/globals.css";
 interface Props {
   title?: string;
   description?: string;
+  fullHeight?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, fullHeight = false } = Astro.props;
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
@@ -54,15 +55,13 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
         <!-- SmoothScroll: returns null, client:only is correct here -->
         <SmoothScroll client:only="react" />
         <Hamburger client:only="react" pathname={pathname} />
-        <div class="hidden lg:block fixed text-sm bottom-4 z-50 left-4 opacity-50 text-muted-foreground hover:text-black hover:opacity-100">
-        <p>© 2026 Marlon Martin. All rights reserved.</p>
-        </div>
-        <MainLayout>
-            <div class="flex flex-col gap-8 xl:sticky xl:top-8 xl:self-start">
-                <Header pathname={pathname} />
+        <MainLayout fullHeight={fullHeight}>
+            <div class={`flex flex-col gap-8 xl:sticky xl:top-8 xl:self-start ${fullHeight ? "shrink-0" : ""}`}>
+                <Header pathname={pathname} compact={fullHeight} />
                 <Nav pathname={pathname} />
+                <p class='hidden lg:block text-sm opacity-50 text-muted-foreground hover:text-black hover:opacity-100'>© 2026 Marlon Martin</p>
             </div>
-            <div class="w-full">
+            <div class={`w-full ${fullHeight ? "h-full min-h-0 flex flex-col" : ""}`}>
                 <slot />
             </div>
         </MainLayout>

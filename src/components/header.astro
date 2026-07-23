@@ -1,9 +1,10 @@
 ---
 interface Props {
   pathname: string;
+  compact?: boolean;
 }
 
-const { pathname } = Astro.props;
+const { pathname, compact = false } = Astro.props;
 
 const subtitles: Record<string, string> = {
   "/works": "Notable projects I've worked on",
@@ -12,8 +13,8 @@ const subtitles: Record<string, string> = {
 };
 ---
 
-<div class="select-none w-full">
-  <div>
+<div class={`select-none w-full ${pathname === '/agent' ? 'lg:-mt-6' : ''}`}>
+  <div class={compact ? "hidden xl:block" : ""}>
     <img
       src="/me.jpg"
       alt="Marlon Martin"
@@ -43,7 +44,7 @@ const subtitles: Record<string, string> = {
   <div class="w-full lg:flex lg:items-center lg:justify-between">
     <p class="text-lg w-full">
       {
-        pathname === "/" ? (
+      pathname === "/" || pathname === '/agent' ? (
           <span>
             AI / LLM engineering{" "}
             <a

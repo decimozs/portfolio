@@ -15,6 +15,11 @@ const levelClassNames = [
 {
   contributions && (
     <section class="mt-10 mb-10">
+      <div class="flex flex-row justify-between">
+        <p class="mb-3">
+          + {" "}{contributions.total.toLocaleString()} github contributions in the last year
+        </p>
+      </div>
       <div class="bg-accent px-4 py-3">
         <a
           href="https://github.com/decimozs"

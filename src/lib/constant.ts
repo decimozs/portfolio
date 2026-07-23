@@ -59,3 +59,10 @@ export interface Highlight {
   text: string;
   href: string;
 }
+
+export const starterPrompts: string[] = [
+  "Decode Marlon's AI engineering playbook",
+  "Show the architecture principles behind his work",
+  "How does he keep agents grounded and safe?",
+  "Connect his experiments to shipped systems",
+];
