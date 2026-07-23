@@ -51,6 +51,11 @@ const cacheTtlMs = 1000 * 60 * 60 * 6;
 const fetchTimeoutMs = import.meta.env.DEV ? 1500 : 4000;
 const contributionCache = new Map<string, GithubContributionCacheEntry>();
 const pendingRequests = new Map<string, Promise<GithubContributions | null>>();
+const githubHeaders = (token: string): HeadersInit => ({
+  Authorization: `Bearer ${token}`,
+  "Content-Type": "application/json",
+  "User-Agent": "marlonmartin-portfolio",
+});
 
 const contributionLevels: Record<
   GithubContributionLevel,
@@ -63,12 +68,56 @@ const contributionLevels: Record<
   FOURTH_QUARTILE: 4,
 };
 
+function resolveGithubToken(): string | undefined {
+  const token = import.meta.env.GITHUB_TOKEN?.trim();
+
+  if (!token) {
+    return undefined;
+  }
+
+  return token
+    .replace(/^GITHUB_TOKEN=/, "")
+    .replace(/^['"]|['"]$/g, "")
+    .trim();
+}
+
+function getGithubErrorMessages(errors: unknown[] | undefined): string[] {
+  return (errors ?? [])
+    .map((error) => {
+      if (typeof error === "object" && error !== null && "message" in error) {
+        const message = (error as { message?: unknown }).message;
+        return typeof message === "string" ? message : undefined;
+      }
+
+      return undefined;
+    })
+    .filter((message): message is string => Boolean(message));
+}
+
+async function getGithubResponseError(response: Response): Promise<string> {
+  const body = await response.text().catch(() => "");
+
+  if (!body) {
+    return "No response body";
+  }
+
+  try {
+    const parsed = JSON.parse(body) as { message?: unknown };
+    return typeof parsed.message === "string"
+      ? parsed.message
+      : "Unknown GitHub error";
+  } catch {
+    return body.slice(0, 160);
+  }
+}
+
 export async function getGithubContributions(
   username: string,
 ): Promise<GithubContributions | null> {
-  const token = import.meta.env.GITHUB_TOKEN;
+  const token = resolveGithubToken();
 
   if (!token) {
+    console.warn("GitHub contributions unavailable: missing GITHUB_TOKEN");
     return null;
   }
 
@@ -107,10 +156,7 @@ async function fetchGithubContributions(
     const response = await fetch("https://api.github.com/graphql", {
       method: "POST",
       signal: abortController.signal,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+      headers: githubHeaders(token),
       body: JSON.stringify({
         query: `
           query Contributions($username: String!) {
@@ -136,6 +182,11 @@ async function fetchGithubContributions(
     });
 
     if (!response.ok) {
+      console.warn("GitHub contributions request failed", {
+        status: response.status,
+        statusText: response.statusText,
+        error: await getGithubResponseError(response),
+      });
       return staleData ?? null;
     }
 
@@ -151,6 +202,12 @@ async function fetchGithubContributions(
       !createdAt ||
       calendar.weeks.length === 0
     ) {
+      console.warn("GitHub contributions returned no calendar", {
+        errors: getGithubErrorMessages(result.errors),
+        hasCalendar: Boolean(calendar),
+        hasCreatedAt: Boolean(createdAt),
+        weeks: calendar?.weeks.length ?? 0,
+      });
       return staleData ?? null;
     }
 
@@ -179,7 +236,10 @@ async function fetchGithubContributions(
     });
 
     return data;
-  } catch {
+  } catch (error) {
+    console.warn("GitHub contributions fetch crashed", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
     return staleData ?? null;
   } finally {
     clearTimeout(timeout);
@@ -201,10 +261,7 @@ async function fetchGithubAllTimeContributionTotal(
       getContributionYearRanges(createdAt).map(async ({ from, to }) => {
         const response = await fetch("https://api.github.com/graphql", {
           method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+          headers: githubHeaders(token),
           body: JSON.stringify({
             query: `
               query ContributionsTotal($username: String!, $from: DateTime!, $to: DateTime!) {
