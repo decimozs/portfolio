@@ -362,7 +362,7 @@ export async function getAgentGraphContext(
     return null;
   }
 
-  return `RETRIEVED PORTFOLIO CONTEXT FROM NEO4J
+  return `MARLON MARTIN PORTFOLIO FACTS
 
 PROFILE
 ${person?.name ?? "Marlon Martin"}${person?.location ? `, ${person.location}` : ""}
