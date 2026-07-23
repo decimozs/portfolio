@@ -336,8 +336,15 @@ export const POST: APIRoute = async ({ request }) => {
     sanitizedMessages,
     classification,
   );
-  const graphContext = await getAgentGraphContext(resolveGraphConfig());
+  const graphConfig = resolveGraphConfig();
+  const graphContext = await getAgentGraphContext(graphConfig);
   if (!graphContext) {
+    console.warn("Agent graph context unavailable", {
+      hasNeo4jUri: Boolean(graphConfig.uri),
+      hasNeo4jUsername: Boolean(graphConfig.username),
+      hasNeo4jPassword: Boolean(graphConfig.password),
+      hasNeo4jQueryApiUrl: Boolean(graphConfig.queryApiUrl),
+    });
     return textResponse(
       "I can't reach Marlon's portfolio context right now. Please try again in a bit.",
     );
