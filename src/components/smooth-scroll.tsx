@@ -22,6 +22,12 @@ export default function SmoothScroll() {
 
     const rafId = requestAnimationFrame(raf);
 
+    const handleRouteScrollTop = () => {
+      lenis.scrollTo(0, { immediate: true, force: true });
+    };
+
+    window.addEventListener("portfolio:scroll-top", handleRouteScrollTop);
+
     // Watch for overflow hidden on body to pause lenis (e.g. hamburger menu open)
     const observer = new MutationObserver(() => {
       if (document.body.style.overflow === "hidden") {
@@ -39,6 +45,7 @@ export default function SmoothScroll() {
     // Cleanup
     return () => {
       cancelAnimationFrame(rafId);
+      window.removeEventListener("portfolio:scroll-top", handleRouteScrollTop);
       observer.disconnect();
       lenis.destroy();
     };

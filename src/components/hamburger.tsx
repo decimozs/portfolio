@@ -171,10 +171,10 @@ export default function Hamburger({ pathname }: { pathname: string }) {
                 <SocialLink key={item.id} item={item} />
               ))}
             </div>
+            <SurfaceToggle pathname={pathname} onClick={toggleMenu} />
             <div className="block text-sm text-muted-foreground fixed bottom-4 left-4 lg:hidden">
               <p>© 2026 Marlon Martin. All rights reserved.</p>
             </div>
-            <SurfaceToggle pathname={pathname} onClick={toggleMenu} />
           </div>
         </div>
       )}

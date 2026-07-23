@@ -82,6 +82,11 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
                     getPageLoader()?.classList.remove("is-loading");
                 });
 
+                document.addEventListener("astro:after-swap", () => {
+                    window.scrollTo({ left: 0, top: 0, behavior: "instant" });
+                    window.dispatchEvent(new Event("portfolio:scroll-top"));
+                });
+
                 document.addEventListener("astro:page-load", () => {
                     getPageLoader()?.classList.remove("is-loading");
                 });
