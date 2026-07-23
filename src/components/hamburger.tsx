@@ -63,6 +63,43 @@ const SocialLink = memo(function SocialLink({
   );
 });
 
+const SurfaceToggle = memo(function SurfaceToggle({
+  pathname,
+  onClick,
+}: {
+  pathname: string;
+  onClick: () => void;
+}) {
+  const isAgent = pathname === "/agent";
+
+  return (
+    <div className="flex w-full max-w-xs flex-row gap-1 bg-accent p-1 text-sm">
+      <a
+        href="/"
+        className={`flex-1 px-3 py-2 text-center transition-colors duration-200 ${
+          isAgent
+            ? "text-muted-foreground hover:text-black"
+            : "bg-white text-black"
+        }`}
+        onClick={onClick}
+      >
+        Web
+      </a>
+      <a
+        href="/agent"
+        className={`flex-1 px-3 py-2 text-center transition-colors duration-200 ${
+          isAgent
+            ? "bg-white text-black"
+            : "text-muted-foreground hover:text-black"
+        }`}
+        onClick={onClick}
+      >
+        Agent
+      </a>
+    </div>
+  );
+});
+
 export default function Hamburger({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
 
@@ -137,6 +174,7 @@ export default function Hamburger({ pathname }: { pathname: string }) {
             <div className="block text-sm text-muted-foreground fixed bottom-4 left-4 lg:hidden">
               <p>© 2026 Marlon Martin. All rights reserved.</p>
             </div>
+            <SurfaceToggle pathname={pathname} onClick={toggleMenu} />
           </div>
         </div>
       )}
