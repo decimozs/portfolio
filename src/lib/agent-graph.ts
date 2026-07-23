@@ -91,13 +91,13 @@ function getQueryApiUrls(config: Neo4jConfig): string[] {
 
   const url = new URL(config.uri.replace(/^neo4j\+s:/, "https:"));
   const databaseId = url.hostname.split(".")[0];
+  addUniqueUrl(urls, `https://${url.hostname}/db/${databaseId}/query/v2`);
   addUniqueUrl(
     urls,
     config.database
       ? `https://${url.hostname}/db/${config.database}/query/v2`
       : undefined,
   );
-  addUniqueUrl(urls, `https://${url.hostname}/db/${databaseId}/query/v2`);
 
   return urls;
 }
@@ -178,7 +178,9 @@ async function runQuery<T>(
       .filter((value): value is T => value !== undefined && value !== null);
   }
 
-  console.warn("Neo4j Query API attempts failed", { field, failures });
+  if (field === "person") {
+    console.warn("Neo4j Query API attempts failed", { field, failures });
+  }
 
   return [];
 }
