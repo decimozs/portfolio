@@ -76,17 +76,20 @@ type EducationContext = {
   awards?: string[];
 };
 
-function getQueryApiUrl(config: Neo4jConfig): string | null {
-  if (config.queryApiUrl) {
-    return config.queryApiUrl;
-  }
+function getQueryApiUrls(config: Neo4jConfig): string[] {
+  const urls = config.queryApiUrl ? [config.queryApiUrl] : [];
   if (!config.uri) {
-    return null;
+    return urls;
   }
 
   const url = new URL(config.uri.replace(/^neo4j\+s:/, "https:"));
   const databaseId = url.hostname.split(".")[0];
-  return `https://${url.hostname}/db/${databaseId}/query/v2`;
+  const derivedUrl = `https://${url.hostname}/db/${databaseId}/query/v2`;
+  if (!urls.includes(derivedUrl)) {
+    urls.push(derivedUrl);
+  }
+
+  return urls;
 }
 
 async function runQuery<T>(
@@ -94,34 +97,38 @@ async function runQuery<T>(
   statement: string,
   field: string,
 ): Promise<T[]> {
-  const url = getQueryApiUrl(config);
-  if (!url || !config.username || !config.password) {
+  const urls = getQueryApiUrls(config);
+  if (urls.length === 0 || !config.username || !config.password) {
     return [];
   }
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      authorization: `Basic ${btoa(`${config.username}:${config.password}`)}`,
-    },
-    body: JSON.stringify({ statement }),
-  });
+  for (const url of urls) {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        authorization: `Basic ${btoa(`${config.username}:${config.password}`)}`,
+      },
+      body: JSON.stringify({ statement }),
+    }).catch(() => null);
 
-  if (!response.ok) {
-    return [];
+    if (!response?.ok) {
+      continue;
+    }
+
+    const result = (await response.json()) as QueryResponse;
+    const fieldIndex = result.data?.fields?.indexOf(field) ?? -1;
+    if (fieldIndex === -1) {
+      continue;
+    }
+
+    return (result.data?.values ?? [])
+      .map((row) => row[fieldIndex] as T | undefined)
+      .filter((value): value is T => value !== undefined && value !== null);
   }
 
-  const result = (await response.json()) as QueryResponse;
-  const fieldIndex = result.data?.fields?.indexOf(field) ?? -1;
-  if (fieldIndex === -1) {
-    return [];
-  }
-
-  return (result.data?.values ?? [])
-    .map((row) => row[fieldIndex] as T | undefined)
-    .filter((value): value is T => value !== undefined && value !== null);
+  return [];
 }
 
 function formatList(items: string[] | undefined): string {
