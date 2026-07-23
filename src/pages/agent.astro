@@ -1,0 +1,12 @@
+---
+import { AgentChat } from "@/components/agent-chat";
+import Layout from "../layouts/Layout.astro";
+
+const title = "Agent";
+---
+
+<Layout title={title} fullHeight>
+    <div class="mt-4 xl:mt-0 h-full min-h-0 flex flex-col w-full">
+        <AgentChat client:load />
+    </div>
+</Layout>
