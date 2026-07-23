@@ -1,3 +1,4 @@
+import { env } from "cloudflare:workers";
 import type { APIRoute } from "astro";
 import {
   type GovernedChatMessage,
@@ -111,42 +112,25 @@ function normalizeMessages(raw: unknown): ChatMessage[] | null {
   return messages.slice(-MAX_HISTORY);
 }
 
-function resolveApiKey(locals: App.Locals): string | undefined {
-  const runtimeEnv = (
-    locals as { runtime?: { env?: Record<string, string | undefined> } }
-  ).runtime?.env;
-  return runtimeEnv?.OLLAMA_API_KEY ?? import.meta.env.OLLAMA_API_KEY;
+function resolveApiKey(): string | undefined {
+  return env.OLLAMA_API_KEY ?? import.meta.env.OLLAMA_API_KEY;
 }
 
-function resolveModel(locals: App.Locals): string {
-  const runtimeEnv = (
-    locals as { runtime?: { env?: Record<string, string | undefined> } }
-  ).runtime?.env;
-  return (
-    runtimeEnv?.OLLAMA_MODEL ?? import.meta.env.OLLAMA_MODEL ?? DEFAULT_MODEL
-  );
+function resolveModel(): string {
+  return env.OLLAMA_MODEL ?? import.meta.env.OLLAMA_MODEL ?? DEFAULT_MODEL;
 }
 
-function resolveRuntimeEnv(
-  locals: App.Locals,
-): Record<string, string | undefined> | undefined {
-  return (locals as { runtime?: { env?: Record<string, string | undefined> } })
-    .runtime?.env;
-}
-
-function resolveGraphConfig(locals: App.Locals): {
+function resolveGraphConfig(): {
   uri?: string;
   username?: string;
   password?: string;
   queryApiUrl?: string;
 } {
-  const runtimeEnv = resolveRuntimeEnv(locals);
   return {
-    uri: runtimeEnv?.NEO4J_URI ?? import.meta.env.NEO4J_URI,
-    username: runtimeEnv?.NEO4J_USERNAME ?? import.meta.env.NEO4J_USERNAME,
-    password: runtimeEnv?.NEO4J_PASSWORD ?? import.meta.env.NEO4J_PASSWORD,
-    queryApiUrl:
-      runtimeEnv?.NEO4J_QUERY_API_URL ?? import.meta.env.NEO4J_QUERY_API_URL,
+    uri: env.NEO4J_URI ?? import.meta.env.NEO4J_URI,
+    username: env.NEO4J_USERNAME ?? import.meta.env.NEO4J_USERNAME,
+    password: env.NEO4J_PASSWORD ?? import.meta.env.NEO4J_PASSWORD,
+    queryApiUrl: env.NEO4J_QUERY_API_URL ?? import.meta.env.NEO4J_QUERY_API_URL,
   };
 }
 
@@ -296,13 +280,13 @@ function streamOllama(upstream: Response): Response {
   });
 }
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  const apiKey = resolveApiKey(locals);
+export const POST: APIRoute = async ({ request }) => {
+  const apiKey = resolveApiKey();
   if (!apiKey) {
     return jsonError("Agent is not configured.", 500);
   }
 
-  const model = resolveModel(locals);
+  const model = resolveModel();
 
   let body: RequestBody;
   try {
@@ -352,7 +336,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     sanitizedMessages,
     classification,
   );
-  const graphContext = await getAgentGraphContext(resolveGraphConfig(locals));
+  const graphContext = await getAgentGraphContext(resolveGraphConfig());
   if (!graphContext) {
     return textResponse(
       "I can't reach Marlon's portfolio context right now. Please try again in a bit.",
