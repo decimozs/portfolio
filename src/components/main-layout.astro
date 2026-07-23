@@ -3,17 +3,34 @@
 // Zero React, fully server-rendered, no hydration cost.
 interface Props {
   fullHeight?: boolean;
+  agentShell?: boolean;
 }
 
-const { fullHeight = false } = Astro.props;
+const { fullHeight = false, agentShell = false } = Astro.props;
 
-const mainClass = fullHeight
-  ? "p-6 text-2xl flex flex-col xl:grid xl:grid-cols-[250px_1fr] xl:gap-20 xl:max-w-6xl xl:mx-auto h-[100dvh] overflow-hidden items-start"
-  : "p-6 text-2xl flex flex-col xl:grid xl:grid-cols-[250px_1fr] xl:gap-20 xl:max-w-6xl xl:mx-auto min-h-screen items-start";
+const mainClass = agentShell
+  ? "p-4 sm:p-6 text-2xl flex flex-col max-w-3xl mx-auto h-[100dvh] overflow-hidden w-full"
+  : fullHeight
+    ? "p-6 text-2xl flex flex-col xl:grid xl:grid-cols-[250px_1fr] xl:gap-20 xl:max-w-6xl xl:mx-auto h-[100dvh] overflow-hidden items-start"
+    : "p-6 text-2xl flex flex-col xl:grid xl:grid-cols-[250px_1fr] xl:gap-20 xl:max-w-6xl xl:mx-auto min-h-screen items-start";
 ---
 
-<div class="block fixed bg-white/60 top-0 left-0 w-full h-6 backdrop-blur-sm" aria-hidden="true"></div>
+{
+  !agentShell && (
+    <div
+      class="block fixed bg-white/60 top-0 left-0 h-6 w-full backdrop-blur-sm"
+      aria-hidden="true"
+    />
+  )
+}
 <main class={mainClass}>
   <slot />
 </main>
-<div class="block fixed bg-white/60 bottom-0 left-0 w-full h-6 backdrop-blur-sm" aria-hidden="true"></div>
+{
+  !agentShell && (
+    <div
+      class="block fixed bottom-0 left-0 h-6 w-full bg-white/60 backdrop-blur-sm"
+      aria-hidden="true"
+    />
+  )
+}

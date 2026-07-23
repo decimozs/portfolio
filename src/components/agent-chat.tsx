@@ -13,6 +13,8 @@ import {
   loadMessages,
   saveMessages,
 } from "@/lib/agent-storage";
+import { starterPrompts } from "@/lib/constant";
+import { saveSurfacePreference } from "@/lib/surface-preference";
 import { MarkdownMessage } from "./markdown-message";
 
 const MAX_INPUT_LENGTH = 2000;
@@ -51,6 +53,27 @@ function ThinkingIndicator() {
     >
       {phrase}…
     </p>
+  );
+}
+
+function SurfaceToggle() {
+  return (
+    <div className="flex w-[205px] flex-row gap-1 bg-accent p-1 text-sm">
+      <a
+        href="/"
+        onClick={() => saveSurfacePreference("web")}
+        className="flex-1 px-3 py-1 text-center text-muted-foreground transition-colors duration-200 hover:text-black"
+      >
+        Web
+      </a>
+      <a
+        href="/agent"
+        onClick={() => saveSurfacePreference("agent")}
+        className="flex-1 bg-white px-3 py-1 text-center text-black transition-colors duration-200"
+      >
+        Agent
+      </a>
+    </div>
   );
 }
 
@@ -179,105 +202,125 @@ export function AgentChat() {
     [input, sendMessage],
   );
 
-  useEffect(() => {
-    const handler = (event: Event) => {
-      const detail = (event as CustomEvent<string>).detail;
-      if (typeof detail === "string") {
-        void sendMessage(detail);
-      }
-    };
+  const hasMessages = messages.length > 0;
 
-    window.addEventListener("agent:prompt", handler);
-    return () => window.removeEventListener("agent:prompt", handler);
-  }, [sendMessage]);
+  const inputForm = (
+    <form
+      onSubmit={handleSubmit}
+      className={`flex flex-row items-end gap-2 bg-white ${hasMessages ? "shrink-0 pt-2 pb-1" : "w-full"}`}
+    >
+      <label htmlFor="agent-input" className="sr-only">
+        Message the agent
+      </label>
+      <input
+        id="agent-input"
+        type="text"
+        value={input}
+        maxLength={MAX_INPUT_LENGTH}
+        onChange={(event) => setInput(event.target.value)}
+        placeholder="Ask me anything about Marlon"
+        disabled={loading}
+        className="min-w-0 flex-1 bg-accent px-4 py-2 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-60"
+      />
+      <button
+        type="submit"
+        disabled={loading || input.trim().length === 0}
+        className="flex h-full shrink-0 items-center justify-center bg-accent px-4 py-2 transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-60"
+        aria-label="Send message"
+      >
+        {loading ? (
+          <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+        ) : (
+          "Send"
+        )}
+      </button>
+    </form>
+  );
 
   return (
-    <div className="flex flex-col h-full min-h-0 w-full">
-      <div className="shrink-0 mb-1 flex flex-row items-center justify-between gap-4">
-        <p>Agent</p>
-        {messages.length > 0 ? (
-          <button
-            type="button"
-            onClick={handleClear}
-            disabled={loading}
-            aria-label="Clear conversation"
-            className="underline-animate cursor-pointer"
-          >
-            Clear
-          </button>
-        ) : null}
-      </div>
-      <div
-        ref={scrollRef}
-        className={`flex flex-col gap-3 ${messages.length === 0 ? "flex-1 lg:flex-none" : "flex-1"} min-h-0 overflow-y-auto pb-4`}
-        data-lenis-prevent
-        aria-live="polite"
-      >
-        {messages.length === 0 ? (
-          <div className="flex flex-col gap-2 text-muted-foreground">
-            <p>
-              Ask my agent about my projects, experience, notebooks, and
-              technical background.
-            </p>
-          </div>
-        ) : (
-          messages.map((message, index) => (
-            <div
-              key={`${message.role}-${index}`}
-              className={
-                message.role === "user"
-                  ? `${CARD_CLASS} self-end max-w-[85%]`
-                  : "max-w-[85%]"
-              }
+    <div
+      className={`flex h-full min-h-0 w-full ${hasMessages ? "flex-col" : "items-center justify-center"}`}
+    >
+      {hasMessages ? (
+        <>
+          <div className="mb-3 flex shrink-0 flex-row items-center justify-between gap-4">
+            <SurfaceToggle />
+            <button
+              type="button"
+              onClick={handleClear}
+              disabled={loading}
+              aria-label="Clear conversation"
+              className="cursor-pointer text-muted-foreground transition-colors duration-200 hover:text-black disabled:opacity-60"
             >
-              {message.role === "user" ? (
-                <p className="whitespace-pre-wrap">{message.content}</p>
-              ) : message.content ? (
-                <MarkdownMessage content={message.content} />
-              ) : (
-                <ThinkingIndicator />
-              )}
-            </div>
-          ))
-        )}
-      </div>
+              Clear
+            </button>
+          </div>
 
-      {error ? (
-        <p className="text-sm text-red-600 shrink-0" role="alert">
-          {error}
-        </p>
-      ) : null}
+          <div
+            ref={scrollRef}
+            className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto pb-4"
+            data-lenis-prevent
+            aria-live="polite"
+          >
+            {messages.map((message, index) => (
+              <div
+                key={`${message.role}-${index}`}
+                className={
+                  message.role === "user"
+                    ? `${CARD_CLASS} max-w-[85%] self-end`
+                    : "max-w-[85%]"
+                }
+              >
+                {message.role === "user" ? (
+                  <p className="whitespace-pre-wrap">{message.content}</p>
+                ) : message.content ? (
+                  <MarkdownMessage content={message.content} />
+                ) : (
+                  <ThinkingIndicator />
+                )}
+              </div>
+            ))}
+          </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-row gap-2 items-end shrink-0 pt-2 pb-1 bg-white"
-      >
-        <label htmlFor="agent-input" className="sr-only">
-          Message the agent
-        </label>
-        <input
-          id="agent-input"
-          type="text"
-          value={input}
-          maxLength={MAX_INPUT_LENGTH}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder="Ask me anything about Marlon"
-          disabled={loading}
-          className="flex-1 min-w-0 px-4 py-2 bg-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-60"
-        />
-        <button
-          type="submit"
-          disabled={loading || input.trim().length === 0}
-          className="shrink-0 px-4 py-2 bg-accent transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-60 flex items-center justify-center h-full"
-          aria-label="Send message"
-        >
-          {loading ? (
-            <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-          ) : (
-            "Send"
-          )}
-        </button>
-      </form>
+          {error ? (
+            <p className="shrink-0 text-sm text-red-600" role="alert">
+              {error}
+            </p>
+          ) : null}
+
+          {inputForm}
+        </>
+      ) : (
+        <div className="flex w-full max-w-2xl flex-col items-center gap-5">
+          <SurfaceToggle />
+          <p className="max-w-lg text-center text-muted-foreground">
+            Ask my agent about my projects, experience, notebooks, and technical
+            background.
+          </p>
+
+          <div className="flex w-full flex-row flex-wrap justify-center gap-2 text-center text-sm">
+            {starterPrompts.map((prompt) => (
+              <button
+                key={prompt}
+                type="button"
+                onClick={() => void sendMessage(prompt)}
+                disabled={loading}
+                className="w-fit bg-accent px-4 py-2 transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-40"
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
+
+          {error ? (
+            <p className="text-sm text-red-600" role="alert">
+              {error}
+            </p>
+          ) : null}
+
+          {inputForm}
+        </div>
+      )}
     </div>
   );
 }

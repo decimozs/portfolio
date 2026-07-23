@@ -1,5 +1,5 @@
 ---
-import { navItems, socialItems, starterPrompts } from "@/lib/constant";
+import { navItems, socialItems } from "@/lib/constant";
 
 interface Props {
   pathname: string;
@@ -10,23 +10,6 @@ const isAgent = pathname === "/agent";
 ---
 
 <nav class="hidden xl:flex flex-col gap-10">
-  {
-    isAgent && (
-      <div class="flex flex-col gap-1">
-        <p class="text-lg">Try Asking</p>
-        {starterPrompts.map((prompt) => (
-          <button
-            type="button"
-            class="agent-prompt w-fit text-left text-lg text-muted-foreground opacity-50 hover:text-black hover:opacity-100 transition-colors duration-200 cursor-pointer"
-            data-prompt={prompt}
-          >
-            {prompt}
-          </button>
-        ))}
-      </div>
-    )
-  }
-
   {
     !isAgent && (
       <div class="flex flex-col gap-2">
@@ -74,6 +57,7 @@ const isAgent = pathname === "/agent";
   <div class="flex flex-row gap-1 bg-accent p-1 w-[205px] text-sm">
     <a
       href="/"
+      data-surface-preference="web"
       class={`flex-1 text-center px-3 py-1 transition-colors duration-200 ${
         pathname === "/agent"
           ? "text-muted-foreground hover:text-black"
@@ -84,6 +68,7 @@ const isAgent = pathname === "/agent";
     </a>
     <a
       href="/agent"
+      data-surface-preference="agent"
       class={`flex-1 text-center px-3 py-1 transition-colors duration-200 ${
         pathname === "/agent"
           ? "bg-white text-black"
@@ -96,6 +81,7 @@ const isAgent = pathname === "/agent";
 </nav>
 
 <script>
+  import { saveSurfacePreference } from "@/lib/surface-preference";
   import { track } from "@/lib/tracking";
 
   // PostHog tracking for social links in sidebar nav
@@ -111,27 +97,15 @@ const isAgent = pathname === "/agent";
     });
   });
 
-  function wireAgentPrompts() {
-    document
-      .querySelectorAll<HTMLButtonElement>(".agent-prompt")
-      .forEach((button) => {
-        if (button.dataset.wired === "true") {
-          return;
+  document
+    .querySelectorAll<HTMLAnchorElement>("[data-surface-preference]")
+    .forEach((link) => {
+      link.addEventListener("click", () => {
+        const surface = link.dataset.surfacePreference;
+        if (surface === "web" || surface === "agent") {
+          saveSurfacePreference(surface);
         }
-
-        button.dataset.wired = "true";
-        button.addEventListener("click", () => {
-          const prompt = button.getAttribute("data-prompt");
-          if (prompt) {
-            window.dispatchEvent(
-              new CustomEvent("agent:prompt", { detail: prompt }),
-            );
-          }
-        });
       });
-  }
-
-  wireAgentPrompts();
-  document.addEventListener("astro:page-load", wireAgentPrompts);
+    });
 
 </script>

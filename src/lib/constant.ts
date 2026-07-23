@@ -65,4 +65,5 @@ export const starterPrompts: string[] = [
   "Show the architecture principles behind his work",
   "How does he keep agents grounded and safe?",
   "Connect his experiments to shipped systems",
+  "What makes Marlon effective in AI systems?",
 ];

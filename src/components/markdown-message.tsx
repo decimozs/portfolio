@@ -55,9 +55,7 @@ const components: Components = {
       {...props}
     />
   ),
-  hr: (props: HTMLAttributes<HTMLHRElement>) => (
-    <hr className="border-border my-3" {...props} />
-  ),
+  hr: () => null,
   table: (props: HTMLAttributes<HTMLTableElement>) => (
     <div className="mb-3 overflow-x-auto" data-lenis-prevent>
       <table className="w-full border-collapse text-sm" {...props} />

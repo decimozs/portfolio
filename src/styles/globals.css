@@ -109,7 +109,11 @@ html.lenis body {
   html {
     scroll-behavior: auto;
   }
-  #page-loader {
+  #landing-loader,
+  #landing-loader p,
+  #landing-loader.is-running p,
+  #landing-loader.is-done {
+    animation: none;
     transition: none;
   }
   .underline-animate::after {
@@ -117,26 +121,83 @@ html.lenis body {
   }
 }
 
-#page-loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  width: 100%;
-  height: 1px;
-  pointer-events: none;
-  background: black;
+.landing-content-pending #landing-content {
   opacity: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition:
-    opacity 120ms ease,
-    transform 420ms ease;
+  transform: translateY(6px);
 }
 
-#page-loader.is-loading {
+.landing-content-visible #landing-content {
   opacity: 1;
-  transform: scaleX(1);
+  transform: translateY(0);
+  transition:
+    opacity 520ms ease,
+    transform 520ms ease;
+}
+
+#landing-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  cursor: default;
+  pointer-events: auto;
+  background: white;
+  color: black;
+  opacity: 1;
+}
+
+#landing-loader p {
+  display: flex;
+  gap: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  letter-spacing: -0.04em;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#landing-loader.is-running .landing-loader-name {
+  animation: landing-name-out 1000ms ease-in-out forwards;
+}
+
+#landing-loader.is-running .landing-loader-title {
+  animation: landing-name-out 1000ms ease-in-out 1000ms forwards;
+}
+
+#landing-loader.is-done {
+  animation: landing-loader-out 420ms ease-in forwards;
+}
+
+.landing-loader-name {
+  color: black;
+}
+
+.landing-loader-title {
+  color: black;
+}
+
+@keyframes landing-name-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes landing-loader-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-content-pending #landing-content,
+  .landing-content-visible #landing-content {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .underline-animate {

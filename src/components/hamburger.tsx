@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import { navItems, socialItems } from "@/lib/constant";
+import { saveSurfacePreference } from "@/lib/surface-preference";
 import { track } from "@/lib/tracking";
 
 const NavLink = memo(function NavLink({
@@ -71,6 +72,14 @@ const SurfaceToggle = memo(function SurfaceToggle({
   onClick: () => void;
 }) {
   const isAgent = pathname === "/agent";
+  const handleWebClick = useCallback(() => {
+    saveSurfacePreference("web");
+    onClick();
+  }, [onClick]);
+  const handleAgentClick = useCallback(() => {
+    saveSurfacePreference("agent");
+    onClick();
+  }, [onClick]);
 
   return (
     <div className="flex w-full max-w-xs flex-row gap-1 bg-accent p-1 text-sm">
@@ -81,7 +90,7 @@ const SurfaceToggle = memo(function SurfaceToggle({
             ? "text-muted-foreground hover:text-black"
             : "bg-white text-black"
         }`}
-        onClick={onClick}
+        onClick={handleWebClick}
       >
         Web
       </a>
@@ -92,7 +101,7 @@ const SurfaceToggle = memo(function SurfaceToggle({
             ? "bg-white text-black"
             : "text-muted-foreground hover:text-black"
         }`}
-        onClick={onClick}
+        onClick={handleAgentClick}
       >
         Agent
       </a>
