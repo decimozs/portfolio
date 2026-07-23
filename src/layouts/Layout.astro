@@ -14,9 +14,15 @@ interface Props {
   title?: string;
   description?: string;
   fullHeight?: boolean;
+  agentShell?: boolean;
 }
 
-const { title, description, fullHeight = false } = Astro.props;
+const {
+  title,
+  description,
+  fullHeight = false,
+  agentShell = false,
+} = Astro.props;
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
@@ -51,44 +57,78 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     </head>
     <body class="antialiased bg-white text-black">
-        <div id="page-loader" aria-hidden="true"></div>
+        {pathname === "/" && (
+            <div id="landing-loader" aria-hidden="true">
+                <p>
+                    <span class="landing-loader-name">Marlon Martin</span>
+                    <span class="landing-loader-title">Portfolio</span>
+                </p>
+            </div>
+        )}
         <!-- SmoothScroll: returns null, client:only is correct here -->
         <SmoothScroll client:only="react" />
-        <Hamburger client:only="react" pathname={pathname} />
-        <MainLayout fullHeight={fullHeight}>
-            <div class={`flex flex-col gap-8 xl:sticky xl:top-8 xl:self-start ${fullHeight ? "shrink-0" : ""}`}>
-                <Header pathname={pathname} compact={fullHeight} />
-                <Nav pathname={pathname} />
-                <p class='hidden lg:block text-sm opacity-50 text-muted-foreground hover:text-black hover:opacity-100'>© 2026 Marlon Martin</p>
-            </div>
-            <div class={`w-full ${fullHeight ? "h-full min-h-0 flex flex-col" : ""}`}>
-                <slot />
-            </div>
-        </MainLayout>
+        {!agentShell && <Hamburger client:only="react" pathname={pathname} />}
+        <div id="landing-content">
+            <MainLayout fullHeight={fullHeight} agentShell={agentShell}>
+                {!agentShell && (
+                    <div class={`flex flex-col gap-8 xl:sticky xl:top-8 xl:self-start ${fullHeight ? "shrink-0" : ""}`}>
+                        <Header pathname={pathname} compact={fullHeight} />
+                        <Nav pathname={pathname} />
+                        <p class='hidden lg:block text-sm opacity-50 text-muted-foreground hover:text-black hover:opacity-100'>© 2026 Marlon Martin</p>
+                    </div>
+                )}
+                <div class={`w-full ${fullHeight ? "h-full min-h-0 flex flex-col" : ""} ${agentShell ? "max-w-3xl mx-auto" : ""}`}>
+                    <slot />
+                </div>
+            </MainLayout>
+        </div>
         <script is:inline>
             (() => {
-                if (window.__pageLoaderWired) {
+                const removeLandingLoader = () => {
+                    document.getElementById("landing-loader")?.remove();
+                    document.documentElement.classList.remove("landing-content-pending");
+                    document.documentElement.classList.add("landing-content-visible");
+                };
+
+                if (!window.__landingLoaderWired) {
+                    window.__landingLoaderWired = true;
+                    document.addEventListener("astro:after-swap", removeLandingLoader);
+                }
+
+                const loader = document.getElementById("landing-loader");
+                if (!loader) {
+                    window.__landingLoaderBooted = true;
+                    document.documentElement.classList.add("landing-content-visible");
                     return;
                 }
 
-                window.__pageLoaderWired = true;
-                const getPageLoader = () => document.getElementById("page-loader");
+                if (window.__landingLoaderBooted) {
+                    loader.remove();
+                    document.documentElement.classList.add("landing-content-visible");
+                    return;
+                }
 
-                document.addEventListener("astro:before-preparation", () => {
-                    getPageLoader()?.classList.add("is-loading");
-                });
+                window.__landingLoaderBooted = true;
+                document.documentElement.classList.add("landing-content-pending");
+                requestAnimationFrame(() => loader.classList.add("is-running"));
+                window.setTimeout(() => loader.classList.add("is-done"), 2000);
+                window.setTimeout(() => loader.remove(), 2450);
+                window.setTimeout(() => {
+                    document.documentElement.classList.remove("landing-content-pending");
+                    document.documentElement.classList.add("landing-content-visible");
+                }, 2450);
+            })();
+        </script>
+        <script is:inline>
+            (() => {
+                if (window.__routeScrollWired) {
+                    return;
+                }
 
-                document.addEventListener("astro:after-preparation", () => {
-                    getPageLoader()?.classList.remove("is-loading");
-                });
-
+                window.__routeScrollWired = true;
                 document.addEventListener("astro:after-swap", () => {
                     window.scrollTo({ left: 0, top: 0, behavior: "instant" });
                     window.dispatchEvent(new Event("portfolio:scroll-top"));
-                });
-
-                document.addEventListener("astro:page-load", () => {
-                    getPageLoader()?.classList.remove("is-loading");
                 });
             })();
         </script>
