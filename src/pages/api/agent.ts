@@ -124,12 +124,14 @@ function resolveGraphConfig(): {
   uri?: string;
   username?: string;
   password?: string;
+  database?: string;
   queryApiUrl?: string;
 } {
   return {
     uri: env.NEO4J_URI ?? import.meta.env.NEO4J_URI,
     username: env.NEO4J_USERNAME ?? import.meta.env.NEO4J_USERNAME,
     password: env.NEO4J_PASSWORD ?? import.meta.env.NEO4J_PASSWORD,
+    database: env.NEO4J_DATABASE ?? import.meta.env.NEO4J_DATABASE,
     queryApiUrl: env.NEO4J_QUERY_API_URL ?? import.meta.env.NEO4J_QUERY_API_URL,
   };
 }
@@ -343,6 +345,7 @@ export const POST: APIRoute = async ({ request }) => {
       hasNeo4jUri: Boolean(graphConfig.uri),
       hasNeo4jUsername: Boolean(graphConfig.username),
       hasNeo4jPassword: Boolean(graphConfig.password),
+      hasNeo4jDatabase: Boolean(graphConfig.database),
       hasNeo4jQueryApiUrl: Boolean(graphConfig.queryApiUrl),
     });
     return textResponse(

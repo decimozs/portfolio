@@ -2,6 +2,7 @@ type Neo4jConfig = {
   uri?: string;
   username?: string;
   password?: string;
+  database?: string;
   queryApiUrl?: string;
 };
 
@@ -76,6 +77,12 @@ type EducationContext = {
   awards?: string[];
 };
 
+function addUniqueUrl(urls: string[], url: string | undefined): void {
+  if (url && !urls.includes(url)) {
+    urls.push(url);
+  }
+}
+
 function getQueryApiUrls(config: Neo4jConfig): string[] {
   const urls = config.queryApiUrl ? [config.queryApiUrl] : [];
   if (!config.uri) {
@@ -84,12 +91,40 @@ function getQueryApiUrls(config: Neo4jConfig): string[] {
 
   const url = new URL(config.uri.replace(/^neo4j\+s:/, "https:"));
   const databaseId = url.hostname.split(".")[0];
-  const derivedUrl = `https://${url.hostname}/db/${databaseId}/query/v2`;
-  if (!urls.includes(derivedUrl)) {
-    urls.push(derivedUrl);
-  }
+  addUniqueUrl(
+    urls,
+    config.database
+      ? `https://${url.hostname}/db/${config.database}/query/v2`
+      : undefined,
+  );
+  addUniqueUrl(urls, `https://${url.hostname}/db/${databaseId}/query/v2`);
 
   return urls;
+}
+
+function getSafeEndpointInfo(url: string): { host: string; database?: string } {
+  const endpoint = new URL(url);
+  return {
+    host: endpoint.hostname,
+    database: endpoint.pathname.match(/\/db\/([^/]+)/)?.[1],
+  };
+}
+
+async function getNeo4jError(response: Response): Promise<unknown> {
+  const body = await response.text().catch(() => "");
+  if (!body) {
+    return undefined;
+  }
+
+  try {
+    const parsed = JSON.parse(body) as {
+      errors?: { code?: string; message?: string }[];
+    };
+    const error = parsed.errors?.[0];
+    return error ? { code: error.code, message: error.message } : undefined;
+  } catch {
+    return body.slice(0, 160);
+  }
 }
 
 async function runQuery<T>(
@@ -102,6 +137,8 @@ async function runQuery<T>(
     return [];
   }
 
+  const failures: unknown[] = [];
+
   for (const url of urls) {
     const response = await fetch(url, {
       method: "POST",
@@ -111,9 +148,22 @@ async function runQuery<T>(
         authorization: `Basic ${btoa(`${config.username}:${config.password}`)}`,
       },
       body: JSON.stringify({ statement }),
-    }).catch(() => null);
+    }).catch((error: unknown) => {
+      failures.push({
+        ...getSafeEndpointInfo(url),
+        error: error instanceof Error ? error.message : "Unknown fetch error",
+      });
+      return null;
+    });
 
     if (!response?.ok) {
+      if (response) {
+        failures.push({
+          ...getSafeEndpointInfo(url),
+          status: response.status,
+          error: await getNeo4jError(response),
+        });
+      }
       continue;
     }
 
@@ -127,6 +177,8 @@ async function runQuery<T>(
       .map((row) => row[fieldIndex] as T | undefined)
       .filter((value): value is T => value !== undefined && value !== null);
   }
+
+  console.warn("Neo4j Query API attempts failed", { field, failures });
 
   return [];
 }
@@ -298,6 +350,13 @@ export async function getAgentGraphContext(
 
   const person = people[0];
   if (!person && projects.length === 0 && experiences.length === 0) {
+    console.warn("Neo4j graph context returned no portfolio rows", {
+      people: people.length,
+      projects: projects.length,
+      experiences: experiences.length,
+      notebooks: notebooks.length,
+      principles: principles.length,
+    });
     return null;
   }
 
