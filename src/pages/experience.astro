@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { formatDate } from "@/lib/date";
+import { formatDateShort } from "@/lib/date";
 import { groupByCompany } from "@/lib/group-experience";
 import Layout from "../layouts/Layout.astro";
 
@@ -42,24 +42,24 @@ const grouped = groupByCompany(sortedExperience);
                 <p>{group.roles[0].company}</p>
                 <div class="flex flex-row mt-1 gap-2 text-sm lg:hidden">
                   {group.roles[0].id === "hello-world" ? (
-                    <p>{formatDate(group.roles[0].startDate)}</p>
+                    <p>{formatDateShort(group.roles[0].startDate)}</p>
                   ) : (
                     <>
-                      <p>{formatDate(group.roles[0].startDate)}</p>
+                      <p>{formatDateShort(group.roles[0].startDate)}</p>
                       <p>-</p>
-                      <p>{group.roles[0].endDate ? formatDate(group.roles[0].endDate) : "Present"}</p>
+                      <p>{group.roles[0].endDate ? formatDateShort(group.roles[0].endDate) : "Present"}</p>
                     </>
                   )}
                 </div>
               </div>
               <div class="hidden lg:flex flex-row mt-1 gap-2 text-sm">
                 {group.roles[0].id === "hello-world" ? (
-                  <p>{formatDate(group.roles[0].startDate)}</p>
+                  <p>{formatDateShort(group.roles[0].startDate)}</p>
                 ) : (
                   <>
-                    <p>{formatDate(group.roles[0].startDate)}</p>
+                    <p>{formatDateShort(group.roles[0].startDate)}</p>
                     <p>-</p>
-                    <p>{group.roles[0].endDate ? formatDate(group.roles[0].endDate) : "Present"}</p>
+                    <p>{group.roles[0].endDate ? formatDateShort(group.roles[0].endDate) : "Present"}</p>
                   </>
                 )}
               </div>
@@ -86,16 +86,16 @@ const grouped = groupByCompany(sortedExperience);
                       </p>
                     )}
                     <div class="flex flex-row mt-1 gap-2 text-sm lg:hidden">
-                      <p>{formatDate(role.startDate)}</p>
+                      <p>{formatDateShort(role.startDate)}</p>
                       <p>-</p>
-                      <p>{role.endDate ? formatDate(role.endDate) : "Present"}</p>
+                      <p>{role.endDate ? formatDateShort(role.endDate) : "Present"}</p>
                     </div>
                   </div>
 
                   <div class="hidden lg:flex flex-row mt-1 gap-2 text-sm">
-                    <p>{formatDate(role.startDate)}</p>
+                    <p>{formatDateShort(role.startDate)}</p>
                     <p>-</p>
-                    <p>{role.endDate ? formatDate(role.endDate) : "Present"}</p>
+                    <p>{role.endDate ? formatDateShort(role.endDate) : "Present"}</p>
                   </div>
                 </div>
               ))}
