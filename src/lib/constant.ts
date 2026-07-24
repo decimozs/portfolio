@@ -25,6 +25,11 @@ export const navItems: NavItem[] = [
     label: "Notebook",
     href: "/notebooks",
   },
+  {
+    id: "blog",
+    label: "Blog",
+    href: "/blog",
+  },
 
   {
     id: "resume",

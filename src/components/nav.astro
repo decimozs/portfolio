@@ -7,6 +7,10 @@ interface Props {
 
 const { pathname } = Astro.props;
 const isAgent = pathname === "/agent";
+const isActiveNavItem = (href: string) =>
+  href === "/blog"
+    ? pathname === href || pathname.startsWith("/blog/")
+    : pathname === href;
 ---
 
 <nav class="hidden xl:flex flex-col gap-10">
@@ -18,7 +22,7 @@ const isAgent = pathname === "/agent";
             <a
               href={item.href}
               class={`w-fit text-lg transition-colors duration-200 ${
-                pathname === item.href
+                isActiveNavItem(item.href)
                   ? "text-black cursor-default"
                   : "opacity-50 text-muted-foreground hover:text-black hover:opacity-100"
               }`}

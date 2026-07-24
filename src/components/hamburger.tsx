@@ -14,7 +14,10 @@ const NavLink = memo(function NavLink({
   onClick?: () => void;
   className?: string;
 }) {
-  const isActive = pathname === item.href;
+  const isActive =
+    item.href === "/blog"
+      ? pathname === item.href || pathname.startsWith("/blog/")
+      : pathname === item.href;
   const isResume = item.id === "resume";
 
   return (

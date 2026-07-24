@@ -10,7 +10,12 @@ const subtitles: Record<string, string> = {
   "/works": "Notable projects I've worked on",
   "/experience": "What I've done",
   "/notebooks": "My explorations and experiments",
+  "/blog": "Thoughts, notes, and field logs",
 };
+
+const subtitle = pathname.startsWith("/blog/")
+  ? subtitles["/blog"]
+  : subtitles[pathname];
 ---
 
 <div class={`select-none w-full ${pathname === '/agent' ? 'lg:-mt-6' : ''}`}>
@@ -57,7 +62,7 @@ const subtitles: Record<string, string> = {
             </a>
           </span>
         ) : (
-          subtitles[pathname] ?? null
+          subtitle ?? null
         )
       }
     </p>
