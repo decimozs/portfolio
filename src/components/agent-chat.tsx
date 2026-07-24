@@ -131,6 +131,7 @@ export function AgentChat() {
         { role: "user", content: sanitized },
       ];
 
+      saveMessages(nextMessages);
       setMessages([...nextMessages, { role: "assistant", content: "" }]);
       setInput("");
       setError(null);
@@ -159,6 +160,10 @@ export function AgentChat() {
             break;
           }
           assistantContent += decoder.decode(value, { stream: true });
+          saveMessages([
+            ...nextMessages,
+            { role: "assistant", content: assistantContent },
+          ]);
           setMessages((prev) => {
             const updated = [...prev];
             updated[updated.length - 1] = {
@@ -171,6 +176,10 @@ export function AgentChat() {
         }
 
         if (assistantContent.trim().length === 0) {
+          saveMessages([
+            ...nextMessages,
+            { role: "assistant", content: "No response returned." },
+          ]);
           setMessages((prev) => {
             const updated = [...prev];
             updated[updated.length - 1] = {
@@ -185,6 +194,7 @@ export function AgentChat() {
         setError(
           err instanceof Error ? err.message : "The agent could not respond.",
         );
+        saveMessages(nextMessages);
         setMessages((prev) => prev.slice(0, -1));
       } finally {
         setLoading(false);
