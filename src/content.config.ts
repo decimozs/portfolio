@@ -71,9 +71,20 @@ const blog = defineCollection({
   }),
 });
 
+const companyContributions = defineCollection({
+  loader: file("src/content/company-contributions.json"),
+  schema: z.object({
+    id: z.string(),
+    companyId: z.string(),
+    company: z.string(),
+    contributions: z.array(z.string()),
+  }),
+});
+
 export const collections = {
   works: works,
   experience: experience,
   notebooks: notebooks,
   blog: blog,
+  companyContributions: companyContributions,
 };
