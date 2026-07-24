@@ -389,7 +389,7 @@ export async function getAgentGraphContext(
     return null;
   }
 
-  return `MARLON MARTIN PORTFOLIO FACTS
+  return `BEGIN PORTFOLIO FACTS
 
 PROFILE
 ${person?.name ?? "Marlon Martin"}${person?.location ? `, ${person.location}` : ""}
@@ -454,5 +454,8 @@ ${education
   .join("\n")}
 
 COMPANY CONTRIBUTIONS
-${contributionsText ?? "No contributions documented."}`;
+${contributionsText ?? "No contributions documented."}
+Company contributions listed above may span multiple roles at the same company.
+
+END PORTFOLIO FACTS`;
 }
