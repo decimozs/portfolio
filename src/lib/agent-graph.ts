@@ -77,6 +77,27 @@ type EducationContext = {
   awards?: string[];
 };
 
+type CompanyContributionContext = {
+  companyId: string;
+  company: string;
+  contributions: string[];
+};
+
+import companyContributions from "@/content/company-contributions.json";
+
+const typedContributions = companyContributions as CompanyContributionContext[];
+
+function formatContributionsContext(): string | null {
+  if (!typedContributions.length) return null;
+
+  return typedContributions
+    .map(
+      (item) =>
+        `- ${item.company}:\n${item.contributions.map((c) => `  - ${c}`).join("\n")}`,
+    )
+    .join("\n");
+}
+
 function addUniqueUrl(urls: string[], url: string | undefined): void {
   if (url && !urls.includes(url)) {
     urls.push(url);
@@ -351,7 +372,13 @@ export async function getAgentGraphContext(
   ]);
 
   const person = people[0];
-  if (!person && projects.length === 0 && experiences.length === 0) {
+  const contributionsText = formatContributionsContext();
+  if (
+    !person &&
+    projects.length === 0 &&
+    experiences.length === 0 &&
+    !contributionsText
+  ) {
     console.warn("Neo4j graph context returned no portfolio rows", {
       people: people.length,
       projects: projects.length,
@@ -424,5 +451,8 @@ ${education
     (item) =>
       `- ${item.school ?? "School"}${item.degree ? `, ${item.degree}` : ""} (${item.startDate ?? "?"} - ${item.endDate ?? "?"}). Awards: ${formatList(item.awards)}`,
   )
-  .join("\n")}`;
+  .join("\n")}
+
+COMPANY CONTRIBUTIONS
+${contributionsText ?? "No contributions documented."}`;
 }

@@ -1,0 +1,61 @@
+[
+  {
+    "id": "exist-software-labs",
+    "companyId": "exist-software-labs",
+    "company": "Exist Software Labs, Inc.",
+    "contributions": [
+      "Optimized document analysis by fine-tuning small language models, reducing PoC processing latency from 2 minutes to 40 seconds.",
+      "Built a Hybrid RAG pipeline with Azure AI Search and reranking, cutting analysis time by 65% for faster retrieval.",
+      "Implemented signature verification using feature extraction and verification, achieving 80% accuracy without Neural Networks.",
+      "Deployed an AI Governance framework with custom guardrails, ensuring 100% deterministic security across LLM providers.",
+      "Developed a CV pipeline using PyTorch, YOLO, and SAM3 to enable vector-based signature verification for claims.",
+      "Built UiPath-powered Smart Expense and Invoice Auditor RPA Agents for automated financial auditing, validation, and data entry.",
+      "Engineered a high-throughput OCR and document intelligence microservice using FastAPI and PaddleOCR with an abstracted architecture for swappable model backends.",
+      "Architected an asynchronous processing pipeline with an in-memory background queue and TTL handling to manage concurrent batch jobs safely.",
+      "Integrated a pooled Gotenberg service to convert office documents, URLs, and HTML into PDFs, delivering structured JSON, Markdown, and XML layout recognition outputs.",
+      "Developed an internal procurement scraper for government bidding platforms, ranking IT bids via sentence-transformer and FAISS matching.",
+      "Researched and documented enterprise AI gateway capabilities, building an internal knowledge base on multi-provider LLM orchestration, intelligent traffic management, and centralized security compliance."
+    ]
+  },
+  {
+    "id": "freelance",
+    "companyId": "freelance",
+    "company": "Freelance",
+    "contributions": [
+      "Architected lending infrastructure using Domain-Driven Design and state machines for 100% financial lifecycle traceability.",
+      "Reduced deployment latency by 87%, cutting global build-to-deploy pipelines from 41 minutes to under 5 minutes.",
+      "Engineered hybrid RBAC/PBAC with atomic transactions, ensuring 100% data integrity and granular access control.",
+      "Developed automated TDD suites, maintaining high-leverage reliability and 95%+ code coverage across services.",
+      "Optimized CI/CD via Turborepo and remote caching, eliminating 90% of redundant build tasks for faster delivery.",
+      "Architected a crochet e-commerce platform using Next.js and Supabase, centralizing fragmented social media sales.",
+      "Built a disaster management system with centralized incident logging to ensure high availability for local government.",
+      "Engineered optimized data workflows for rapid information dispatch, enhancing response times during disaster scenarios."
+    ]
+  },
+  {
+    "id": "binspire",
+    "companyId": "binspire",
+    "company": "Binspire",
+    "contributions": [
+      "Directed the Software and AI engineering lifecycle, from cost-finance modeling to multi-node deployment for Smart-City solutions.",
+      "Reduced module startup time by 90%, bringing system initialization from over a minute to under 10 seconds.",
+      "Implemented a vision pipeline with QR verification, ensuring 100% log accountability and data integrity.",
+      "Architected an autonomous Agentic Engine using custom MCP servers to expose IoT data for multi-model orchestration.",
+      "Engineered an IoT fleet-management system using Raspberry Pi and MQTT for high-performance Arcovia City operations.",
+      "Optimized collection routes via agentic reasoning, improving logistics efficiency for urban waste management."
+    ]
+  },
+  {
+    "id": "open-source",
+    "companyId": "open-source",
+    "company": "Open Source Software Developer",
+    "contributions": [
+      "Contributed to LangChain.js MCP specifications, defining HTTP transport for predictable server-side cycles.",
+      "Implemented URL-persisted state for BetterGov.ph via nuqs, ensuring 100% sync between client and backend queries.",
+      "Refactored OSSPH utility layers in TypeScript to standardize data transformations and reduce technical debt.",
+      "Resolved BetterGov.ph geospatial sync conflicts, improving stability through optimized event propagation.",
+      "Updated LangChain.js technical documentation standards, clarifying S2S protocols and headers for global AI developers.",
+      "Standardized OSSPH business logic abstractions, ensuring seamless data consistency across multiple services."
+    ]
+  }
+]
