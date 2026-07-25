@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import HoverLinkCursor from "@/components/hover-link-cursor.astro";
 import { formatDateShort } from "@/lib/date";
 import Layout from "../layouts/Layout.astro";
 
@@ -18,7 +19,16 @@ const sortedNotebooks = [...notebookItems].sort(
         <div class="grid grid-cols-1 gap-4">
             {
                 sortedNotebooks.map((item) => (
-                    <div class="flex flex-col gap-14">
+                    <div
+                        class="flex flex-col gap-14"
+                        data-hover-cursor-target
+                        data-hover-cursor-source="notebook"
+                        data-hover-cursor-title={item.title}
+                        data-hover-cursor-url={item.links[0]?.href}
+                        role="link"
+                        tabindex="0"
+                        aria-label={`Open ${item.title} in a new tab`}
+                    >
                         <div class="flex flex-col gap-4">
                             <div class="flex flex-row justify-between">
                                 <p class="-mb-2">{item.title}</p>
@@ -59,6 +69,7 @@ const sortedNotebooks = [...notebookItems].sort(
             }
         </div>
     </div>
+    <HoverLinkCursor />
 </Layout>
 
 <script>
