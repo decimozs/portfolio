@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import HoverLinkCursor from "@/components/hover-link-cursor.astro";
 import { formatDate } from "@/lib/date";
 import { getReadingTime } from "@/lib/reading-time";
 import Layout from "../layouts/Layout.astro";
@@ -18,11 +19,22 @@ const sortedPosts = [...blogCollection].sort(
         {
             sortedPosts.map((post) => {
                 const readingTime = getReadingTime(post.body);
+                const postUrl = `/blog/${post.id}`;
 
                 return (
-                <article class="flex flex-col gap-4">
+                <article
+                    class="flex flex-col gap-4"
+                    data-hover-cursor-target
+                    data-hover-cursor-source="blog"
+                    data-hover-cursor-title={post.data.title}
+                    data-hover-cursor-url={postUrl}
+                    data-hover-cursor-mode="same-tab"
+                    role="link"
+                    tabindex="0"
+                    aria-label={`Open ${post.data.title}`}
+                >
                     <div class="flex flex-row justify-between gap-6">
-                        <a href={`/blog/${post.id}`} class="-mb-2 w-fit underline-animate">
+                        <a href={postUrl} class="-mb-2 w-fit">
                             {post.data.title}
                         </a>
                         <p class="hidden xl:block text-sm shrink-0">
@@ -41,4 +53,5 @@ const sortedPosts = [...blogCollection].sort(
             })
         }
     </div>
+    <HoverLinkCursor />
 </Layout>

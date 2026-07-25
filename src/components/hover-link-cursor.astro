@@ -1,0 +1,297 @@
+<div
+  id="hover-link-cursor"
+  aria-hidden="true"
+  class="pointer-events-none fixed left-0 top-0 z-50 hidden h-14 w-14 -translate-x-1/2 -translate-y-1/2 lg:block"
+>
+  <div
+    id="hover-link-cursor-visual"
+    class="flex h-full w-full scale-95 items-center justify-center rounded-full bg-black text-white opacity-0 shadow-sm transition-[opacity,transform] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="scale-90 transition-transform duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+      aria-hidden="true"
+    >
+      <path d="M7 7h10v10"></path>
+      <path d="M7 17 17 7"></path>
+    </svg>
+  </div>
+</div>
+
+<script>
+  import { navigate } from "astro:transitions/client";
+  import { track } from "@/lib/tracking";
+
+  const cursorWindow = window as Window & {
+    __hoverLinkCursorCleanup?: () => void;
+    __hoverLinkCursorPageLoadWired?: boolean;
+  };
+
+  const showIcon = (
+    cursorVisual: Element | null | undefined,
+    cursorIcon: Element | null | undefined,
+  ) => {
+    cursorVisual?.classList.remove("duration-150");
+    cursorVisual?.classList.add("duration-300");
+    cursorVisual?.classList.remove("scale-95", "opacity-0");
+    cursorVisual?.classList.add("scale-100", "opacity-100");
+    cursorIcon?.classList.remove("duration-150");
+    cursorIcon?.classList.add("duration-300");
+    cursorIcon?.classList.remove("scale-90");
+    cursorIcon?.classList.add("scale-110");
+  };
+
+  const setupHoverLinkCursor = () => {
+    cursorWindow.__hoverLinkCursorCleanup?.();
+
+    const targets = document.querySelectorAll("[data-hover-cursor-target]");
+    const cursor =
+      document.querySelector("#landing-content #hover-link-cursor") ??
+      document.getElementById("hover-link-cursor");
+    const cursorVisual = cursor?.querySelector("#hover-link-cursor-visual");
+    const cursorIcon = cursorVisual?.querySelector("svg");
+    const isFinePointer = window.matchMedia(
+      "(min-width: 1024px) and (pointer: fine)",
+    );
+    const abortController = new AbortController();
+    const { signal } = abortController;
+
+    let pointerX = 0;
+    let pointerY = 0;
+    let hasPointerPosition = false;
+    let scrollFrame = 0;
+    let hideTimeout = 0;
+
+    document.querySelectorAll("#hover-link-cursor").forEach((item) => {
+      if (item !== cursor) {
+        item.remove();
+      }
+    });
+
+    const hideCursor = (delay = 0) => {
+      if (!cursorVisual) {
+        return;
+      }
+
+      window.clearTimeout(hideTimeout);
+      hideTimeout = window.setTimeout(() => {
+        cursorVisual.classList.remove("duration-300");
+        cursorVisual.classList.add("duration-150");
+        cursorVisual.classList.remove("scale-100", "opacity-100");
+        cursorVisual.classList.add("scale-95", "opacity-0");
+        cursorIcon?.classList.remove("duration-300");
+        cursorIcon?.classList.add("duration-150");
+        cursorIcon?.classList.remove("scale-110");
+        cursorIcon?.classList.add("scale-90");
+      }, delay);
+    };
+
+    if (targets.length === 0) {
+      cursor?.remove();
+      cursorWindow.__hoverLinkCursorCleanup = undefined;
+      return;
+    }
+
+    if (cursor && cursor.parentElement !== document.body) {
+      document.body.append(cursor);
+    }
+
+    const hoveredTargetFromPointer = () =>
+      document
+        .elementFromPoint(pointerX, pointerY)
+        ?.closest("[data-hover-cursor-target]");
+
+    const moveCursor = (event: MouseEvent) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      hasPointerPosition = true;
+      cursor?.style.setProperty("left", `${pointerX}px`);
+      cursor?.style.setProperty("top", `${pointerY}px`);
+    };
+
+    const showCursor = (event: MouseEvent) => {
+      if (!isFinePointer.matches || !cursorVisual) {
+        return;
+      }
+
+      window.clearTimeout(hideTimeout);
+      moveCursor(event);
+      showIcon(cursorVisual, cursorIcon);
+    };
+
+    const syncCursorWithPointer = (event: MouseEvent) => {
+      moveCursor(event);
+
+      if (!isFinePointer.matches || !cursorVisual) {
+        return;
+      }
+
+      if (hoveredTargetFromPointer()) {
+        window.clearTimeout(hideTimeout);
+        showIcon(cursorVisual, cursorIcon);
+        return;
+      }
+
+      hideCursor();
+    };
+
+    const syncCursorDuringScroll = () => {
+      if (!hasPointerPosition || !cursor || !cursorVisual) {
+        return;
+      }
+
+      cursor.style.setProperty("left", `${pointerX}px`);
+      cursor.style.setProperty("top", `${pointerY}px`);
+
+      if (hoveredTargetFromPointer() && isFinePointer.matches) {
+        window.clearTimeout(hideTimeout);
+        showIcon(cursorVisual, cursorIcon);
+        return;
+      }
+
+      hideCursor();
+    };
+
+    const openTarget = (target: Element) => {
+      const url = target.getAttribute("data-hover-cursor-url");
+      const title = target.getAttribute("data-hover-cursor-title");
+      const source = target.getAttribute("data-hover-cursor-source") ?? "item";
+      const targetMode =
+        target.getAttribute("data-hover-cursor-mode") ?? "new-tab";
+
+      if (!url) {
+        return;
+      }
+
+      track(`${source}_card_clicked`, {
+        item_title: title,
+        item_url: url,
+      });
+
+      if (targetMode === "same-tab") {
+        navigate(url);
+        return;
+      }
+
+      window.open(url, "_blank", "noopener,noreferrer");
+    };
+
+    targets.forEach((target) => {
+      target.addEventListener("mouseenter", showCursor, { signal });
+      target.addEventListener("mousemove", moveCursor, { signal });
+      target.addEventListener("mouseleave", () => hideCursor(), { signal });
+      target.addEventListener(
+        "click",
+        (event) => {
+          const clickedTarget = event.target;
+
+          if (clickedTarget instanceof Element && clickedTarget.closest("a")) {
+            return;
+          }
+
+          openTarget(target);
+        },
+        { signal },
+      );
+      target.addEventListener(
+        "keydown",
+        (event) => {
+          if (!(event instanceof KeyboardEvent)) {
+            return;
+          }
+
+          if (event.key !== "Enter" && event.key !== " ") {
+            return;
+          }
+
+          const focusedTarget = event.target;
+
+          if (focusedTarget instanceof Element && focusedTarget.closest("a")) {
+            return;
+          }
+
+          event.preventDefault();
+          openTarget(target);
+        },
+        { signal },
+      );
+    });
+
+    window.addEventListener("mousemove", syncCursorWithPointer, {
+      passive: true,
+      signal,
+    });
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        cancelAnimationFrame(scrollFrame);
+        scrollFrame = requestAnimationFrame(syncCursorDuringScroll);
+      },
+      { passive: true, signal },
+    );
+
+    cursorWindow.__hoverLinkCursorCleanup = () => {
+      abortController.abort();
+      cancelAnimationFrame(scrollFrame);
+      window.clearTimeout(hideTimeout);
+      hideCursor(0);
+    };
+  };
+
+  setupHoverLinkCursor();
+
+  if (!cursorWindow.__hoverLinkCursorPageLoadWired) {
+    cursorWindow.__hoverLinkCursorPageLoadWired = true;
+    document.addEventListener("astro:page-load", setupHoverLinkCursor);
+  }
+</script>
+
+<style is:global>
+  @media (min-width: 1024px) and (pointer: fine) {
+    [data-hover-cursor-target] {
+      cursor: none;
+      transition:
+        filter 200ms ease-out,
+        opacity 200ms ease-out;
+    }
+
+    #hover-link-cursor,
+    #hover-link-cursor *,
+    [data-hover-cursor-target] * {
+      cursor: none;
+    }
+
+    [data-hover-cursor-target] a,
+    [data-hover-cursor-target] button {
+      cursor: none;
+    }
+
+    body:has([data-hover-cursor-target]:hover)
+      [data-hover-cursor-target]:not(:hover):not(:focus-within) {
+      filter: blur(3px);
+      opacity: 0.45;
+    }
+
+  }
+
+  @media (min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+    [data-hover-cursor-target] {
+      transition: opacity 120ms ease-out;
+    }
+
+    body:has([data-hover-cursor-target]:hover)
+      [data-hover-cursor-target]:not(:hover):not(:focus-within) {
+      filter: none;
+      opacity: 0.65;
+    }
+  }
+</style>

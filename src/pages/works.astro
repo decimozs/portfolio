@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import HoverLinkCursor from "@/components/hover-link-cursor.astro";
 import Layout from "../layouts/Layout.astro";
 
 const title = "Works";
@@ -23,12 +24,21 @@ const escapeRegExp = (str: string) =>
       );
 
       return (
-        <div class="flex flex-col gap-4">
+        <div
+          class="work-hover-target flex flex-col gap-4"
+          data-hover-cursor-target
+          data-hover-cursor-source="project"
+          data-hover-cursor-title={item.title}
+          data-hover-cursor-url={item.link}
+          role="link"
+          tabindex="0"
+          aria-label={`Open ${item.title} in a new tab`}
+        >
           <a
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-fit underline-animate project-link -mb-2"
+            class="w-fit project-link -mb-2"
             data-project-title={item.title}
           >
             {item.title}
@@ -98,20 +108,24 @@ const escapeRegExp = (str: string) =>
       </p>
     </div>
   </div>
+  <HoverLinkCursor />
 </Layout>
 
 <script>
   import { track } from "@/lib/tracking";
 
-  document.querySelectorAll('.project-link').forEach(function(link) {
-    link.addEventListener('click', function() {
-      track('project_link_clicked', {
-        project_title: link.getAttribute('data-project-title'),
-        project_url: link.getAttribute('href')
+  document.querySelectorAll(".project-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      track("project_link_clicked", {
+        project_title: link.getAttribute("data-project-title"),
+        project_url: link.getAttribute("href"),
       });
     });
   });
-  document.getElementById('github-more-projects-link')?.addEventListener('click', function() {
-    track('github_more_projects_clicked', { source: 'works' });
-  });
+
+  document
+    .getElementById("github-more-projects-link")
+    ?.addEventListener("click", () => {
+      track("github_more_projects_clicked", { source: "works" });
+    });
 </script>
