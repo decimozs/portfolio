@@ -18,6 +18,8 @@ import { saveSurfacePreference } from "@/lib/surface-preference";
 import { MarkdownMessage } from "./markdown-message";
 
 const MAX_INPUT_LENGTH = 2000;
+const FIRST_TURN_EXIT_MS = 160;
+const FIRST_TURN_ENTER_MS = 320;
 const CARD_CLASS =
   "px-4 py-2 bg-accent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400";
 
@@ -82,7 +84,20 @@ export function AgentChat() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [firstTurnPhase, setFirstTurnPhase] = useState<
+    "idle" | "exiting" | "entering" | "active"
+  >("idle");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const firstTurnTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+
+  const clearFirstTurnTimeout = useCallback(() => {
+    if (firstTurnTimeoutRef.current) {
+      clearTimeout(firstTurnTimeoutRef.current);
+      firstTurnTimeoutRef.current = null;
+    }
+  }, []);
 
   // Restore persisted chat after mount (hydration-safe: SSR renders empty).
   useEffect(() => {
@@ -91,6 +106,8 @@ export function AgentChat() {
       setMessages(stored);
     }
   }, []);
+
+  useEffect(() => clearFirstTurnTimeout, [clearFirstTurnTimeout]);
 
   // Persist stable turns, skipping an in-flight empty assistant bubble.
   useEffect(() => {
@@ -105,10 +122,12 @@ export function AgentChat() {
   }, [messages, loading]);
 
   const handleClear = useCallback(() => {
+    clearFirstTurnTimeout();
     setMessages([]);
     setError(null);
+    setFirstTurnPhase("idle");
     clearMessages();
-  }, []);
+  }, [clearFirstTurnTimeout]);
 
   const scrollToBottom = useCallback(() => {
     const node = scrollRef.current;
@@ -130,12 +149,34 @@ export function AgentChat() {
         ...messages,
         { role: "user", content: sanitized },
       ];
+      const isFirstTurn = messages.length === 0;
 
-      saveMessages(nextMessages);
-      setMessages([...nextMessages, { role: "assistant", content: "" }]);
       setInput("");
       setError(null);
       setLoading(true);
+
+      if (isFirstTurn) {
+        clearFirstTurnTimeout();
+        setFirstTurnPhase("exiting");
+        await new Promise((resolve) => {
+          firstTurnTimeoutRef.current = setTimeout(resolve, FIRST_TURN_EXIT_MS);
+        });
+      }
+
+      saveMessages(nextMessages);
+      setMessages([...nextMessages, { role: "assistant", content: "" }]);
+
+      if (isFirstTurn) {
+        setFirstTurnPhase("entering");
+        requestAnimationFrame(() => {
+          setFirstTurnPhase("active");
+          firstTurnTimeoutRef.current = setTimeout(() => {
+            setFirstTurnPhase("idle");
+            firstTurnTimeoutRef.current = null;
+          }, FIRST_TURN_ENTER_MS);
+        });
+      }
+
       requestAnimationFrame(scrollToBottom);
 
       try {
@@ -196,12 +237,16 @@ export function AgentChat() {
         );
         saveMessages(nextMessages);
         setMessages((prev) => prev.slice(0, -1));
+        if (isFirstTurn) {
+          clearFirstTurnTimeout();
+          setFirstTurnPhase("idle");
+        }
       } finally {
         setLoading(false);
         requestAnimationFrame(scrollToBottom);
       }
     },
-    [loading, messages, scrollToBottom],
+    [clearFirstTurnTimeout, loading, messages, scrollToBottom],
   );
 
   const handleSubmit = useCallback(
@@ -213,37 +258,57 @@ export function AgentChat() {
   );
 
   const hasMessages = messages.length > 0;
+  const isFirstTurnEntering =
+    firstTurnPhase === "entering" || firstTurnPhase === "active";
+  const activeTransitionClass =
+    firstTurnPhase === "entering"
+      ? "opacity-0 translate-y-3"
+      : "opacity-100 translate-y-0";
+  const emptyTransitionClass =
+    firstTurnPhase === "exiting"
+      ? "-translate-y-4 scale-[0.99] opacity-0"
+      : "translate-y-0 scale-100 opacity-100";
 
   const inputForm = (
     <form
       onSubmit={handleSubmit}
-      className={`flex flex-row items-end gap-2 bg-white ${hasMessages ? "shrink-0 pt-2 pb-1" : "w-full"}`}
+      className={`flex flex-row items-end bg-white transition-[gap] duration-200 ease-out motion-reduce:transition-none ${loading ? "gap-0" : "gap-2"} ${hasMessages ? "shrink-0 pt-2 pb-1" : "w-full"}`}
     >
       <label htmlFor="agent-input" className="sr-only">
         Message the agent
       </label>
-      <input
-        id="agent-input"
-        type="text"
-        value={input}
-        maxLength={MAX_INPUT_LENGTH}
-        onChange={(event) => setInput(event.target.value)}
-        placeholder="Ask me anything about Marlon"
-        disabled={loading}
-        className="min-w-0 flex-1 bg-accent px-4 py-2 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-60"
-      />
-      <button
-        type="submit"
-        disabled={loading || input.trim().length === 0}
-        className="flex h-full shrink-0 items-center justify-center bg-accent px-4 py-2 transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-60"
-        aria-label="Send message"
-      >
+      <div className="relative min-w-0 flex-1">
+        <input
+          id="agent-input"
+          type="text"
+          value={input}
+          maxLength={MAX_INPUT_LENGTH}
+          onChange={(event) => setInput(event.target.value)}
+          placeholder="Ask me anything about Marlon"
+          disabled={loading}
+          className="h-12 w-full bg-accent px-4 py-2 pr-11 leading-none transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-60"
+        />
         {loading ? (
-          <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-        ) : (
-          "Send"
-        )}
-      </button>
+          <Loader2
+            className="absolute top-1/2 right-4 h-5 w-5 -translate-y-1/2 animate-spin text-muted-foreground"
+            aria-label="Loading response"
+          />
+        ) : null}
+      </div>
+      <div
+        className={`shrink-0 overflow-hidden transition-all duration-200 ease-out motion-reduce:transition-none ${loading ? "w-0 opacity-0" : "w-[76px] opacity-100"}`}
+      >
+        <button
+          type="submit"
+          disabled={loading || input.trim().length === 0}
+          tabIndex={loading ? -1 : undefined}
+          className="flex h-12 w-full items-center justify-center bg-accent px-4 py-2 leading-none transition-colors duration-200 hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 disabled:opacity-60"
+          aria-label="Send message"
+          aria-hidden={loading}
+        >
+          Send
+        </button>
+      </div>
     </form>
   );
 
@@ -253,7 +318,9 @@ export function AgentChat() {
     >
       {hasMessages ? (
         <>
-          <div className="mb-3 flex shrink-0 flex-row items-center justify-between gap-4">
+          <div
+            className={`mb-3 flex shrink-0 flex-row items-center justify-between gap-4 transition-all duration-300 ease-out motion-reduce:transform-none motion-reduce:transition-none ${isFirstTurnEntering ? activeTransitionClass : ""}`}
+          >
             <SurfaceToggle />
             <button
               type="button"
@@ -268,7 +335,7 @@ export function AgentChat() {
 
           <div
             ref={scrollRef}
-            className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto pb-4"
+            className={`flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto pb-4 transition-all duration-300 ease-out motion-reduce:transform-none motion-reduce:transition-none ${isFirstTurnEntering ? activeTransitionClass : ""}`}
             data-lenis-prevent
             aria-live="polite"
           >
@@ -298,10 +365,16 @@ export function AgentChat() {
             </p>
           ) : null}
 
-          {inputForm}
+          <div
+            className={`shrink-0 transition-all duration-300 ease-out motion-reduce:transform-none motion-reduce:transition-none ${isFirstTurnEntering ? activeTransitionClass : ""}`}
+          >
+            {inputForm}
+          </div>
         </>
       ) : (
-        <div className="flex w-full max-w-2xl flex-col items-center gap-5">
+        <div
+          className={`flex w-full max-w-2xl flex-col items-center gap-5 transition-all duration-200 ease-out motion-reduce:transform-none motion-reduce:transition-none ${emptyTransitionClass}`}
+        >
           <SurfaceToggle />
           <p className="max-w-lg text-center text-muted-foreground">
             Ask my agent about my projects, experience, notebooks, and technical
