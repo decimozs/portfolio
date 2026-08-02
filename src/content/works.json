@@ -1,5 +1,20 @@
 [
   {
+    "id": "recall",
+    "date": "2026-08-02",
+    "title": "Recall",
+    "description": "An agent harness for turning Notion notes into interactive learning experiences through grounded quizzes, flashcards, and structured learning roadmaps. Its shared skills publish study material through an authenticated local API, support offline study, and synchronize attempts and progress back to Notion through a desktop learning app.",
+    "link": "https://github.com/decimozs/recall",
+    "category": [
+      "Agent Harness",
+      "Agentic Workflows",
+      "Knowledge Grounding",
+      "Evaluation Loops",
+      "Desktop",
+      "Automations"
+    ]
+  },
+  {
     "id": "regtrace",
     "date": "2026-06-01",
     "title": "Regtrace",
