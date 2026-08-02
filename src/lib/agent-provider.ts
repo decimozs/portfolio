@@ -4,11 +4,20 @@ import {
   parsePolicyClassification,
 } from "@/lib/agent-governance";
 
-type OllamaChatResponse = {
-  message?: { content?: string };
+type AnthropicMessageResponse = {
+  content?: Array<{ text?: string }>;
 };
 
-const OLLAMA_ENDPOINT = "https://ollama.com/api/chat";
+const ANTHROPIC_ENDPOINT = "https://api.anthropic.com/v1/messages";
+const ANTHROPIC_VERSION = "2023-06-01";
+
+function getAnthropicHeaders(apiKey: string): HeadersInit {
+  return {
+    "anthropic-version": ANTHROPIC_VERSION,
+    "content-type": "application/json",
+    "x-api-key": apiKey,
+  };
+}
 
 function sanitizeAssistantContent(content: string): string {
   return content
@@ -28,20 +37,14 @@ export async function classifyMessage({
   model: string;
   message: string;
 }): Promise<PolicyClassification | null> {
-  const response = await fetch(OLLAMA_ENDPOINT, {
+  const response = await fetch(ANTHROPIC_ENDPOINT, {
     method: "POST",
-    headers: {
-      "content-type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: getAnthropicHeaders(apiKey),
     body: JSON.stringify({
       model,
-      stream: false,
-      format: "json",
-      messages: [
-        { role: "system", content: POLICY_CLASSIFIER_PROMPT },
-        { role: "user", content: message },
-      ],
+      max_tokens: 256,
+      system: POLICY_CLASSIFIER_PROMPT,
+      messages: [{ role: "user", content: message }],
     }),
   });
 
@@ -49,8 +52,11 @@ export async function classifyMessage({
     return null;
   }
 
-  const result = (await response.json()) as OllamaChatResponse;
-  const content = result.message?.content;
+  const result = (await response.json()) as AnthropicMessageResponse;
+  const content = result.content
+    ?.filter((block) => typeof block.text === "string")
+    .map((block) => block.text)
+    .join("");
   if (!content) {
     return null;
   }
@@ -67,21 +73,22 @@ export async function requestAgentCompletionStream({
   model: string;
   messages: Array<{ role: "system" | "user" | "assistant"; content: string }>;
 }): Promise<Response> {
-  return fetch(OLLAMA_ENDPOINT, {
+  return fetch(ANTHROPIC_ENDPOINT, {
     method: "POST",
-    headers: {
-      "content-type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: getAnthropicHeaders(apiKey),
     body: JSON.stringify({
       model,
+      max_tokens: 2048,
       stream: true,
-      messages,
+      system: messages.find((message) => message.role === "system")?.content,
+      messages: messages
+        .filter((message) => message.role !== "system")
+        .map(({ role, content }) => ({ role, content })),
     }),
   });
 }
 
-export function streamOllama(upstream: Response): Response {
+export function streamAnthropic(upstream: Response): Response {
   const decoder = new TextDecoder();
   const encoder = new TextEncoder();
   let buffer = "";
@@ -102,27 +109,32 @@ export function streamOllama(upstream: Response): Response {
           }
 
           buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split("\n");
-          buffer = lines.pop() ?? "";
+          const events = buffer.split("\n\n");
+          buffer = events.pop() ?? "";
 
-          for (const line of lines) {
-            const trimmed = line.trim();
-            if (trimmed.length === 0) {
+          for (const event of events) {
+            const data = event
+              .split("\n")
+              .find((line) => line.startsWith("data: "))
+              ?.slice("data: ".length);
+            if (!data) {
               continue;
             }
             try {
-              const parsed = JSON.parse(trimmed) as {
-                message?: { content?: string };
-                done?: boolean;
+              const parsed = JSON.parse(data) as {
+                delta?: { type?: string; text?: string };
               };
-              const content = parsed.message?.content;
+              const content =
+                parsed.delta?.type === "text_delta"
+                  ? parsed.delta.text
+                  : undefined;
               if (content) {
                 controller.enqueue(
                   encoder.encode(sanitizeAssistantContent(content)),
                 );
               }
             } catch {
-              // ignore malformed lines
+              // Ignore malformed SSE events.
             }
           }
         }

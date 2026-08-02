@@ -4,6 +4,11 @@
   "assets": {
     "directory": "./dist"
   },
+  "vars": {
+    "MODEL": "claude-haiku-4-5-20251001",
+    "NEO4J_URI": "neo4j+s://39d5ebae.databases.neo4j.io",
+    "NEO4J_DATABASE": "39d5ebae"
+  },
   "observability": {
     "enabled": true
   }

@@ -9,7 +9,7 @@ import { getAgentGraphContext } from "@/lib/agent-graph";
 import {
   classifyMessage,
   requestAgentCompletionStream,
-  streamOllama,
+  streamAnthropic,
 } from "@/lib/agent-provider";
 import {
   resolveApiKey,
@@ -259,7 +259,7 @@ export async function handleAgentRequest(request: Request): Promise<Response> {
     );
   }
 
-  return streamOllama(upstream);
+  return streamAnthropic(upstream);
 }
 
 export function methodNotAllowedResponse(): Response {

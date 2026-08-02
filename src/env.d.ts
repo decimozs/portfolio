@@ -3,8 +3,8 @@
 
 interface ImportMetaEnv {
   readonly GITHUB_TOKEN?: string;
-  readonly OLLAMA_API_KEY?: string;
-  readonly OLLAMA_MODEL?: string;
+  readonly ANTHROPIC_API_KEY?: string;
+  readonly MODEL?: string;
   readonly NEO4J_URI?: string;
   readonly NEO4J_USERNAME?: string;
   readonly NEO4J_PASSWORD?: string;

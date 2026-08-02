@@ -1,6 +1,6 @@
 export type RuntimeEnv = {
-  OLLAMA_API_KEY?: string;
-  OLLAMA_MODEL?: string;
+  ANTHROPIC_API_KEY?: string;
+  MODEL?: string;
   NEO4J_URI?: string;
   NEO4J_USERNAME?: string;
   NEO4J_PASSWORD?: string;
@@ -16,7 +16,7 @@ export type AgentGraphConfig = {
   queryApiUrl?: string;
 };
 
-const DEFAULT_MODEL = "minimax-m2.5:cloud";
+const DEFAULT_MODEL = "claude-haiku-4-5-20251001";
 
 export async function resolveRuntimeEnv(): Promise<RuntimeEnv> {
   if (import.meta.env.DEV) {
@@ -34,13 +34,11 @@ export async function resolveRuntimeEnv(): Promise<RuntimeEnv> {
 }
 
 export function resolveApiKey(runtimeEnv: RuntimeEnv): string | undefined {
-  return runtimeEnv.OLLAMA_API_KEY ?? import.meta.env.OLLAMA_API_KEY;
+  return runtimeEnv.ANTHROPIC_API_KEY ?? import.meta.env.ANTHROPIC_API_KEY;
 }
 
 export function resolveModel(runtimeEnv: RuntimeEnv): string {
-  return (
-    runtimeEnv.OLLAMA_MODEL ?? import.meta.env.OLLAMA_MODEL ?? DEFAULT_MODEL
-  );
+  return runtimeEnv.MODEL ?? import.meta.env.MODEL ?? DEFAULT_MODEL;
 }
 
 export function resolveGraphConfig(runtimeEnv: RuntimeEnv): AgentGraphConfig {
