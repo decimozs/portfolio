@@ -247,6 +247,98 @@ html.lenis body {
   transform-origin: left;
 }
 
+.blog-zen-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.5rem;
+  color: var(--muted-foreground);
+  font-size: inherit;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.blog-zen-toggle:hover,
+.blog-zen-toggle[aria-pressed="true"] {
+  color: var(--foreground);
+}
+
+.blog-zen-toggle svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (max-width: 79.999rem) {
+  .blog-zen-toggle {
+    display: none;
+  }
+}
+
+#landing-content > main > :first-child {
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+#landing-content > main {
+  transition:
+    max-width 260ms ease,
+    grid-template-columns 260ms ease,
+    gap 260ms ease;
+}
+
+.blog-detail-page {
+  transition: max-width 260ms ease;
+}
+
+html.blog-zen-sidebar-transition #landing-content > main > :first-child,
+body.blog-zen-sidebar-transition #landing-content > main > :first-child {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-4px);
+}
+
+html.blog-zen-mode #landing-content > main,
+body.blog-zen-mode #landing-content > main {
+  max-width: 56rem;
+  margin-inline: auto;
+}
+
+html.blog-zen-mode #landing-content > main > :first-child,
+body.blog-zen-mode #landing-content > main > :first-child,
+html.blog-zen-mode .hamburger-button,
+body.blog-zen-mode .hamburger-button {
+  display: none;
+}
+
+html.blog-zen-mode .blog-detail-page,
+body.blog-zen-mode .blog-detail-page {
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 80rem) {
+  #landing-content > main > :last-child {
+    grid-column: 2;
+  }
+
+  html.blog-zen-mode #landing-content > main,
+  body.blog-zen-mode #landing-content > main {
+    grid-template-columns: 0 minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #landing-content > main,
+  .blog-detail-page,
+  #landing-content > main > :first-child {
+    transition: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 0px;
 }
