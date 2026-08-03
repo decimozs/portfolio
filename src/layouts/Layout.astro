@@ -60,7 +60,14 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
         {pathname === "/" && (
             <div id="landing-loader" aria-hidden="true">
                 <p>
-                    <span class="landing-loader-name">Marlon Martin</span>
+                    <span class="landing-loader-name">Marlon</span>
+                    <img
+                        class="landing-loader-avatar"
+                        src="/avatar.png"
+                        alt=""
+                        width="96"
+                        height="96"
+                    />
                     <span class="landing-loader-title">Portfolio</span>
                 </p>
             </div>
@@ -111,12 +118,12 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
                 window.__landingLoaderBooted = true;
                 document.documentElement.classList.add("landing-content-pending");
                 requestAnimationFrame(() => loader.classList.add("is-running"));
-                window.setTimeout(() => loader.classList.add("is-done"), 2000);
-                window.setTimeout(() => loader.remove(), 2450);
+                window.setTimeout(() => loader.classList.add("is-done"), 3000);
+                window.setTimeout(() => loader.remove(), 3450);
                 window.setTimeout(() => {
                     document.documentElement.classList.remove("landing-content-pending");
                     document.documentElement.classList.add("landing-content-visible");
-                }, 2450);
+                }, 3450);
             })();
         </script>
         <script is:inline>

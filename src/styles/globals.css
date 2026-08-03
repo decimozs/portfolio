@@ -111,6 +111,8 @@ html.lenis body {
   }
   #landing-loader,
   #landing-loader p,
+  #landing-loader .landing-loader-name,
+  #landing-loader .landing-loader-title,
   #landing-loader.is-running p,
   #landing-loader.is-done {
     animation: none;
@@ -149,6 +151,8 @@ html.lenis body {
 
 #landing-loader p {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 2rem;
   font-size: clamp(1.5rem, 4vw, 2rem);
   letter-spacing: -0.04em;
@@ -156,12 +160,17 @@ html.lenis body {
   transform: translateY(0);
 }
 
-#landing-loader.is-running .landing-loader-name {
-  animation: landing-name-out 1000ms ease-in-out forwards;
+#landing-loader.is-running .landing-loader-avatar {
+  animation: landing-avatar-out 1000ms ease-in-out 2000ms forwards;
+}
+
+#landing-loader.is-running .landing-loader-name,
+#landing-loader.is-running .landing-loader-title {
+  animation: landing-copy-out 1000ms ease-in-out forwards;
 }
 
 #landing-loader.is-running .landing-loader-title {
-  animation: landing-name-out 1000ms ease-in-out 1000ms forwards;
+  animation-delay: 1000ms;
 }
 
 #landing-loader.is-done {
@@ -172,11 +181,27 @@ html.lenis body {
   color: black;
 }
 
+.landing-loader-avatar {
+  width: clamp(5rem, 14vw, 6rem);
+  height: clamp(5rem, 14vw, 6rem);
+  object-fit: cover;
+  background: var(--accent);
+}
+
 .landing-loader-title {
   color: black;
 }
 
-@keyframes landing-name-out {
+@keyframes landing-avatar-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes landing-copy-out {
   from {
     opacity: 1;
   }
