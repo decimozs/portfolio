@@ -24,21 +24,38 @@ const readingTime = getReadingTime(post.body);
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
-    <article class="mt-4 xl:mt-0 flex w-full max-w-3xl flex-col gap-8">
+    <article
+        class="blog-detail-page mt-4 xl:mt-0 flex w-full max-w-3xl flex-col gap-8"
+        data-blog-detail
+        data-blog-slug={post.id}
+        data-blog-title={post.data.title}
+    >
             <div class="flex flex-col gap-2">
-                <h1>
-                    <a
-                        href="/blog"
-                        data-hover-cursor-target
-                        data-hover-cursor-source="blog"
-                        data-hover-cursor-title={post.data.title}
-                        data-hover-cursor-url="/blog"
-                        data-hover-cursor-mode="back"
-                        data-hover-cursor-icon="arrow-left"
+                <div class="flex items-start justify-between gap-4">
+                    <h1 class="min-w-0">
+                        <a
+                            href="/blog"
+                            data-hover-cursor-target
+                            data-hover-cursor-source="blog"
+                            data-hover-cursor-title={post.data.title}
+                            data-hover-cursor-url="/blog"
+                            data-hover-cursor-mode="back"
+                            data-hover-cursor-icon="arrow-left"
+                        >
+                            {post.data.title}
+                        </a>
+                    </h1>
+                    <button
+                        type="button"
+                        class="blog-zen-toggle shrink-0"
+                        data-zen-mode-toggle
+                        aria-label="Enter zen mode"
+                        aria-pressed="false"
+                        title="Enter zen mode"
                     >
-                        {post.data.title}
-                    </a>
-                </h1>
+                        <span>Zen Mode</span>
+                    </button>
+                </div>
                 <p class="text-sm text-muted-foreground">
                     {formatDate(post.data.date)} · {readingTime}<span
                         data-blog-view-count
@@ -53,47 +70,3 @@ const readingTime = getReadingTime(post.body);
     </article>
     <HoverLinkCursor />
 </Layout>
-
-<script define:vars={{ blogSlug: post.id, blogTitle: post.data.title }}>
-    import { track } from "@/lib/tracking";
-
-    const trackingWindow = window as Window & {
-        __trackedBlogViewPath?: string;
-    };
-
-    const trackBlogView = () => {
-        const path = window.location.pathname;
-
-        if (trackingWindow.__trackedBlogViewPath === path) {
-            return;
-        }
-
-        trackingWindow.__trackedBlogViewPath = path;
-        track("blog_viewed", {
-            blog_slug: blogSlug,
-            blog_title: blogTitle,
-            blog_path: path,
-        });
-    };
-
-    trackBlogView();
-    document.addEventListener("astro:page-load", trackBlogView);
-
-    const viewCount = document.querySelector<HTMLElement>(
-        "[data-blog-view-count]",
-    );
-
-    fetch(`/api/blog-views?slug=${encodeURIComponent(blogSlug)}`)
-        .then((response) => (response.ok ? response.json() : null))
-        .then((data: { views?: number | null } | null) => {
-            if (!viewCount || typeof data?.views !== "number") {
-                return;
-            }
-
-            viewCount.textContent = ` · ${data.views.toLocaleString()} views`;
-            viewCount.hidden = false;
-        })
-        .catch(() => {
-            // Analytics is optional, so the metadata remains unchanged if unavailable.
-        });
-</script>
