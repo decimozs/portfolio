@@ -139,5 +139,156 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
                 });
             })();
         </script>
+        <script is:inline>
+            (() => {
+                if (window.__blogPageWired) {
+                    return;
+                }
+
+                window.__blogPageWired = true;
+
+                const initializeBlogPage = () => {
+                    const article = document.querySelector("[data-blog-detail]");
+                    if (!(article instanceof HTMLElement)) {
+                        return;
+                    }
+
+                    const slug = article.dataset.blogSlug;
+                    const title = article.dataset.blogTitle;
+                    const path = window.location.pathname;
+
+                    if (!slug) {
+                        return;
+                    }
+
+                    if (window.__trackedBlogViewPath !== path) {
+                        window.__trackedBlogViewPath = path;
+                        window.posthog?.capture("blog_viewed", {
+                            blog_slug: slug,
+                            blog_title: title,
+                            blog_path: path,
+                        });
+                    }
+
+                    const viewCount = article.querySelector("[data-blog-view-count]");
+
+                    fetch(`/api/blog-views?slug=${encodeURIComponent(slug)}`)
+                        .then((response) => (response.ok ? response.json() : null))
+                        .then((data) => {
+                            const currentArticle = document.querySelector(
+                                `[data-blog-detail][data-blog-slug="${CSS.escape(slug)}"]`,
+                            );
+
+                            if (
+                                currentArticle !== article ||
+                                !(viewCount instanceof HTMLElement) ||
+                                typeof data?.views !== "number"
+                            ) {
+                                return;
+                            }
+
+                            viewCount.textContent = ` · ${data.views.toLocaleString()} views`;
+                            viewCount.hidden = false;
+                        })
+                        .catch(() => {
+                            // Analytics is optional, so metadata stays unchanged if unavailable.
+                        });
+                };
+
+                initializeBlogPage();
+                document.addEventListener("astro:page-load", initializeBlogPage);
+            })();
+        </script>
+        <script is:inline>
+            (() => {
+                if (window.__blogZenModeWired) {
+                    return;
+                }
+
+                window.__blogZenModeWired = true;
+                let zenModeEnabled = false;
+                let zenTransitionTimer;
+
+                const updateZenToggle = (enabled) => {
+                    const toggle = document.querySelector("[data-zen-mode-toggle]");
+                    toggle?.setAttribute("aria-pressed", String(enabled));
+                    toggle?.setAttribute(
+                        "aria-label",
+                        enabled ? "Exit zen mode" : "Enter zen mode",
+                    );
+                    toggle?.setAttribute(
+                        "title",
+                        enabled ? "Exit zen mode" : "Enter zen mode",
+                    );
+                };
+
+                const clearZenTransition = () => {
+                    window.clearTimeout(zenTransitionTimer);
+                    document.documentElement.classList.remove(
+                        "blog-zen-sidebar-transition",
+                    );
+                    document.body.classList.remove("blog-zen-sidebar-transition");
+                };
+
+                const setZenMode = (enabled, immediate = false) => {
+                    zenModeEnabled = enabled;
+                    clearZenTransition();
+                    updateZenToggle(enabled);
+
+                    if (immediate) {
+                        document.documentElement.classList.toggle(
+                            "blog-zen-mode",
+                            enabled,
+                        );
+                        document.body.classList.toggle("blog-zen-mode", enabled);
+                        return;
+                    }
+
+                    document.documentElement.classList.add(
+                        "blog-zen-sidebar-transition",
+                    );
+                    document.body.classList.add("blog-zen-sidebar-transition");
+
+                    if (enabled) {
+                        zenTransitionTimer = window.setTimeout(() => {
+                            document.documentElement.classList.add("blog-zen-mode");
+                            document.body.classList.add("blog-zen-mode");
+                            clearZenTransition();
+                        }, 180);
+                        return;
+                    }
+
+                    document.documentElement.classList.remove("blog-zen-mode");
+                    document.body.classList.remove("blog-zen-mode");
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(clearZenTransition);
+                    });
+                };
+
+                document.addEventListener("click", (event) => {
+                    const target = event.target;
+                    if (!(target instanceof Element)) {
+                        return;
+                    }
+
+                    const toggle = target.closest("[data-zen-mode-toggle]");
+                    if (!toggle) {
+                        return;
+                    }
+
+                    setZenMode(!zenModeEnabled);
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape") {
+                        setZenMode(false);
+                    }
+                });
+
+                document.addEventListener("astro:before-swap", () => {
+                    setZenMode(false, true);
+                });
+            })();
+        </script>
     </body>
 </html>
