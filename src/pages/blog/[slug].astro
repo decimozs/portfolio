@@ -40,7 +40,10 @@ const readingTime = getReadingTime(post.body);
                     </a>
                 </h1>
                 <p class="text-sm text-muted-foreground">
-                    {formatDate(post.data.date)} · {readingTime}
+                    {formatDate(post.data.date)} · {readingTime}<span
+                        data-blog-view-count
+                        hidden
+                    ></span>
                 </p>
             </div>
         <div class="blog-content flex flex-col gap-6">
@@ -50,3 +53,47 @@ const readingTime = getReadingTime(post.body);
     </article>
     <HoverLinkCursor />
 </Layout>
+
+<script define:vars={{ blogSlug: post.id, blogTitle: post.data.title }}>
+    import { track } from "@/lib/tracking";
+
+    const trackingWindow = window as Window & {
+        __trackedBlogViewPath?: string;
+    };
+
+    const trackBlogView = () => {
+        const path = window.location.pathname;
+
+        if (trackingWindow.__trackedBlogViewPath === path) {
+            return;
+        }
+
+        trackingWindow.__trackedBlogViewPath = path;
+        track("blog_viewed", {
+            blog_slug: blogSlug,
+            blog_title: blogTitle,
+            blog_path: path,
+        });
+    };
+
+    trackBlogView();
+    document.addEventListener("astro:page-load", trackBlogView);
+
+    const viewCount = document.querySelector<HTMLElement>(
+        "[data-blog-view-count]",
+    );
+
+    fetch(`/api/blog-views?slug=${encodeURIComponent(blogSlug)}`)
+        .then((response) => (response.ok ? response.json() : null))
+        .then((data: { views?: number | null } | null) => {
+            if (!viewCount || typeof data?.views !== "number") {
+                return;
+            }
+
+            viewCount.textContent = ` · ${data.views.toLocaleString()} views`;
+            viewCount.hidden = false;
+        })
+        .catch(() => {
+            // Analytics is optional, so the metadata remains unchanged if unavailable.
+        });
+</script>
