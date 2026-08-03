@@ -6,6 +6,9 @@ export type RuntimeEnv = {
   NEO4J_PASSWORD?: string;
   NEO4J_DATABASE?: string;
   NEO4J_QUERY_API_URL?: string;
+  POSTHOG_API_KEY?: string;
+  POSTHOG_PROJECT_ID?: string;
+  POSTHOG_HOST?: string;
 };
 
 export type AgentGraphConfig = {
