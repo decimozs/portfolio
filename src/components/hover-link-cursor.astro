@@ -20,8 +20,8 @@
       class="scale-90 transition-transform duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
       aria-hidden="true"
     >
-      <path d="M7 7h10v10"></path>
-      <path d="M7 17 17 7"></path>
+      <path data-cursor-icon-path="first" d="M7 7h10v10"></path>
+      <path data-cursor-icon-path="second" d="M7 17 17 7"></path>
     </svg>
   </div>
 </div>
@@ -38,7 +38,25 @@
   const showIcon = (
     cursorVisual: Element | null | undefined,
     cursorIcon: Element | null | undefined,
+    icon: "external" | "back" = "external",
   ) => {
+    if (cursorIcon) {
+      const firstPath = cursorIcon.querySelector(
+        '[data-cursor-icon-path="first"]',
+      );
+      const secondPath = cursorIcon.querySelector(
+        '[data-cursor-icon-path="second"]',
+      );
+
+      if (icon === "back") {
+        firstPath?.setAttribute("d", "m12 19-7-7 7-7");
+        secondPath?.setAttribute("d", "M19 12H5");
+      } else {
+        firstPath?.setAttribute("d", "M7 7h10v10");
+        secondPath?.setAttribute("d", "M7 17 17 7");
+      }
+    }
+
     cursorVisual?.classList.remove("duration-150");
     cursorVisual?.classList.add("duration-300");
     cursorVisual?.classList.remove("scale-95", "opacity-0");
@@ -109,6 +127,11 @@
         .elementFromPoint(pointerX, pointerY)
         ?.closest("[data-hover-cursor-target]");
 
+    const getTargetIcon = (target: Element | null | undefined) =>
+      target?.getAttribute("data-hover-cursor-icon") === "arrow-left"
+        ? "back"
+        : "external";
+
     const moveCursor = (event: MouseEvent) => {
       pointerX = event.clientX;
       pointerY = event.clientY;
@@ -124,7 +147,11 @@
 
       window.clearTimeout(hideTimeout);
       moveCursor(event);
-      showIcon(cursorVisual, cursorIcon);
+      showIcon(
+        cursorVisual,
+        cursorIcon,
+        getTargetIcon(event.currentTarget as Element),
+      );
     };
 
     const syncCursorWithPointer = (event: MouseEvent) => {
@@ -134,9 +161,10 @@
         return;
       }
 
-      if (hoveredTargetFromPointer()) {
+      const target = hoveredTargetFromPointer();
+      if (target) {
         window.clearTimeout(hideTimeout);
-        showIcon(cursorVisual, cursorIcon);
+        showIcon(cursorVisual, cursorIcon, getTargetIcon(target));
         return;
       }
 
@@ -151,9 +179,10 @@
       cursor.style.setProperty("left", `${pointerX}px`);
       cursor.style.setProperty("top", `${pointerY}px`);
 
-      if (hoveredTargetFromPointer() && isFinePointer.matches) {
+      const target = hoveredTargetFromPointer();
+      if (target && isFinePointer.matches) {
         window.clearTimeout(hideTimeout);
-        showIcon(cursorVisual, cursorIcon);
+        showIcon(cursorVisual, cursorIcon, getTargetIcon(target));
         return;
       }
 
@@ -166,6 +195,20 @@
       const source = target.getAttribute("data-hover-cursor-source") ?? "item";
       const targetMode =
         target.getAttribute("data-hover-cursor-mode") ?? "new-tab";
+
+      if (targetMode === "back") {
+        track("blog_back_clicked", {
+          item_title: title,
+          item_url: url,
+        });
+
+        if (window.history.length > 1) {
+          window.history.back();
+        } else if (url) {
+          navigate(url);
+        }
+        return;
+      }
 
       if (!url) {
         return;
@@ -193,9 +236,15 @@
         (event) => {
           const clickedTarget = event.target;
 
-          if (clickedTarget instanceof Element && clickedTarget.closest("a")) {
+          if (
+            target.getAttribute("data-hover-cursor-mode") !== "back" &&
+            clickedTarget instanceof Element &&
+            clickedTarget.closest("a")
+          ) {
             return;
           }
+
+          event.preventDefault();
 
           openTarget(target);
         },
