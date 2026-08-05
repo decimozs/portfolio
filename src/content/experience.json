@@ -1,5 +1,11 @@
 [
   {
+    "id": "anervea-ai",
+    "title": "AI & Backend Engineer",
+    "company": "Anervea.ai",
+    "startDate": "2026-08-01T00:00:00.000Z"
+  },
+  {
     "id": "exist-software-labs",
     "title": "AI Engineer",
     "company": "Exist Software Labs, Inc. – Internship",
@@ -10,7 +16,8 @@
     "id": "exist-software-labs-trainee",
     "title": "AI Engineer",
     "company": "Exist Software Labs, Inc. – Trainee",
-    "startDate": "2026-05-01T00:00:00.000Z"
+    "startDate": "2026-05-01T00:00:00.000Z",
+    "endDate": "2026-07-01T00:00:00.000Z"
   },
   {
     "id": "freelance",
