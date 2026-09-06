@@ -13,7 +13,9 @@
     "prepush": "bun run format && bun run lint && bun run check",
     "ingest:neo4j": "bun run scripts/ingest-neo4j.ts",
     "generate-types": "wrangler types",
-    "deploy": "bun run build && wrangler deploy"
+    "deploy": "bun run build && wrangler deploy",
+    "resume:build": "typst compile resume/resume.typ public/resume.pdf",
+    "resume:watch": "typst watch resume/resume.typ public/resume.pdf"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.1.3",
