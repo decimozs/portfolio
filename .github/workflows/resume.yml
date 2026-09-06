@@ -1,0 +1,33 @@
+name: Build resume
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "resume/**"
+
+permissions:
+  contents: write
+
+jobs:
+  build-resume:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v4
+
+      - name: Compile resume
+        run: typst compile resume/resume.typ public/resume.pdf
+
+      - name: Commit updated PDF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/resume.pdf
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "chore(resume): rebuild resume.pdf from resume/data.yaml"
+          git push
