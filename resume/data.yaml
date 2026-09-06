@@ -1,0 +1,129 @@
+# Resume data — the single source of truth.
+# Edit this file, then run `make build` (or `make watch` for live reload).
+# Layout lives in resume.typ — no need to touch that file for content changes.
+
+profile:
+  name: Marlon Martin
+  location: Pasig City, Philippines
+  email: marlonadiguemartin548@gmail.com
+  phone: "+(63) 927 0166 200"
+  portfolio_text: marlonmartin.com
+  portfolio_url: https://marlonmartin.binspire.space/
+  github_text: github/decimozs
+  github_url: https://github.com/decimozs
+  linkedin_text: linkedin/decimomartin
+  linkedin_url: https://linkedin.com/in/decimomartin
+
+experience:
+  - title: AI & Backend Engineer
+    org: Anervea.ai – Full Time
+    date: Aug 2026 – Present
+    bullets:
+      - Optimized data-quality and integration logic across 25+ collectors, resolving 48 verified defects for a pharma intelligence pipeline.
+      - Resolved production-breaking Docker and API failures, maintaining 100% pipeline uptime across all downstream services.
+      - Built write-time data normalizers for company names and dates, standardizing output across 25+ collectors before persistence.
+      - Implemented entity-resolution and deduplication logic, collapsing duplicates into single canonical records across sources.
+      - Improved internationalization support, recovering missing CJK trial records and multi-language query encoding fixes.
+      - Evaluated and closed data-quality gaps across 8 source domains, delivering fixes flagged during ongoing QA review cycles.
+
+  - title: AI Engineer
+    org: Exist Software Labs, Inc. – Full Time
+    date: Feb 2026 – July 2026
+    bullets:
+      - Optimized document analysis by fine-tuning SLMs, reducing processing latency from 2 minutes to 40 seconds in the PoC.
+      - Built a Hybrid RAG pipeline using Azure AI Search and reranking, cutting analysis time by 65% for faster retrieval.
+      - Implemented signature verification using feature extraction and verification, achieving 80% accuracy without Neural Networks.
+      - Deployed an AI Governance framework with custom guardrails, ensuring 100% deterministic security across LLM providers.
+      - Developed a CV pipeline using PyTorch, YOLO, and SAM3 to enable vector-based signature verification for claims.
+      - Architected a self-hosted OCR service using PaddleOCR with swappable backends, reducing costs and eliminating vendor lock-in.
+      - Developed an internal procurement scraper for government bidding platforms, ranking IT bids via FAISS matching.
+      - Evaluated enterprise AI gateways, building an internal knowledge base for company strict infrastructure compliance.
+
+  - title: Backend Engineer
+    org: Freelance – Remote, Contractual
+    date: June 2024 – Jan 2026
+    bullets:
+      - Architected lending infrastructure using Domain Driven Design and state machines for 100% financial lifecycle traceability.
+      - Reduced deployment latency by 87%, cutting global build-to-deploy pipelines from 41 minutes to under 5 minutes.
+      - Engineered hybrid RBAC/PBAC with atomic transactions, ensuring 100% data integrity and granular access control.
+      - Developed automated TDD suites, maintaining high-leverage reliability and 95%+ code coverage across services.
+      - Optimized CI/CD via Turborepo and remote caching, eliminating 90% of redundant build tasks for faster delivery.
+
+  - title: Lead Software Engineer
+    org: Binspire – Full-time
+    date: Oct 2023 – Dec 2025
+    bullets:
+      - Directed the Software and AI engineering lifecycle, from cost-finance modeling to multi-node deployment for Smart-City solutions.
+      - Reduced module startup time by 90%, bringing system initialization from over a minute to under 10 seconds.
+      - Implemented a vision pipeline with QR verification, ensuring 100% log accountability and data integrity.
+      - Architected an autonomous Agentic Engine using custom MCP servers to expose IoT data for multi-model orchestration.
+      - Engineered an IoT fleet-management system using Raspberry Pi and MQTT for high-performance Arcovia City operations.
+      - Optimized collection routes via agentic reasoning, improving logistics efficiency for urban waste management.
+
+projects:
+  - name: Regtrace
+    stack: TypeScript, CI, DevOps, LLM Evaluation Framework
+    date: June 2026
+    bullets:
+      - Built a CLI framework for evaluating and benchmarking LLM outputs across factuality, format, tone, and regression; integrated quality gates and golden-set baselines into CI/CD pipelines to automatically detect output regressions before deployment.
+
+  - name: Ollamaduct
+    stack: TypeScript, AI Gateway, CLI, Ollama
+    date: March 2026
+    bullets:
+      - Local-first AI gateway for Ollama with multi-tenant workspaces, semantic caching (95% match rate), and PII redaction for 25+ entity types, reaching 380+ weekly npm downloads.
+
+  - name: Workflow
+    stack: TypeScript, AI Agent, LangGraph, MCP, Multi-Agent Systems
+    date: November 2025
+    bullets:
+      - Agentic Waste Engine using a Multi-Agent System to convert rigid collection schedules into a demand-responsive network, with a custom MCP server bridging the Binspire API to LLMs.
+
+activities:
+  - name: 14th IT Skills Olympics
+    role: Participant (Team Leader)
+    date: November 2025
+    bullets:
+      - Led IoT-enabled agentic waste management engine project to 1st Runner-Up at the 14th IT Skills Olympics.
+
+  - name: Competitive Programming
+    role: Participant
+    date: February 2023
+    bullets:
+      - Ranked among top performers in university-level competitive programming, solving 3/4 problem sets in Java as a first-year student.
+      - Regularly compete on LeetCode, HackerRank, Codeforces, and other online platforms, focusing on algorithms, data structures, and time-constrained problem-solving.
+
+  - name: Open-Source
+    role: Developer & Contributor
+    date: January 2023 – Present
+    bullets:
+      - Enhanced functionality, documentation, and accessibility for global and local projects, including LangChain.js, OSSPH, and BetterGov.ph, by collaborating with community developers.
+
+skills:
+  - label: Programming Languages
+    value: C, C++, Java, SQL, Python, JavaScript, TypeScript
+  - label: Libraries & Frameworks
+    value: LangGraph, LangChain, Haystack, MCP, N8N, PyTorch, OpenCV, Roboflow, UiPath, Hono.js, FastApi, FAISS
+  - label: Data & Infrastructure
+    value: AWS, Azure, GCP, Cloudflare, Docker, Nginx, HiveMQ, Langfuse, LangSmith, Hugging Face, MongoDB
+
+education:
+  - school: Pamantasan ng Lungsod ng Pasig
+    date: June 2022 – June 2026
+    program: Bachelor of Science in Information Technology
+    awards:
+      - President's List Academic Achievement Awardee
+      - Dean's List Academic Achievement Awardee
+      - 1st Runner Up 14th IT Skills Olympics (IoT Category)
+      - Best Thesis Innovation in Internet of Things – Academic Special Awardee
+      - Outstanding Student Athlete – Academic Special Awardee
+
+  - school: Rizal High School
+    date: March 2020 – March 2022
+    program: ICT Strand – Computer Programming
+    awards:
+      - 1st Overall – Best System Presenter
+      - 1st Overall – Best System Design
+      - 1st Overall – Best System Functionality
+      - 1st Overall – Best System
+      - Top Programmer of the Class – Academic Special Awardee
