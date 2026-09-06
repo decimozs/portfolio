@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   build-resume:
@@ -20,6 +21,13 @@ jobs:
 
       - name: Setup Typst
         uses: typst-community/setup-typst@v4
+
+      - name: Install Times New Roman
+        run: |
+          echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | sudo debconf-set-selections
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer
+          fc-cache -f
 
       - name: Compile resume
         run: typst compile resume/resume.typ public/resume.pdf
