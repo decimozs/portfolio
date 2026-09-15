@@ -50,6 +50,10 @@ function formatList(items: string[] | undefined): string {
   return items?.filter(Boolean).join(", ") || "Not specified";
 }
 
+function joinSections(lines: string[], fallback: string): string {
+  return lines.length ? lines.join("\n") : fallback;
+}
+
 async function formatContributionsContext(): Promise<string | null> {
   const contributions = await getCollection("companyContributions");
   if (!contributions.length) return null;
@@ -71,65 +75,70 @@ LinkedIn: ${profile.linkedin_url ?? "Not specified"}`;
 }
 
 function formatExperience(): string {
-  return resumeData.experience
-    .map(
-      (experience) =>
-        `- ${experience.title} at ${experience.org} (${experience.date})\n${experience.bullets.map((b) => `  - ${b}`).join("\n")}`,
-    )
-    .join("\n");
+  const lines = resumeData.experience.map(
+    (experience) =>
+      `- ${experience.title} at ${experience.org} (${experience.date})\n${experience.bullets.map((b) => `  - ${b}`).join("\n")}`,
+  );
+  return joinSections(lines, "No experience documented.");
 }
 
 async function formatProjects(): Promise<string> {
   const works = await getCollection("works");
-  return works
-    .map((work) => {
-      const links = [
-        work.data.link,
-        ...(work.data.highlights?.map((h) => h.href) ?? []),
-      ].filter(Boolean);
-      const awards = work.data.awards?.map(
-        (a) => `${a.place}, ${a.event} (${a.date})`,
-      );
-      return `- ${work.data.title} (${work.data.date.toISOString().slice(0, 10)}): ${work.data.description} Technologies: ${formatList(work.data.category)} Links: ${formatList(links)} Awards: ${formatList(awards)} Highlights: ${formatList(work.data.highlights?.map((h) => h.text))}`;
-    })
-    .join("\n");
+  const lines = works.map((work) => {
+    const links = [
+      work.data.link,
+      ...(work.data.highlights?.map((h) => h.href) ?? []),
+    ].filter(Boolean);
+    const awards = work.data.awards?.map(
+      (a) => `${a.place}, ${a.event} (${a.date})`,
+    );
+    return `- ${work.data.title} (${work.data.date.toISOString().slice(0, 10)}): ${work.data.description} Technologies: ${formatList(work.data.category)} Links: ${formatList(links)} Awards: ${formatList(awards)} Highlights: ${formatList(work.data.highlights?.map((h) => h.text))}`;
+  });
+  return joinSections(lines, "No projects documented.");
 }
 
 async function formatNotebooks(): Promise<string> {
   const notebooks = await getCollection("notebooks");
-  return notebooks
-    .map(
-      (notebook) =>
-        `- ${notebook.data.title} (${notebook.data.date.toISOString().slice(0, 10)}): ${notebook.data.description} Topics: ${formatList(notebook.data.category)} Links: ${formatList(notebook.data.links.map((l) => l.href))}`,
-    )
-    .join("\n");
+  const lines = notebooks.map(
+    (notebook) =>
+      `- ${notebook.data.title} (${notebook.data.date.toISOString().slice(0, 10)}): ${notebook.data.description} Topics: ${formatList(notebook.data.category)} Links: ${formatList(notebook.data.links.map((l) => l.href))}`,
+  );
+  return joinSections(lines, "No notebooks documented.");
 }
 
 function formatActivities(): string {
-  return resumeData.activities
-    .map(
-      (activity) =>
-        `- ${activity.name}${activity.role ? `, ${activity.role}` : ""}${activity.date ? ` (${activity.date})` : ""}\n${activity.bullets.map((b) => `  - ${b}`).join("\n")}`,
-    )
-    .join("\n");
+  const lines = resumeData.activities.map(
+    (activity) =>
+      `- ${activity.name}${activity.role ? `, ${activity.role}` : ""}${activity.date ? ` (${activity.date})` : ""}\n${activity.bullets.map((b) => `  - ${b}`).join("\n")}`,
+  );
+  return joinSections(lines, "No activities documented.");
 }
 
 function formatSkills(): string {
-  return resumeData.skills
-    .map((skill) => `- ${skill.label}: ${skill.value}`)
-    .join("\n");
+  const lines = resumeData.skills.map(
+    (skill) => `- ${skill.label}: ${skill.value}`,
+  );
+  return joinSections(lines, "No skills documented.");
 }
 
 function formatEducation(): string {
-  return resumeData.education
-    .map(
-      (item) =>
-        `- ${item.school}${item.program ? `, ${item.program}` : ""} (${item.date}). Awards: ${formatList(item.awards)}`,
-    )
-    .join("\n");
+  const lines = resumeData.education.map(
+    (item) =>
+      `- ${item.school}${item.program ? `, ${item.program}` : ""} (${item.date}). Awards: ${formatList(item.awards)}`,
+  );
+  return joinSections(lines, "No education documented.");
 }
 
-export async function getAgentContext(): Promise<string> {
+let cachedContext: Promise<string> | null = null;
+
+export function getAgentContext(): Promise<string> {
+  if (!cachedContext) {
+    cachedContext = buildAgentContext();
+  }
+  return cachedContext;
+}
+
+async function buildAgentContext(): Promise<string> {
   const [projects, notebooks, contributionsText] = await Promise.all([
     formatProjects(),
     formatNotebooks(),
