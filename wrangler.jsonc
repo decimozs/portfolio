@@ -5,9 +5,7 @@
     "directory": "./dist"
   },
   "vars": {
-    "MODEL": "claude-sonnet-5",
-    "NEO4J_URI": "neo4j+s://39d5ebae.databases.neo4j.io",
-    "NEO4J_DATABASE": "39d5ebae"
+    "MODEL": "claude-sonnet-5"
   },
   "observability": {
     "enabled": true

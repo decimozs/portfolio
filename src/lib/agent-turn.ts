@@ -1,3 +1,4 @@
+import { getAgentContext } from "@/lib/agent-context";
 import {
   type GovernedChatMessage,
   getPolicyResponse,
@@ -5,7 +6,6 @@ import {
   type PolicyClassification,
   sanitizeMessages,
 } from "@/lib/agent-governance";
-import { getAgentGraphContext } from "@/lib/agent-graph";
 import {
   classifyMessage,
   requestAgentCompletionStream,
@@ -13,7 +13,6 @@ import {
 } from "@/lib/agent-provider";
 import {
   resolveApiKey,
-  resolveGraphConfig,
   resolveModel,
   resolveRuntimeEnv,
 } from "@/lib/agent-runtime";
@@ -42,7 +41,7 @@ Voice:
 - Speak naturally, like a knowledgeable friend describing someone's work.
 - Answer directly in 2-4 sentences unless the user asks for more detail.
 - Never start with "From the portfolio context", "Based on the context", "According to the context", or similar framing.
-- Do not mention Neo4j, retrieval, graph data, records, sources, or internal context, unless explaining temporary unavailability.
+- Do not mention retrieval, internal data files, or how this context was assembled.
 
 Scope:
 - Answer questions about Marlon Martin's work, background, and public portfolio only.
@@ -221,21 +220,8 @@ export async function handleAgentRequest(request: Request): Promise<Response> {
     sanitizedMessages,
     classification,
   );
-  const graphConfig = resolveGraphConfig(runtimeEnv);
-  const graphContext = await getAgentGraphContext(graphConfig);
-  if (!graphContext) {
-    console.warn("Agent graph context unavailable", {
-      hasNeo4jUri: Boolean(graphConfig.uri),
-      hasNeo4jUsername: Boolean(graphConfig.username),
-      hasNeo4jPassword: Boolean(graphConfig.password),
-      hasNeo4jDatabase: Boolean(graphConfig.database),
-      hasNeo4jQueryApiUrl: Boolean(graphConfig.queryApiUrl),
-    });
-    return textResponse(
-      "I can't reach Marlon's portfolio context right now. Please try again in a bit.",
-    );
-  }
-  const systemPrompt = `${SYSTEM_PROMPT}\n\n${graphContext}`;
+  const portfolioContext = await getAgentContext();
+  const systemPrompt = `${SYSTEM_PROMPT}\n\n${portfolioContext}`;
 
   let upstream: Response;
   try {
