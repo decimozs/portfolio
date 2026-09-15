@@ -6,13 +6,15 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
 const isDevServer = process.argv.some((arg) => arg.includes("dev"));
+const isTestRun = Boolean(process.env.VITEST);
 
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  adapter: isDevServer
-    ? undefined
-    : cloudflare({ sessionKVBindingName: "ASTRO_SESSION" }),
+  adapter:
+    isDevServer || isTestRun
+      ? undefined
+      : cloudflare({ sessionKVBindingName: "ASTRO_SESSION" }),
   site: "https://marlonmartin.binspire.space",
   integrations: [
     react(),
