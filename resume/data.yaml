@@ -20,7 +20,7 @@ experience:
     date: Aug 2026 – Present
     bullets:
       - Optimized data-quality and integration logic across 25+ collectors, resolving 48 verified defects for a pharma intelligence pipeline.
-      - Built the AI voice agent for a live AI-conducted interview platform, engineering streaming speech synthesis and real-time barge-in handling, physician speech mid-turn stops the AI and hands over the floor, cutting voice-response latency 68% (2.8s to 0.9s to first audio).
+      - Built the AI voice agent for a live AI-conducted interview platform, engineering streaming speech synthesis and real-time barge-in handling that cut voice-response latency 68% (2.8s to 0.9s to first audio).
       - Built write-time data normalizers for company names and dates, standardizing output across 25+ collectors before persistence.
       - Implemented entity-resolution and deduplication logic, collapsing duplicates into single canonical records across sources.
       - Built a multi-turn conversational move engine (clarify, redirect, decline, reflect) where a state machine validates every AI-proposed move and deterministically falls back on invalid output, guaranteeing safe behavior regardless of model response.
