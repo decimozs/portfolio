@@ -20,11 +20,11 @@ experience:
     date: Aug 2026 – Present
     bullets:
       - Optimized data-quality and integration logic across 25+ collectors, resolving 48 verified defects for a pharma intelligence pipeline.
-      - Resolved production-breaking Docker and API failures, maintaining 100% pipeline uptime across all downstream services.
+      - Built the AI voice agent for a live AI-conducted interview platform, engineering streaming speech synthesis and real-time barge-in handling, physician speech mid-turn stops the AI and hands over the floor, cutting voice-response latency 68% (2.8s to 0.9s to first audio).
       - Built write-time data normalizers for company names and dates, standardizing output across 25+ collectors before persistence.
       - Implemented entity-resolution and deduplication logic, collapsing duplicates into single canonical records across sources.
-      - Improved internationalization support, recovering missing CJK trial records and multi-language query encoding fixes.
-      - Evaluated and closed data-quality gaps across 8 source domains, delivering fixes flagged during ongoing QA review cycles.
+      - Built a multi-turn conversational move engine (clarify, redirect, decline, reflect) where a state machine validates every AI-proposed move and deterministically falls back on invalid output, guaranteeing safe behavior regardless of model response.
+      - Engineered atomic session locking (Lua-script ownership checks, 45s TTL auto-expiry) with Redis-backed state rehydration, eliminating dropped sessions on backend crash or restart across concurrent processes.
 
   - title: AI Engineer
     org: Exist Software Labs, Inc. – Full Time
