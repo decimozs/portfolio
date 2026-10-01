@@ -23,7 +23,7 @@ experience:
       - Built a real-time multilingual AI voice interviewer for a live physician-interview platform, with zero per-language code changes.
       - Cut end-to-end voice latency 68% (2.8s to 0.9s) via a re-engineered streaming STT/LLM/TTS pipeline with barge-in handling.
       - Replaced single-prompt turn handling with a router, per-category generators, and a state machine for safe, in-scope behavior.
-      - Built per-call LLM tracing covering 100% of model calls to file and MongoDB with a 30-day TTL, at no latency cost.
+      - Built per-call LLM tracing covering 100% of model calls to file and MongoDB with a 30-day TTL, to tune the model at no latency cost.
       - Engineered atomic session locking (45s TTL auto-expiry) with Redis-backed rehydration, eliminating dropped sessions on restart.
 
   - title: AI Engineer
