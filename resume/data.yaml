@@ -15,14 +15,14 @@ profile:
   linkedin_url: https://linkedin.com/in/decimomartin
 
 experience:
-  - title: AI & Backend Engineer
+  - title: AI Engineer
     org: Anervea.ai – Full Time
     date: Aug 2026 – Present
     bullets:
       - Optimized data-quality and integration logic across 25+ collectors, resolving 48 verified defects for a pharma intelligence pipeline.
-      - Built the AI voice agent with real-time barge-in handling for a live AI-interview platform, cutting voice latency 68% (2.8s to 0.9s).
-      - Built write-time data normalizers for company names and dates, standardizing output across 25+ collectors before persistence.
-      - Implemented entity-resolution and deduplication logic, collapsing duplicates into single canonical records across sources.
+      - Built a real-time multilingual AI voice interviewer for a live physician-interview platform, with zero per-language code changes.
+      - Cut end-to-end voice latency 68% (2.8s to 0.9s) via a re-engineered streaming STT/LLM/TTS pipeline with barge-in handling.
+      - Replaced single-prompt turn handling with a router, per-category generators, and a state machine for safe, in-scope behavior.
       - Built a multi-turn conversational move engine validated by a state machine, guaranteeing safe behavior regardless of model output.
       - Engineered atomic session locking (45s TTL auto-expiry) with Redis-backed rehydration, eliminating dropped sessions on restart.
 
@@ -116,7 +116,6 @@ education:
       - Dean's List Academic Achievement Awardee
       - 1st Runner Up 14th IT Skills Olympics (IoT Category)
       - Best Thesis Innovation in Internet of Things – Academic Special Awardee
-      - Outstanding Student Athlete – Academic Special Awardee
 
   - school: Rizal High School
     date: March 2020 – March 2022
